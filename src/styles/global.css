@@ -1,0 +1,97 @@
+/* =========================================
+   1. IMPORTACIÓN DE FUENTES (CRÍTICO)
+   Barlow Condensed: Para títulos (Estilo Racing/Revista)
+   Roboto: Para texto de lectura
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,800&family=Roboto:wght@400;500;700&display=swap');
+
+/* =========================================
+   2. VARIABLES DE MARCA
+   ========================================= */
+:root {
+	--moto-red: #e30613;       /* Rojo Ducati/Honda intenso */
+	--moto-black: #111111;     /* Negro casi puro */
+	--moto-dark: #1a1a1a;      /* Gris muy oscuro para fondos */
+	--moto-gray: #f4f4f4;      /* Gris claro para fondos de sección */
+	--text-main: #333333;      /* Color de texto lectura */
+	
+	--font-title: 'Barlow Condensed', sans-serif;
+	--font-body: 'Roboto', sans-serif;
+}
+
+/* =========================================
+   3. RESET Y BASE
+   ========================================= */
+*, *::before, *::after {
+	box-sizing: border-box; /* Esto evita que las cajas se rompan con el padding */
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	background-color: #ffffff;
+	color: var(--text-main);
+	font-family: var(--font-body);
+	line-height: 1.6;
+	overflow-x: hidden; /* Evita el scroll lateral indeseado */
+}
+
+/* =========================================
+   4. TIPOGRAFÍA "PRO"
+   ========================================= */
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--font-title);
+	text-transform: uppercase;
+	font-weight: 800; /* Extra negrita */
+	color: var(--moto-black);
+	margin: 0 0 0.5rem 0;
+	line-height: 1.1;
+	letter-spacing: -0.5px; /* Las letras juntas dan sensación de bloque sólido */
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+	transition: color 0.2s ease;
+}
+
+/* =========================================
+   5. IMÁGENES Y UTILIDADES
+   ========================================= */
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+/* Contenedor central que limita el ancho de la web */
+.container {
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+/* Efecto ZOOM GLOBAL para cualquier imagen con clase .zoom-effect */
+.zoom-effect {
+	overflow: hidden;
+	display: block;
+}
+.zoom-effect img {
+	transition: transform 0.5s ease, opacity 0.3s ease;
+}
+.zoom-effect:hover img {
+	transform: scale(1.1);
+}
+
+/* Etiquetas (Badges) globales */
+.badge {
+	display: inline-block;
+	font-family: var(--font-title);
+	font-weight: 700;
+	text-transform: uppercase;
+	font-size: 0.85rem;
+	padding: 4px 10px;
+	color: white;
+	background-color: var(--moto-red);
+}
+.badge.black { background-color: var(--moto-black); }

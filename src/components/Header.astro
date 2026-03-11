@@ -1,0 +1,74 @@
+---
+const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+---
+
+<header class="header-wrapper">
+  <div class="top-bar">
+    <div class="container top-inner">
+      <span class="date">{today}</span>
+      <div class="top-menu">
+        <a href="#">PUBLICIDAD</a>
+        <a href="/comunidad">FORO / COMUNIDAD</a>
+        <a href="#">CONTACTO</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-bar">
+    <div class="container main-inner">
+      <a href="/" class="logo">
+        TRUCOS<span class="red">125</span>
+      </a>
+
+      <nav class="desktop-nav">
+        <a href="/">PORTADA</a>
+        <a href="/blog">PRUEBAS</a>
+        <a href="/blog">MECÁNICA</a>
+        <a href="/comunidad" class="special">COMUNIDAD</a>
+      </nav>
+
+      <a href="#" class="btn-sub">SUSCRÍBETE</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+
+  /* Top Bar */
+  .top-bar { background: var(--moto-black); color: #ccc; font-size: 0.75rem; padding: 6px 0; text-transform: uppercase; font-weight: 700; }
+  .top-inner { display: flex; justify-content: space-between; align-items: center; }
+  .top-menu a { margin-left: 20px; color: #aaa; }
+  .top-menu a:hover { color: white; }
+
+  /* Main Bar */
+  .main-bar { background: white; padding: 15px 0; border-bottom: 4px solid var(--moto-red); }
+  .main-inner { display: flex; justify-content: space-between; align-items: center; }
+
+  .logo { font-family: 'Barlow Condensed', sans-serif; font-size: 2.8rem; font-weight: 900; color: black; line-height: 0.8; letter-spacing: -1px; }
+  .logo .red { color: var(--moto-red); }
+
+  .desktop-nav { display: flex; gap: 30px; }
+  .desktop-nav a { 
+    font-family: 'Barlow Condensed', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--moto-dark); 
+    position: relative;
+  }
+  .desktop-nav a:hover { color: var(--moto-red); }
+  .desktop-nav a.special { color: var(--moto-red); }
+
+  .btn-sub {
+    background: black; color: white; font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    padding: 8px 20px; font-size: 1.1rem; transform: skew(-12deg);
+  }
+  .btn-sub:hover { background: var(--moto-red); }
+
+  @media(max-width: 768px) {
+    .top-bar { display: none; }
+    .desktop-nav { display: none; } /* En móvil ocultamos el menú por ahora para que no rompa */
+  }
+</style>
