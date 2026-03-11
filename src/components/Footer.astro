@@ -2,99 +2,44 @@
 const today = new Date();
 ---
 
-<footer class="site-footer">
-	<div class="container footer-content">
-		
-		<div class="footer-brand">
-			<div class="footer-logo">
-				TRUCOS<span class="txt-red">125</span>
-			</div>
-			<p>El portal de referencia para usuarios de motos de 125cc. Mecánica, pruebas, equipamiento y toda la actualidad del mundo de la convalidación B+3.</p>
-		</div>
-
-		<div class="footer-links">
-			<h4>SECCIONES</h4>
-			<ul>
-				<li><a href="#">Pruebas a fondo</a></li>
-				<li><a href="#">Taller y Bricos</a></li>
-				<li><a href="#">Equipamiento</a></li>
-				<li><a href="#">Normativa DGT</a></li>
-			</ul>
-		</div>
-
-		<div class="footer-links">
-			<h4>LEGAL</h4>
-			<ul>
-				<li><a href="/privacidad">Política de Privacidad</a></li>
-				<li><a href="#">Aviso Legal</a></li>
-				<li><a href="#">Cookies</a></li>
-				<li><a href="#">Contacto</a></li>
-			</ul>
-		</div>
-	</div>
-
-	<div class="footer-bottom">
-		<div class="container">
-			&copy; {today.getFullYear()} Trucos125.com - Todos los derechos reservados. Portal independiente.
-		</div>
+<footer>
+	&copy; {today.getFullYear()} trucos125.com. Todos los derechos reservados.
+	
+	<div class="legal-links">
+		<a href="/aviso-legal">Aviso Legal</a>
+		<span>|</span>
+		<a href="/privacidad">Política de Privacidad</a>
+		<span>|</span>
+		<a href="/cookies">Política de Cookies</a>
 	</div>
 </footer>
 
 <style>
-	.site-footer {
-		background-color: var(--color-dark-grey);
-		color: #aaaaaa;
-		padding-top: 60px;
-		/* Si guardaste el bg-pattern.png en el PASO 0, descomenta esto: */
-		/* background-image: url('/bg-pattern.png'); */
-		/* background-blend-mode: multiply; */
-	}
-
-	.footer-content {
-		display: grid;
-		grid-template-columns: 2fr 1fr 1fr;
-		gap: 40px;
-		padding-bottom: 60px;
-	}
-
-	.footer-logo {
-		font-family: 'Barlow Condensed', sans-serif;
-		font-size: 2.5rem;
-		font-weight: 900;
-		color: white;
-		line-height: 1;
-		margin-bottom: 20px;
-	}
-
-	.footer-brand p { font-size: 0.9rem; max-width: 400px; }
-
-	.footer-links h4 {
-		color: white;
-		margin-bottom: 20px;
-		font-size: 1.2rem;
-	}
-
-	.footer-links ul { list-style: none; margin: 0; padding: 0; }
-	.footer-links li { margin-bottom: 10px; }
-	.footer-links a {
-		font-family: 'Barlow Condensed', sans-serif;
-		font-weight: 600;
-		text-transform: uppercase;
-		font-size: 1rem;
-		transition: 0.2s;
-	}
-	.footer-links a:hover { color: var(--color-red); padding-left: 5px; }
-
-	.footer-bottom {
-		background-color: var(--color-black);
-		padding: 20px 0;
-		font-size: 0.8rem;
+	footer {
+		padding: 2em 1em 6em 1em;
+		background: linear-gradient(var(--gray-light) 0%, transparent 100%);
+		color: rgb(var(--gray));
 		text-align: center;
-		font-weight: 500;
 	}
-
-	@media (max-width: 768px) {
-		.footer-content { grid-template-columns: 1fr; text-align: center; }
-		.footer-brand p { margin: 0 auto; }
+	.legal-links {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 0.5em 1em;
+		margin-top: 1em;
+		font-size: 0.85em;
+	}
+	.legal-links a {
+		color: rgb(var(--gray));
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+	.legal-links a:hover {
+		color: rgb(var(--black));
+		text-decoration: underline;
+	}
+	.legal-links span {
+		color: rgb(var(--gray-light));
 	}
 </style>
