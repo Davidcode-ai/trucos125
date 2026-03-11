@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import CalculadoraAhorro from '../components/CalculadoraAhorro.astro';
 
 // Nombres de archivo basados en las imágenes que has proporcionado
 // Asegúrate de que estos archivos existan en tu carpeta /public
@@ -59,11 +60,13 @@ const imgNews3 = "/image_10.png"; // Caja de herramientas
 								</div>
 							</a>
 						</article>
-
 					</div>
-				</section>
+                </section>
 
-				<section class="news-section">
+                <CalculadoraAhorro />
+                <br>
+
+                <section class="news-section">
 					<div class="section-title">
 						<h2>ÚLTIMAS PRUEBAS Y NOVEDADES</h2>
 						<div class="title-line"></div>

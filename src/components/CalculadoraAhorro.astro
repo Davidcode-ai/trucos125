@@ -1,0 +1,81 @@
+---
+// Calculadora de Ahorro - trucos125.com
+---
+<div class="calculadora-wrapper">
+  <h3>💸 Calculadora de Ahorro 125cc</h3>
+  <p>Descubre cuánto dinero dejarás de regalarle a la gasolinera al cambiar tu coche por una scooter de 125cc.</p>
+  
+  <div class="inputs">
+    <label>
+      Kilómetros diarios (ida y vuelta):
+      <input type="number" id="kmDiarios" value="30" min="1" />
+    </label>
+    <label>
+      Consumo de tu coche (L/100km):
+      <input type="number" id="consumoCoche" value="7.5" min="1" step="0.1" />
+    </label>
+  </div>
+
+  <button id="btnCalcular">Calcular mi ahorro</button>
+
+  <div id="resultado" class="hidden">
+    <h4>¡Te ahorrarías <span id="ahorroMes">0</span>€ al mes!</h4>
+    <p>Eso son unos <strong id="ahorroAno">0</strong>€ al año solo en gasolina. <br/> Básicamente, <strong>la moto se paga sola</strong>.</p>
+  </div>
+</div>
+
+<style>
+  .calculadora-wrapper {
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 3rem 0;
+    text-align: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  }
+  .calculadora-wrapper h3 { margin-top: 0; color: #1e293b; font-size: 1.8rem;}
+  .inputs { display: flex; gap: 1.5rem; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  label { display: flex; flex-direction: column; text-align: left; font-size: 0.95rem; font-weight: bold; color: #475569; }
+  input { padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 0.5rem; width: 200px; font-size: 1rem; }
+  button { background: #e11d48; color: white; border: none; padding: 1rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: transform 0.2s, background 0.2s; }
+  button:hover { background: #be123c; transform: scale(1.05); }
+  .hidden { display: none; }
+  #resultado { margin-top: 2rem; padding: 1.5rem; background: #dcfce7; border-radius: 8px; color: #166534; border: 1px solid #bbf7d0;}
+  #resultado h4 { margin: 0; font-size: 1.8rem; }
+</style>
+
+<script>
+  const btn = document.getElementById('btnCalcular');
+  const divResultado = document.getElementById('resultado');
+  const spanMes = document.getElementById('ahorroMes');
+  const spanAno = document.getElementById('ahorroAno');
+
+  if (btn) {
+    btn.addEventListener('click', () => {
+      // Cogemos los datos del usuario
+      const km = parseFloat(document.getElementById('kmDiarios').value);
+      const consumoCoche = parseFloat(document.getElementById('consumoCoche').value);
+      
+      // Datos fijos (Consumo medio 125cc: 2.5L, Precio Gasolina: 1.65€, Días laborables al mes: 22)
+      const consumoMoto = 2.5; 
+      const precioGasolina = 1.65; 
+      const diasLaborables = 22; 
+      
+      // Matemáticas
+      const litrosCocheMes = (km * diasLaborables * consumoCoche) / 100;
+      const litrosMotoMes = (km * diasLaborables * consumoMoto) / 100;
+      
+      const gastoCocheMes = litrosCocheMes * precioGasolina;
+      const gastoMotoMes = litrosMotoMes * precioGasolina;
+      
+      const ahorroMensual = gastoCocheMes - gastoMotoMes;
+      const ahorroAnual = ahorroMensual * 12;
+      
+      // Mostramos el resultado
+      spanMes.innerText = ahorroMensual.toFixed(0);
+      spanAno.innerText = ahorroAnual.toFixed(0);
+      divResultado.classList.remove('hidden');
+    });
+  }
+</script>
