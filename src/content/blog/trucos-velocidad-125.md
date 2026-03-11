@@ -1,7 +1,7 @@
 ---
 title: '5 Trucos legales para que tu 125cc corra más'
 description: '¿Tu moto de 125 se queda corta en autovía? Descubre estos trucos mecánicos baratos para ganar velocidad punta sin perder la garantía.'
-pubDate: 'Jan 29 2026'
+pubDate: "2026-03-11"
 heroImage: '../../assets/blog-placeholder-3.jpg'
 ---
 
