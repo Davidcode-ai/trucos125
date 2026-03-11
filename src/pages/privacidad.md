@@ -2,7 +2,7 @@
 layout: ../layouts/BlogPost.astro
 title: "Política de Privacidad"
 description: "Política de privacidad y cookies de Trucos125.com"
-pubDate: "Jan 29 2026"
+pubDate: '2026-03-11'
 heroImage: "/blog-placeholder-about.jpg"
 ---
 
