@@ -7,11 +7,18 @@
   
   <div class="inputs">
     <label>
-      Kilómetros diarios (ida y vuelta):
+      Km diarios (ida y vuelta):
       <input type="number" id="kmDiarios" value="30" min="1" />
     </label>
     <label>
-      Consumo de tu coche (L/100km):
+      Combustible de tu coche:
+      <select id="tipoCombustible">
+        <option value="gasolina">Gasolina 95</option>
+        <option value="diesel">Diésel</option>
+      </select>
+    </label>
+    <label>
+      Consumo coche (L/100km):
       <input type="number" id="consumoCoche" value="7.5" min="1" step="0.1" />
     </label>
   </div>
@@ -20,7 +27,7 @@
 
   <div id="resultado" class="hidden">
     <h4>¡Te ahorrarías <span id="ahorroMes">0</span>€ al mes!</h4>
-    <p>Eso son unos <strong id="ahorroAno">0</strong>€ al año solo en gasolina. <br/> Básicamente, <strong>la moto se paga sola</strong>.</p>
+    <p>Eso son unos <strong id="ahorroAno">0</strong>€ al año en combustible. <br/> Básicamente, <strong>la moto se paga sola</strong>.</p>
   </div>
 </div>
 
@@ -37,7 +44,7 @@
   .calculadora-wrapper h3 { margin-top: 0; color: #1e293b; font-size: 1.8rem;}
   .inputs { display: flex; gap: 1.5rem; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
   label { display: flex; flex-direction: column; text-align: left; font-size: 0.95rem; font-weight: bold; color: #475569; }
-  input { padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 0.5rem; width: 200px; font-size: 1rem; }
+  input, select { padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 0.5rem; width: 200px; font-size: 1rem; background-color: white; }
   button { background: #e11d48; color: white; border: none; padding: 1rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: transform 0.2s, background 0.2s; }
   button:hover { background: #be123c; transform: scale(1.05); }
   .hidden { display: none; }
@@ -51,28 +58,41 @@
   const spanMes = document.getElementById('ahorroMes');
   const spanAno = document.getElementById('ahorroAno');
 
-  if (btn) {
+  // Nos aseguramos de que todos los elementos existen antes de hacer nada
+  if (btn && divResultado && spanMes && spanAno) {
     btn.addEventListener('click', () => {
-      // Cogemos los datos del usuario
-      const km = parseFloat(document.getElementById('kmDiarios').value);
-      const consumoCoche = parseFloat(document.getElementById('consumoCoche').value);
+      // Le decimos al editor exactamente qué es cada caja (Casting)
+      const inputKm = document.getElementById('kmDiarios') as HTMLInputElement;
+      const inputConsumo = document.getElementById('consumoCoche') as HTMLInputElement;
+      const selectCombustible = document.getElementById('tipoCombustible') as HTMLSelectElement;
+
+      // 1. Recogemos lo que ha puesto el usuario
+      const km = parseFloat(inputKm.value);
+      const consumoCoche = parseFloat(inputConsumo.value);
+      const tipoCombustible = selectCombustible.value;
       
-      // Datos fijos (Consumo medio 125cc: 2.5L, Precio Gasolina: 1.65€, Días laborables al mes: 22)
+      // 2. Precios medios actuales (aprox)
+      const precioGasolina = 1.65;
+      const precioDiesel = 1.50;
+      
+      // Asignamos el precio correcto al coche. ¡La moto siempre es gasolina!
+      const precioCocheAplicado = (tipoCombustible === 'diesel') ? precioDiesel : precioGasolina;
+      
+      // 3. Datos fijos de la 125cc
       const consumoMoto = 2.5; 
-      const precioGasolina = 1.65; 
       const diasLaborables = 22; 
       
-      // Matemáticas
+      // 4. Matemáticas puras
       const litrosCocheMes = (km * diasLaborables * consumoCoche) / 100;
       const litrosMotoMes = (km * diasLaborables * consumoMoto) / 100;
       
-      const gastoCocheMes = litrosCocheMes * precioGasolina;
-      const gastoMotoMes = litrosMotoMes * precioGasolina;
+      const gastoCocheMes = litrosCocheMes * precioCocheAplicado;
+      const gastoMotoMes = litrosMotoMes * precioGasolina; 
       
       const ahorroMensual = gastoCocheMes - gastoMotoMes;
       const ahorroAnual = ahorroMensual * 12;
       
-      // Mostramos el resultado
+      // 5. Mostramos el resultado por pantalla
       spanMes.innerText = ahorroMensual.toFixed(0);
       spanAno.innerText = ahorroAnual.toFixed(0);
       divResultado.classList.remove('hidden');
