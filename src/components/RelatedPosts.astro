@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+
+const { currentId } = Astro.props;
+const allPosts = await getCollection('blog');
+// Filtramos de forma más segura
+const relatedPosts = allPosts
+  .filter((p) => p.id !== currentId)
+  .slice(0, 3);
+---
+
+{relatedPosts.length > 0 && (
+  <section style="margin-top: 4rem; border-top: 1px solid #eee; padding-top: 2rem;">
+    <h3>También te puede interesar...</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+      {relatedPosts.map((post) => (
+        <a href={`/blog/${post.id}/`} style="text-decoration: none; color: inherit; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
+          <img src={typeof post.data.heroImage === 'string' ? post.data.heroImage : post.data.heroImage?.src} alt="" style="width: 100%; height: 120px; object-fit: cover;" />
+          <h4 style="padding: 10px; font-size: 0.9rem;">{post.data.title}</h4>
+        </a>
+      ))}
+    </div>
+  </section>
+)}
