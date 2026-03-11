@@ -7,9 +7,8 @@ const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', day: 'nu
     <div class="container top-inner">
       <span class="date">{today}</span>
       <div class="top-menu">
-        <a href="#">PUBLICIDAD</a>
-        <a href="/comunidad">FORO / COMUNIDAD</a>
-        <a href="#">CONTACTO</a>
+        <a href="/sobre-mi">SOBRE MÍ</a>
+        <a href="/contacto">CONTACTO</a>
       </div>
     </div>
   </div>
@@ -24,10 +23,10 @@ const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', day: 'nu
         <a href="/">PORTADA</a>
         <a href="/blog">PRUEBAS</a>
         <a href="/blog">MECÁNICA</a>
-        <a href="/comunidad" class="special">COMUNIDAD</a>
+        <a href="/sobre-mi">NOSOTROS</a>
       </nav>
 
-      <a href="#" class="btn-sub">SUSCRÍBETE</a>
+      <a href="/contacto" class="btn-sub">CONTACTAR</a>
     </div>
   </div>
 </header>
@@ -41,34 +40,36 @@ const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', day: 'nu
   }
 
   /* Top Bar */
-  .top-bar { background: var(--moto-black); color: #ccc; font-size: 0.75rem; padding: 6px 0; text-transform: uppercase; font-weight: 700; }
-  .top-inner { display: flex; justify-content: space-between; align-items: center; }
-  .top-menu a { margin-left: 20px; color: #aaa; }
+  .top-bar { background: #1a1a1a; color: #ccc; font-size: 0.75rem; padding: 6px 0; text-transform: uppercase; font-weight: 700; }
+  .top-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  .top-menu a { margin-left: 20px; color: #aaa; text-decoration: none; }
   .top-menu a:hover { color: white; }
 
   /* Main Bar */
-  .main-bar { background: white; padding: 15px 0; border-bottom: 4px solid var(--moto-red); }
-  .main-inner { display: flex; justify-content: space-between; align-items: center; }
+  .main-bar { background: white; padding: 15px 0; border-bottom: 4px solid #e11d48; }
+  .main-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-  .logo { font-family: 'Barlow Condensed', sans-serif; font-size: 2.8rem; font-weight: 900; color: black; line-height: 0.8; letter-spacing: -1px; }
-  .logo .red { color: var(--moto-red); }
+  .logo { font-family: 'Barlow Condensed', sans-serif; font-size: 2.8rem; font-weight: 900; color: black; line-height: 0.8; letter-spacing: -1px; text-decoration: none; }
+  .logo .red { color: #e11d48; }
 
   .desktop-nav { display: flex; gap: 30px; }
   .desktop-nav a { 
-    font-family: 'Barlow Condensed', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--moto-dark); 
+    font-family: 'Barlow Condensed', sans-serif; font-size: 1.3rem; font-weight: 700; color: #1f2937; 
+    text-decoration: none;
     position: relative;
   }
-  .desktop-nav a:hover { color: var(--moto-red); }
-  .desktop-nav a.special { color: var(--moto-red); }
+  .desktop-nav a:hover { color: #e11d48; }
 
   .btn-sub {
     background: black; color: white; font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
     padding: 8px 20px; font-size: 1.1rem; transform: skew(-12deg);
+    text-decoration: none;
+    display: inline-block;
   }
-  .btn-sub:hover { background: var(--moto-red); }
+  .btn-sub:hover { background: #e11d48; }
 
   @media(max-width: 768px) {
     .top-bar { display: none; }
-    .desktop-nav { display: none; } /* En móvil ocultamos el menú por ahora para que no rompa */
+    .desktop-nav { display: none; }
   }
 </style>
