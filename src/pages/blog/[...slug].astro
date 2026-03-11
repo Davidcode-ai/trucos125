@@ -1,10 +1,13 @@
 ---
+// Importamos 'render' que es la nueva forma de cargar los textos
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
 	return posts.map((post) => ({
+        // Usamos post.id en lugar del antiguo post.slug
 		params: { slug: post.id },
 		props: post,
 	}));
@@ -12,9 +15,11 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
-const { Content } = await render(post);
+// Usamos la nueva función render() pasándole el post
+const { Content, headings } = await render(post);
 ---
 
 <BlogPost {...post.data}>
+	<TableOfContents headings={headings} />
 	<Content />
 </BlogPost>

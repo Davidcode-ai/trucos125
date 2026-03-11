@@ -1,0 +1,44 @@
+---
+// src/components/Adsense.astro
+
+// Le decimos exactamente a Astro qué textos son válidos
+interface Props {
+  bloque?: 'in-article' | 'display' | 'multiplex';
+}
+
+const { bloque = 'in-article' } = Astro.props;
+
+const CLIENT_ID = "ca-pub-0000000000000000"; 
+
+// Le indicamos que esto es un objeto de texto a texto
+const adSlots: Record<string, string> = {
+  'in-article': "1111111111", 
+  'display': "2222222222",    
+  'multiplex': "3333333333"   
+};
+
+const slotId = adSlots[bloque] || adSlots['display'];
+---
+
+<div class="adsense-container" aria-hidden="true">
+  <ins class="adsbygoogle"
+       style="display:block; text-align:center;"
+       data-ad-layout="in-article"
+       data-ad-format="fluid"
+       data-ad-client={CLIENT_ID}
+       data-ad-slot={slotId}></ins>
+  <script is:inline>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+<style>
+  .adsense-container {
+    min-height: 250px; 
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9fafb;
+  }
+</style>

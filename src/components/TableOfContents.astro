@@ -1,0 +1,43 @@
+---
+// src/components/TableOfContents.astro
+const { headings } = Astro.props;
+
+// Filtramos para quedarnos solo con los H2 (depth: 2) y H3 (depth: 3)
+const toc = headings.filter((heading: any) => heading.depth === 2 || heading.depth === 3);
+---
+
+{toc.length > 0 && (
+  <nav class="toc-container" aria-label="Índice de contenidos">
+    <p class="toc-title">En este artículo:</p>
+    <ul class="toc-list">
+      {toc.map((heading: any) => (
+        <li class={`toc-item depth-${heading.depth}`}>
+          <a href={`#${heading.slug}`}>{heading.text}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
+
+<style>
+  .toc-container {
+    background-color: #f8fafc;
+    border-left: 4px solid #3b82f6;
+    border-radius: 4px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .toc-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #1e293b;
+  }
+  .toc-list { list-style: none; padding: 0; margin: 0; }
+  .toc-item { margin-bottom: 0.6rem; line-height: 1.4; }
+  .toc-item.depth-3 { padding-left: 1.5rem; font-size: 0.95rem; }
+  .toc-item a { text-decoration: none; color: #475569; transition: color 0.2s; }
+  .toc-item a:hover { color: #3b82f6; text-decoration: underline; }
+</style>
