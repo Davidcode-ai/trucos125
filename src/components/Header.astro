@@ -1,111 +1,159 @@
 ---
 import HeaderLink from './HeaderLink.astro';
-import { SITE_TITLE } from '../consts';
 ---
 
-<header>
-	<nav>
-		<a href="/" class="logo-link">
-			<div class="css-logo">
-				<span class="logo-trucos">TRUCOS</span><span class="logo-125">125</span>
-			</div>
-		</a>
-		
-		<div class="internal-links">
-			<HeaderLink href="/">Inicio</HeaderLink>
-			<HeaderLink href="/blog">Artículos</HeaderLink>
-			<HeaderLink href="/sobre-mi">Sobre mí</HeaderLink>
-		</div>
-	</nav>
+<header class="site-header">
+  <div class="header-container">
+    
+    <a href="/" class="logo-link">
+      <img src="/logo.png" alt="Trucos 125" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+      <span class="fallback-logo" style="display:none; font-family:'Barlow Condensed', sans-serif; font-weight:900; font-size:2rem; color:#111; font-style:italic;">TRUCOS<span style="color:#e30613">125</span></span>
+    </a>
+
+    <button class="mobile-menu-btn" aria-label="Abrir menú">
+      <svg viewBox="0 0 24 24" width="30" height="30" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+
+    <nav class="nav-links">
+      <HeaderLink href="/">Inicio</HeaderLink>
+      <HeaderLink href="/blog">Artículos</HeaderLink>
+      <HeaderLink href="/sobre-mi">Sobre mí</HeaderLink>
+    </nav>
+    
+  </div>
 </header>
 
 <style>
-	header {
-		margin: 0;
-		padding: 0 1em;
-		background: #111; /* Fondo negro Racing */
-		box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-		position: sticky; /* Se queda fijo arriba al hacer scroll */
-		top: 0;
-		z-index: 100;
-	}
+  /* --- ESTILOS PRINCIPALES (ORDENADOR) --- */
+  .site-header {
+    background: #ffffff; /* Cabezal blanco y limpio */
+    border-bottom: 3px solid #e30613; /* Línea roja Racing debajo */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+  
+  .header-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		max-width: 1280px;
-		margin: 0 auto;
-		height: 80px; /* Altura fija del menú */
-	}
+  .logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
 
-	/* --- ESTILOS DEL LOGO POR CÓDIGO --- */
-	.logo-link {
-		text-decoration: none;
-	}
+  .logo-img {
+    height: 45px; /* Altura perfecta para el logo */
+    width: auto;
+    transition: transform 0.2s ease;
+  }
+  
+  .logo-link:hover .logo-img {
+    transform: scale(1.05);
+  }
 
-	.css-logo {
-		font-family: 'Barlow Condensed', sans-serif;
-		font-size: 2.4rem;
-		font-weight: 900;
-		text-transform: uppercase;
-		font-style: italic; /* Da sensación de movimiento y velocidad */
-		letter-spacing: -1px; /* Letras un poco más juntas, más agresivo */
-		display: flex;
-		align-items: center;
-		transition: transform 0.2s ease;
-	}
+  .nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+  }
 
-	.logo-link:hover .css-logo {
-		transform: scale(1.05) skewX(-5deg); /* Efecto "acelerón" al pasar el ratón */
-	}
+  .nav-links :global(a) {
+    font-family: 'Barlow Condensed', sans-serif;
+    color: #111;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+  }
 
-	.logo-trucos {
-		color: #ffffff; /* Blanco puro */
-	}
+  .nav-links :global(a:hover),
+  .nav-links :global(a.active) {
+    color: #e30613; /* El texto se pone rojo al pasar el ratón o estar en esa página */
+  }
 
-	.logo-125 {
-		color: #e30613; /* Rojo Racing */
-	}
+  .mobile-menu-btn {
+    display: none; /* Oculto en ordenador */
+    background: none;
+    border: none;
+    color: #111;
+    cursor: pointer;
+    padding: 5px;
+  }
 
-	/* --- ENLACES DEL MENÚ --- */
-	.internal-links {
-		display: flex;
-		gap: 1em;
-	}
-
-	nav :global(a) {
-		padding: 10px 15px;
-		color: #fff;
-		text-decoration: none;
-		font-family: 'Barlow Condensed', sans-serif;
-		text-transform: uppercase;
-		font-weight: 700;
-		font-size: 1.1rem;
-		border-bottom: 4px solid transparent;
-		transition: all 0.2s;
-	}
-
-	nav :global(a:hover),
-	nav :global(a.active) {
-		color: #e30613; /* Rojo Racing */
-		border-bottom-color: #e30613;
-	}
-
-	/* --- RESPONSIVE MÓVIL --- */
-	@media (max-width: 768px) {
-		nav {
-			height: 60px; /* Menú más estrecho en móvil */
-		}
-		.css-logo {
-			font-size: 1.8rem; /* Logo más pequeño para que quepa bien en el móvil */
-		}
-		.internal-links {
-			gap: 5px;
-		}
-		nav :global(a) {
-			padding: 5px 8px;
-			font-size: 0.9rem;
-		}
-	}
+  /* --- RESPONSIVE (MÓVIL) --- */
+  @media (max-width: 768px) {
+    .header-container {
+      height: 70px;
+    }
+    
+    .logo-img {
+      height: 35px; /* Logo un poco más pequeño en móvil */
+    }
+    
+    .mobile-menu-btn {
+      display: block; /* Mostramos la hamburguesa */
+    }
+    
+    .nav-links {
+      position: absolute;
+      top: 73px; /* Justo debajo del header */
+      left: 0;
+      width: 100%;
+      background: #ffffff;
+      flex-direction: column;
+      gap: 0;
+      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+      border-bottom: 3px solid #e30613;
+      
+      /* Animación de despliegue */
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    
+    .nav-links.open {
+      max-height: 300px; /* Se despliega al darle al botón */
+    }
+    
+    .nav-links :global(a) {
+      padding: 15px 20px;
+      width: 100%;
+      border-bottom: 1px solid #f0f0f0;
+      box-sizing: border-box;
+      display: block;
+      text-align: center;
+    }
+    
+    .nav-links :global(a:last-child) {
+      border-bottom: none;
+    }
+  }
 </style>
+
+<script>
+  // Script para que el menú hamburguesa funcione (compatible con ViewTransitions)
+  document.addEventListener('astro:page-load', () => {
+    const btn = document.querySelector('.mobile-menu-btn');
+    const nav = document.querySelector('.nav-links');
+    
+    if (btn && nav) {
+      btn.addEventListener('click', () => {
+        nav.classList.toggle('open');
+      });
+    }
+  });
+</script>
