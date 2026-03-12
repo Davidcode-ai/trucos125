@@ -178,32 +178,37 @@ const imgNews3 = "/moto-herramientas.jpg"; // Caja de herramientas
 		opacity: 0.8; /* Se oscurece un poco para resaltar el texto */
 	}
 
-	/* Overlays (Textos sobre imagen) */
-	.overlay {
-		position: absolute;
-		bottom: 0; left: 0; right: 0;
-		padding: 30px;
-		background: linear-gradient(to top, rgba(0,0,0,0.9) 10%, transparent); /* Degradado profesional */
-		color: white;
-		pointer-events: none; /* El click pasa a través */
-	}
+/* --- Overlays (Textos sobre imagen de la Portada) --- */
+    .overlay {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        padding: 30px;
+        /* Le damos un degradado oscuro más fuerte en la base para que el texto resalte siempre */
+        background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);
+        pointer-events: none; 
+    }
 
-	.overlay h1 {
-		font-size: 2.8rem;
-		margin-bottom: 10px;
-		text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-	}
+    .overlay h1, .overlay h3 {
+        color: white; /* Forzamos el blanco puro */
+        text-shadow: 2px 2px 6px rgba(0,0,0,0.9); /* Sombra negra dura para dar contraste */
+        margin-bottom: 10px;
+    }
 
-	.overlay p {
-		font-size: 1.1rem;
-		font-weight: 500;
-		margin: 0;
-		opacity: 0.9;
-	}
+    .overlay h1 {
+        font-size: 2.8rem;
+    }
 
-	.overlay.small { padding: 20px; }
-	.overlay.small h3 { font-size: 1.5rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+    .overlay p {
+        color: #f8f9fa; /* Un blanco un pelín roto para el párrafo */
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 0;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.9);
+    }
 
+    .overlay.small { padding: 20px; }
+    .overlay.small h3 { font-size: 1.6rem; }
+	
 	/* Badges (Etiquetas) */
 	.badge {
 		position: absolute;
