@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
@@ -8,107 +7,172 @@ import Header from '../../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
 const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
+<html lang="es">
+    <head>
+        <BaseHead title={`Todos los artículos - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+    </head>
+    <body>
+        <Header />
+        <main class="container">
+            <section class="page-header">
+                <h1>TODOS LOS ARTÍCULOS</h1>
+                <div class="title-line"></div>
+                <p>Pruebas, tutoriales de mecánica y consejos legales para dominar tu 125cc.</p>
+            </section>
+
+            <section>
+                <ul class="blog-grid">
+                    {
+                        posts.map((post) => (
+                            <li>
+                                <a href={`/blog/${post.id}/`} class="post-card">
+                                    <div class="img-container">
+                                        {post.data.heroImage ? (
+											<img src={post.data.heroImage.src} alt={post.data.title} />                                        ) : (
+                                            <div class="no-img">Sin imagen</div>
+                                        )}
+                                    </div>
+                                    <div class="post-content">
+                                        <p class="date">
+                                            <FormattedDate date={post.data.pubDate} />
+                                        </p>
+                                        <h4 class="title">{post.data.title}</h4>
+                                    </div>
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </section>
+        </main>
+        <Footer />
+    </body>
 </html>
+
+<style>
+    /* --- ESTRUCTURA PRINCIPAL --- */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+
+    /* --- CABECERA DE LA PÁGINA --- */
+    .page-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+    .page-header h1 {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 3.5rem;
+        font-weight: 900;
+        color: #111;
+        margin: 0;
+        letter-spacing: -1px;
+    }
+    .title-line {
+        width: 80px;
+        height: 5px;
+        background-color: #e30613; /* Rojo racing */
+        margin: 15px auto;
+    }
+    .page-header p {
+        color: #555;
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    /* --- GRID DE ARTÍCULOS (Se adapta solo al móvil) --- */
+    .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 35px;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* --- TARJETAS DE LOS ARTÍCULOS --- */
+    .post-card {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+        border: 1px solid #eee;
+    }
+    .post-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    }
+
+    /* --- EL TRUCO PARA LAS IMÁGENES PERFECTAS --- */
+    .img-container {
+        width: 100%;
+        aspect-ratio: 16 / 9; /* Proporción panorámica para que todas midan lo mismo */
+        overflow: hidden;
+        background-color: #111; 
+        position: relative;
+    }
+    .img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Este es el comando mágico que recorta y encaja sin deformar */
+        transition: transform 0.6s ease;
+    }
+    .post-card:hover .img-container img {
+        transform: scale(1.08); /* Efecto zoom premium al pasar el ratón */
+    }
+
+    .no-img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        color: white;
+        font-weight: bold;
+    }
+
+    /* --- TEXTOS DE LA TARJETA --- */
+    .post-content {
+        padding: 25px 20px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+    .date {
+        margin: 0 0 12px 0;
+        color: #888;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+    .title {
+        margin: 0;
+        color: #111;
+        font-size: 1.6rem;
+        line-height: 1.2;
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 800;
+        transition: color 0.2s;
+    }
+    .post-card:hover .title {
+        color: #e30613; /* El título se pone rojo */
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+        .page-header h1 { font-size: 2.8rem; }
+        .blog-grid { gap: 20px; }
+    }
+</style>
