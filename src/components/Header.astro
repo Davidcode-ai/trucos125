@@ -22,16 +22,22 @@ import HeaderLink from './HeaderLink.astro';
       <HeaderLink href="/">Inicio</HeaderLink>
       <HeaderLink href="/blog">Artículos</HeaderLink>
       <HeaderLink href="/sobre-mi">Sobre mí</HeaderLink>
+      <HeaderLink href="/contacto">Contacto</HeaderLink>
     </nav>
     
   </div>
 </header>
 
 <style>
+  /* --- EVITAR QUE LA WEB SALTE A LA DERECHA EN PÁGINAS CORTAS --- */
+  :global(html) {
+    overflow-y: scroll;
+  }
+
   /* --- ESTILOS PRINCIPALES (ORDENADOR) --- */
   .site-header {
-    background: #ffffff; /* Cabezal blanco y limpio */
-    border-bottom: 3px solid #e30613; /* Línea roja Racing debajo */
+    background: #ffffff; 
+    border-bottom: 3px solid #e30613; 
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     position: sticky;
     top: 0;
@@ -55,10 +61,10 @@ import HeaderLink from './HeaderLink.astro';
   }
 
   .logo-img {
-    width: 220px; /* Forzamos el ancho para que se vea bien grande */
+    width: 220px; /* Tamaño grande y fijo */
     height: auto;
-    max-height: 75px; /* Evita que se salga del menú blanco */
-    object-fit: contain; /* Ajusta la imagen sin deformarla */
+    max-height: 75px; 
+    object-fit: contain;
     transition: transform 0.2s ease;
   }
   
@@ -72,23 +78,24 @@ import HeaderLink from './HeaderLink.astro';
     align-items: center;
   }
 
+  /* --- TEXTO DEL MENÚ BLINDADO EN TAMAÑO FIJO --- */
   .nav-links :global(a) {
     font-family: 'Barlow Condensed', sans-serif;
     color: #111;
     text-decoration: none;
     font-weight: 800;
-    font-size: 1.2rem;
+    font-size: 18px !important; /* Obliga a que siempre mida 18px */
     text-transform: uppercase;
     transition: color 0.2s ease;
   }
 
   .nav-links :global(a:hover),
   .nav-links :global(a.active) {
-    color: #e30613; /* El texto se pone rojo al pasar el ratón o estar en esa página */
+    color: #e30613; 
   }
 
   .mobile-menu-btn {
-    display: none; /* Oculto en ordenador */
+    display: none; 
     background: none;
     border: none;
     color: #111;
@@ -103,17 +110,17 @@ import HeaderLink from './HeaderLink.astro';
     }
     
     .logo-img {
-      width: 160px; /* Tamaño adaptado para que quepa en el móvil */
+      width: 160px; /* Tamaño móvil adaptado */
       height: auto;
     }
     
     .mobile-menu-btn {
-      display: block; /* Mostramos la hamburguesa */
+      display: block; 
     }
     
     .nav-links {
       position: absolute;
-      top: 73px; /* Justo debajo del header */
+      top: 73px; 
       left: 0;
       width: 100%;
       background: #ffffff;
@@ -122,14 +129,13 @@ import HeaderLink from './HeaderLink.astro';
       box-shadow: 0 10px 15px rgba(0,0,0,0.1);
       border-bottom: 3px solid #e30613;
       
-      /* Animación de despliegue */
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.3s ease-out;
     }
     
     .nav-links.open {
-      max-height: 300px; /* Se despliega al darle al botón */
+      max-height: 350px; 
     }
     
     .nav-links :global(a) {
@@ -139,6 +145,7 @@ import HeaderLink from './HeaderLink.astro';
       box-sizing: border-box;
       display: block;
       text-align: center;
+      font-size: 16px !important; /* Blindado también en móvil */
     }
     
     .nav-links :global(a:last-child) {
@@ -148,13 +155,17 @@ import HeaderLink from './HeaderLink.astro';
 </style>
 
 <script>
-  // Script para que el menú hamburguesa funcione (compatible con ViewTransitions)
+  /* Script blindado para que el menú móvil funcione al cambiar de página */
   document.addEventListener('astro:page-load', () => {
     const btn = document.querySelector('.mobile-menu-btn');
     const nav = document.querySelector('.nav-links');
     
     if (btn && nav) {
-      btn.addEventListener('click', () => {
+      // Limpiamos eventos anteriores para evitar fallos
+      const newBtn = btn.cloneNode(true);
+      btn.parentNode.replaceChild(newBtn, btn);
+      
+      newBtn.addEventListener('click', () => {
         nav.classList.toggle('open');
       });
     }
