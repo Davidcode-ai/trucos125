@@ -6,17 +6,19 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import CalculadoraAhorro from '../components/CalculadoraAhorro.astro';
 import { getCollection } from 'astro:content';
 
-// --- MAGIA PARA COGER LOS 3 ÚLTIMOS ARTÍCULOS ---
 const allPosts = (await getCollection('blog')).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+
+// Los 3 artículos más nuevos para la sección de abajo
 const latestPosts = allPosts.slice(0, 3);
 
-// --- IMÁGENES DE LA PORTADA DE ARRIBA ---
-// (Si quieres cambiar la foto de portada en el futuro, solo cambias estos nombres)
-const imgMain = "/image_7.png"; 
-const imgSide1 = "/image_7.png"; // Si tienes otra foto, pon aquí su nombre
-const imgSide2 = "/image_7.png"; // Si tienes otra foto, pon aquí su nombre
+// --- MAGIA PARA LA CABECERA ---
+// Buscamos los artículos por alguna palabra clave de su archivo. 
+// Si no los encuentra, coge el 1º, 2º y 3º por defecto para que la web nunca se rompa.
+const postPrincipal = allPosts.find(p => p.id.includes('velocidad') || p.id.includes('corra-mas')) || allPosts[0];
+const postMecanica = allPosts.find(p => p.id.includes('rodaje')) || allPosts[1];
+const postConsejos = allPosts.find(p => p.id.includes('scooter') || p.id.includes('marchas')) || allPosts[2];
 ---
 
 <!doctype html>
@@ -33,12 +35,16 @@ const imgSide2 = "/image_7.png"; // Si tienes otra foto, pon aquí su nombre
                 <section class="hero-grid">
                     
                     <article class="grid-item main-story">
-                        <a href="/blog/trucos-velocidad-125" class="img-link zoom-effect">
+                        <a href={`/blog/${postPrincipal.id}/`} class="img-link zoom-effect">
                             <span class="badge red">DESTACADO</span>
-                            <img src={imgMain} alt="Moto 125cc en carretera" />
+                            {postPrincipal.data.heroImage ? (
+                                <img src={postPrincipal.data.heroImage.src} alt={postPrincipal.data.title} />
+                            ) : (
+                                <div style="width:100%; height:100%; background:#333;"></div>
+                            )}
                             <div class="overlay">
-                                <h1>CÓMO GANAR 15 KM/H REALES EN TU 125CC</h1>
-                                <p>Los métodos mecánicos más efectivos y legales para exprimir tu motor.</p>
+                                <h1>{postPrincipal.data.title}</h1>
+                                <p>{postPrincipal.data.description}</p>
                             </div>
                         </a>
                     </article>
@@ -46,21 +52,29 @@ const imgSide2 = "/image_7.png"; // Si tienes otra foto, pon aquí su nombre
                     <div class="side-column">
                         
                         <article class="grid-item side-story">
-                            <a href="/blog/como-hacer-rodaje-moto-125" class="img-link zoom-effect">
+                            <a href={`/blog/${postMecanica.id}/`} class="img-link zoom-effect">
                                 <span class="badge black">MECÁNICA</span>
-                                <img src={imgSide1} alt="Mecánico trabajando" />
+                                {postMecanica.data.heroImage ? (
+                                    <img src={postMecanica.data.heroImage.src} alt={postMecanica.data.title} />
+                                ) : (
+                                    <div style="width:100%; height:100%; background:#333;"></div>
+                                )}
                                 <div class="overlay small">
-                                    <h3>CÓMO HACER EL RODAJE A UNA MOTO NUEVA</h3>
+                                    <h3>{postMecanica.data.title}</h3>
                                 </div>
                             </a>
                         </article>
 
                         <article class="grid-item side-story">
-                            <a href="/blog/scooter-vs-marchas-125" class="img-link zoom-effect">
+                            <a href={`/blog/${postConsejos.id}/`} class="img-link zoom-effect">
                                 <span class="badge black">CONSEJOS</span>
-                                <img src={imgSide2} alt="Scooter o marchas" />
+                                {postConsejos.data.heroImage ? (
+                                    <img src={postConsejos.data.heroImage.src} alt={postConsejos.data.title} />
+                                ) : (
+                                    <div style="width:100%; height:100%; background:#333;"></div>
+                                )}
                                 <div class="overlay small">
-                                    <h3>¿SCOOTER O MARCHAS PARA EMPEZAR?</h3>
+                                    <h3>{postConsejos.data.title}</h3>
                                 </div>
                             </a>
                         </article>
@@ -106,14 +120,12 @@ const imgSide2 = "/image_7.png"; // Si tienes otra foto, pon aquí su nombre
 <style>
     /* --- ESTILOS CRÍTICOS PARA LA PORTADA --- */
     
-    /* Contenedor principal */
     .container {
         max-width: 1280px;
         margin: 0 auto;
         padding: 40px 20px;
     }
 
-    /* Tipografías "Racing" */
     h1, h2, h3, .badge {
         font-family: 'Barlow Condensed', sans-serif;
         text-transform: uppercase;
@@ -122,12 +134,11 @@ const imgSide2 = "/image_7.png"; // Si tienes otra foto, pon aquí su nombre
         margin: 0;
     }
 
-    /* --- GRID TIPO REVISTA (HERO) --- */
     .hero-grid {
         display: grid;
-        grid-template-columns: 2fr 1fr; /* La izquierda es el doble de ancha */
+        grid-template-columns: 2fr 1fr; 
         gap: 20px;
-        height: 550px; /* Altura fija para el bloque principal */
+        height: 550px; 
         margin-bottom: 60px;
     }
 
@@ -142,14 +153,13 @@ const imgSide2 = "/image_7.png"; // Si tienes otra foto, pon aquí su nombre
         height: 100%;
         width: 100%;
         overflow: hidden;
-        background: #111; /* Fondo negro mientras carga */
+        background: #111; 
     }
 
     .side-story {
-        flex: 1; /* Se reparten el espacio vertical */
+        flex: 1; 
     }
 
-    /* Estilos de Imagen y Efecto Zoom */
     .img-link {
         display: block;
         width: 100%;
@@ -160,29 +170,27 @@ const imgSide2 = "/image_7.png"; // Si tienes otra foto, pon aquí su nombre
     .img-link img {
         width: 100%;
         height: 100%;
-        object-fit: cover; /* Clave para que no se deformen */
+        object-fit: cover; 
         transition: transform 0.6s ease, opacity 0.6s ease;
         opacity: 0.95;
     }
 
     .zoom-effect:hover img {
-        transform: scale(1.08); /* Zoom suave al pasar el ratón */
-        opacity: 0.8; /* Se oscurece un poco para resaltar el texto */
+        transform: scale(1.08); 
+        opacity: 0.8; 
     }
 
-    /* --- Overlays (Textos sobre imagen de la Portada) --- */
     .overlay {
         position: absolute;
         bottom: 0; left: 0; right: 0;
         padding: 30px;
-        /* Le damos un degradado oscuro más fuerte en la base para que el texto resalte siempre */
         background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);
         pointer-events: none; 
     }
 
     .overlay h1, .overlay h3 {
-        color: white; /* Forzamos el blanco puro */
-        text-shadow: 2px 2px 6px rgba(0,0,0,0.9); /* Sombra negra dura para dar contraste */
+        color: white; 
+        text-shadow: 2px 2px 6px rgba(0,0,0,0.9); 
         margin-bottom: 10px;
     }
 
@@ -191,7 +199,7 @@ const imgSide2 = "/image_7.png"; // Si tienes otra foto, pon aquí su nombre
     }
 
     .overlay p {
-        color: #f8f9fa; /* Un blanco un pelín roto para el párrafo */
+        color: #f8f9fa; 
         font-size: 1.1rem;
         font-weight: 600;
         margin: 0;
@@ -201,7 +209,6 @@ const imgSide2 = "/image_7.png"; // Si tienes otra foto, pon aquí su nombre
     .overlay.small { padding: 20px; }
     .overlay.small h3 { font-size: 1.6rem; }
     
-    /* Badges (Etiquetas) */
     .badge {
         position: absolute;
         top: 15px; left: 15px;
@@ -214,7 +221,6 @@ const imgSide2 = "/image_7.png"; // Si tienes otra foto, pon aquí su nombre
     .badge.red { background-color: #e30613; }
     .badge.black { background-color: #111; }
 
-    /* --- SECCIÓN DE NOVEDADES --- */
     .section-title {
         display: flex;
         align-items: center;
@@ -237,7 +243,7 @@ const imgSide2 = "/image_7.png"; // Si tienes otra foto, pon aquí su nombre
         overflow: hidden;
         margin-bottom: 15px;
         background: #111;
-        border-radius: 8px; /* Pequeño toque premium */
+        border-radius: 8px; 
     }
 
     .card-content h3 {
@@ -250,14 +256,13 @@ const imgSide2 = "/image_7.png"; // Si tienes otra foto, pon aquí su nombre
         line-height: 1.2;
     }
     .news-card:hover .card-content h3 {
-        color: #e30613; /* El título se pone rojo al pasar el ratón */
+        color: #e30613; 
     }
 
-    /* --- RESPONSIVE (MÓVIL) --- */
     @media (max-width: 768px) {
         .hero-grid {
-            grid-template-columns: 1fr; /* Todo en una columna */
-            height: auto; /* Altura automática */
+            grid-template-columns: 1fr; 
+            height: auto; 
         }
         .main-story { height: 400px; margin-bottom: 20px; }
         .side-column { height: auto; gap: 20px; }
@@ -266,7 +271,7 @@ const imgSide2 = "/image_7.png"; // Si tienes otra foto, pon aquí su nombre
         .overlay h1 { font-size: 2rem; }
         
         .news-grid {
-            grid-template-columns: 1fr; /* Novedades en una columna */
+            grid-template-columns: 1fr; 
         }
     }
 </style>
