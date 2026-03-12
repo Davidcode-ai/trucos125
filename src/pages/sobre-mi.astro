@@ -1,18 +1,60 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+
+// Aquí puedes poner una foto tuya en /public/yo.jpg
+const myPhoto = "/sobre-mi.jpg"; 
 ---
 
-<Layout
-	title="Sobre mí: Mi historia con las 125"
-	description="Conoce quién está detrás de trucos125.com"
-	pubDate={new Date('2026-03-11')}
->
-	<p>¡Hola! Soy David, el creador de <strong>trucos125.com</strong>.</p>
+<html lang="es">
+	<head>
+		<BaseHead title={`Sobre mí - ${SITE_TITLE}`} description="Quién está detrás de trucos125" />
+	</head>
+	<body>
+		<Header />
+		<main class="container">
+			<div class="about-grid">
+				<div class="image-box">
+					<img src={myPhoto} alt="Creador de Trucos125" />
+					<div class="experience-badge">10+ AÑOS EN DOS RUEDAS</div>
+				</div>
+				<div class="text-box">
+					<span class="subtitle">La historia detrás del casco</span>
+					<h1>POR QUÉ CREÉ TRUCOS125</h1>
+					<p>Empecé en el mundo de las motos por pura necesidad: <strong>odiaba los atascos</strong>. Como muchos de vosotros, el coche se convirtió en una cárcel de metal y la 125cc fue mi llave de salida.</p>
+					<p>Trucos125 nació para ayudar a todos esos conductores de coche que, como yo en su día, tienen mil dudas: ¿Qué moto compro? ¿Es peligroso? ¿Cómo se mantiene? Aquí cuento la verdad sin rodeos de taller.</p>
+					<div class="signature">Gas y prudencia, compañeros.</div>
+				</div>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
+	.about-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 60px; align-items: center; }
 	
-	<p>Si has llegado hasta aquí, probablemente estés como yo hace unos años: harto de los atascos, de pagar parkings caros y buscando una forma de moverte por la ciudad con libertad usando tu carnet de coche.</p>
+	.image-box { position: relative; }
+	.image-box img { width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 5px solid white; }
+	
+	.experience-badge {
+		position: absolute; bottom: -20px; right: -20px;
+		background: #e30613; color: white; padding: 15px 25px;
+		font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+		border-radius: 10px; transform: rotate(-3deg);
+	}
 
-	<h2>¿Por qué este blog?</h2>
-	<p>Cuando decidí comprar mi primera 125cc con la convalidación del carnet B, me di cuenta de que había mucha información técnica pero poca información "real" para alguien que empieza de cero. Quería saber cuánto cuesta realmente mantenerla, qué trucos hay para no tener miedo en las rotondas y cómo elegir la moto que no te de problemas.</p>
+	.subtitle { color: #e30613; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+	.text-box h1 { font-family: 'Barlow Condensed', sans-serif; font-size: 4rem; font-weight: 900; line-height: 0.9; margin: 15px 0 30px; }
+	.text-box p { font-size: 1.2rem; line-height: 1.6; color: #444; margin-bottom: 20px; }
+	.signature { font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 800; color: #111; margin-top: 40px; font-style: italic; }
 
-	<p>En este blog comparto mi experiencia real, mis errores y mis trucos para que tú puedas disfrutar de las dos ruedas ahorrando tiempo y dinero desde el primer día.</p>
-</Layout>
+	@media (max-width: 768px) {
+		.about-grid { grid-template-columns: 1fr; }
+		.text-box h1 { font-size: 3rem; }
+		.image-box { margin-bottom: 40px; }
+	}
+</style>
