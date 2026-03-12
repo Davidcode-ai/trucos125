@@ -72,25 +72,39 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
                 box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             }
 
-            /* En pantallas de móvil (menos de 768px) ajustamos los márgenes y letras */
+            /* --- ARREGLOS DEFINITIVOS PARA MÓVIL --- */
             @media (max-width: 768px) {
-            main {
-                padding: 15px; /* Quitamos los márgenes blancos gigantes */
-            }
-            .title h1 {
-                font-size: 2.2em; /* Título un poco más pequeño para que quepa bien */
-                line-height: 1.1;
-            }
-            .prose {
-                width: 100%;
-                font-size: 1.05em; /* Letra un pelín más grande para leer mejor en móvil */
-            }
-            .hero-image {
-                margin: -15px -15px 20px -15px; /* Hace que la foto de portada ocupe todo el ancho del móvil */
-            }
-            .hero-image img {
-                border-radius: 0; /* Quitamos bordes redondeados en móvil para que quede a sangre */
-            }
+                body {
+                    overflow-x: hidden; /* Evita que la pantalla baile hacia los lados */
+                }
+                main {
+                    width: 100%;
+                    padding: 0 !important;
+                    margin: 0 !important;
+                    box-sizing: border-box;
+                }
+                .hero-image {
+                    width: 100%;
+                    margin: 0 0 20px 0;
+                }
+                .hero-image img {
+                    border-radius: 0;
+                    width: 100%;
+                }
+                .prose {
+                    width: 100%;
+                    padding: 0 15px; /* Margen solo para el texto, no para la foto */
+                    box-sizing: border-box;
+                }
+                .title h1 {
+                    font-size: 2.2rem;
+                    line-height: 1.1;
+                    margin: 0.5em 0;
+                    word-wrap: break-word; /* Para que palabras largas no rompan la pantalla */
+                }
+                .date {
+                    margin-bottom: 0.5em;
+                }
             }
         </style>
     </head>

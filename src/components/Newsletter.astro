@@ -84,6 +84,30 @@
     .newsletter-form { flex-direction: column; }
     button.primary { padding: 1rem; }
   }
+  /* --- AJUSTES EXTRA PARA MÓVIL (NEWSLETTER) --- */
+  @media (max-width: 768px) {
+    .newsletter-card {
+      padding: 2rem 1.5rem; /* Reducimos el relleno asfixiante */
+      margin: 2rem 10px; /* Le damos un poco de aire por los lados */
+      border-left-width: 4px; /* Borde más fino en móvil */
+      box-sizing: border-box; /* Vital para que no se salga de la pantalla */
+    }
+    h3 {
+      font-size: 2rem; /* Título un pelín más pequeño */
+    }
+    .newsletter-form { 
+      flex-direction: column; 
+      width: 100%;
+    }
+    input {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    button.primary { 
+      width: 100%;
+      padding: 1rem; 
+    }
+  }
 </style>
 
 <script>
