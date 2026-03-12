@@ -1,0 +1,69 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+    <head>
+        <BaseHead title={`${title} - ${SITE_TITLE}`} description={description} />
+    </head>
+    <body>
+        <Header />
+        <main class="container">
+            <article class="legal-content">
+                <slot /> </article>
+        </main>
+        <Footer />
+    </body>
+</html>
+
+<style>
+    .container {
+        max-width: 800px; /* Más estrecho para que leer textos largos sea cómodo */
+        margin: 0 auto;
+        padding: 60px 20px;
+    }
+    .legal-content {
+        background: white;
+        padding: 50px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        border: 1px solid #eee;
+        line-height: 1.6;
+        color: #444;
+    }
+    /* Estilos para los textos que metamos dentro */
+    .legal-content :global(h1) {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 3rem;
+        margin-bottom: 30px;
+        color: #111;
+        text-transform: uppercase;
+        border-bottom: 4px solid #e30613;
+        display: inline-block;
+        padding-bottom: 10px;
+    }
+    .legal-content :global(h2) {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 2rem;
+        margin-top: 40px;
+        color: #111;
+        text-transform: uppercase;
+    }
+    .legal-content :global(p) {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+    }
+    .legal-content :global(strong) {
+        color: #111;
+    }
+    @media (max-width: 768px) {
+        .legal-content { padding: 30px 20px; }
+        .legal-content :global(h1) { font-size: 2.2rem; }
+    }
+</style>
