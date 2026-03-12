@@ -1,21 +1,39 @@
 ---
-// Componente Newsletter - trucos125.com
+// Componente Newsletter - trucos125.com (Conectado a MailerLite)
 ---
-<div class="newsletter-card">
-  <div class="content">
+<div class="newsletter-card ml-subscribe-form-38378151">
+  
+  <div class="content row-form">
     <span class="badge">COMUNIDAD TRUCOS125</span>
     <h3>¡No te pierdas ni un truco!</h3>
     <p>Únete a más de 500 moteros novatos y recibe consejos de mecánica, seguridad y ofertas en equipamiento cada semana.</p>
     
-    <form class="newsletter-form">
-      <input type="email" placeholder="Tu mejor email..." required />
-      <button type="submit">¡QUIERO UNIRME!</button>
+    <form class="newsletter-form ml-block-form" action="https://assets.mailerlite.com/jsonp/2184945/forms/181752705366099123/subscribe" data-code="" method="post" target="_blank">
+      
+      <input type="email" name="fields[email]" placeholder="Tu mejor email..." required autocomplete="email" />
+      
+      <input type="hidden" name="ml-submit" value="1">
+      <input type="hidden" name="anticsrf" value="true">
+      
+      <button type="submit" class="primary">¡QUIERO UNIRME!</button>
+      
+      <button disabled="disabled" style="display: none;" type="button" class="loading">
+        Enviando...
+      </button>
     </form>
     <p class="spam-free">🔒 Sin spam. Solo gas del bueno.</p>
   </div>
+
+  <div class="content row-success" style="display: none;">
+    <span class="badge">¡BINGO!</span>
+    <h3>¡Bienvenido a la familia!</h3>
+    <p>Te acabas de suscribir con éxito. Revisa tu bandeja de entrada (y la de spam por si acaso), en breve recibirás noticias.</p>
+  </div>
+
 </div>
 
 <style>
+  /* --- LOS MISMOS ESTILOS RACING DE SIEMPRE --- */
   .newsletter-card {
     background: #111;
     color: white;
@@ -26,8 +44,8 @@
     border-left: 8px solid #e30613;
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
   }
-  .badge { background: #e30613; padding: 5px 12px; font-weight: 900; font-size: 0.8rem; border-radius: 4px; }
-  h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 2.5rem; margin: 1rem 0; text-transform: uppercase; }
+  .badge { background: #e30613; padding: 5px 12px; font-weight: 900; font-size: 0.8rem; border-radius: 4px; display: inline-block; margin-bottom: 10px;}
+  h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 2.5rem; margin: 0 0 1rem 0; text-transform: uppercase; }
   p { font-size: 1.1rem; color: #ccc; max-width: 600px; margin: 0 auto 2rem; }
   
   .newsletter-form {
@@ -44,9 +62,10 @@
     border-radius: 8px;
     border: none;
     font-size: 1rem;
+    color: #111;
   }
   
-  button {
+  button.primary {
     background: #e30613;
     color: white;
     border: none;
@@ -59,11 +78,23 @@
     transition: transform 0.2s;
   }
   
-  button:hover { transform: scale(1.05); background: #be123c; }
+  button.primary:hover { transform: scale(1.05); background: #be123c; }
   .spam-free { font-size: 0.8rem; margin-top: 1rem; opacity: 0.6; }
 
   @media (max-width: 600px) {
     .newsletter-form { flex-direction: column; }
-    button { padding: 1rem; }
+    button.primary { padding: 1rem; }
   }
 </style>
+
+<script is:inline>
+  function ml_webform_success_38378151() {
+    var $ = ml_jQuery || jQuery;
+    $('.ml-subscribe-form-38378151 .row-success').show();
+    $('.ml-subscribe-form-38378151 .row-form').hide();
+  }
+</script>
+<script is:inline src="https://groot.mailerlite.com/js/w/webforms.min.js?v95037e5bac78f29ed026832ca21a7c7b" type="text/javascript"></script>
+<script is:inline>
+  fetch("https://assets.mailerlite.com/jsonp/2184945/forms/181752705366099123/takel");
+</script>
