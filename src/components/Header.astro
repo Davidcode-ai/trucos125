@@ -61,7 +61,7 @@ import HeaderLink from './HeaderLink.astro';
   }
 
   .logo-img {
-    width: 220px; /* Tamaño grande y fijo */
+    width: 220px;
     height: auto;
     max-height: 75px; 
     object-fit: contain;
@@ -78,15 +78,16 @@ import HeaderLink from './HeaderLink.astro';
     align-items: center;
   }
 
-  /* --- TEXTO DEL MENÚ BLINDADO EN TAMAÑO FIJO --- */
+  /* --- TEXTO DEL MENÚ BLINDADO (No se parte) --- */
   .nav-links :global(a) {
     font-family: 'Barlow Condensed', sans-serif;
     color: #111;
     text-decoration: none;
     font-weight: 800;
-    font-size: 18px !important; /* Obliga a que siempre mida 18px */
+    font-size: 18px !important; 
     text-transform: uppercase;
     transition: color 0.2s ease;
+    white-space: nowrap; /* Evita que SOBRE MÍ se parta en dos líneas */
   }
 
   .nav-links :global(a:hover),
@@ -105,21 +106,20 @@ import HeaderLink from './HeaderLink.astro';
 
   /* --- ESTILO ESPECIAL PARA EL BOTÓN DE CONTACTO --- */
   .nav-links :global(a[href="/contacto"]) {
-    background-color: #e30613; /* Fondo rojo */
-    color: #ffffff !important; /* Texto blanco puro */
+    background-color: #e30613; 
+    color: #ffffff !important; 
     padding: 10px 24px !important;
-    border-radius: 8px; /* Bordes redondeados */
-    margin-left: 15px; /* Lo separamos un poco del resto */
-    border-bottom: none !important; /* Quitamos la línea de abajo */
+    border-radius: 8px; 
+    margin-left: 15px; 
+    border-bottom: none !important; 
     transition: all 0.3s ease;
   }
 
-  /* Efecto al pasar el ratón por el botón de Contacto */
   .nav-links :global(a[href="/contacto"]:hover) {
-    background-color: #b30009; /* Rojo más oscuro */
+    background-color: #b30009; 
     color: #ffffff !important;
-    transform: translateY(-2px); /* Se levanta un poquito */
-    box-shadow: 0 4px 12px rgba(227, 6, 19, 0.3); /* Brillo rojo */
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 12px rgba(227, 6, 19, 0.3); 
   }
 
   /* --- RESPONSIVE (MÓVIL) --- */
@@ -129,7 +129,7 @@ import HeaderLink from './HeaderLink.astro';
     }
     
     .logo-img {
-      width: 160px; /* Tamaño móvil adaptado */
+      width: 160px; 
       height: auto;
     }
     
@@ -164,35 +164,32 @@ import HeaderLink from './HeaderLink.astro';
       box-sizing: border-box;
       display: block;
       text-align: center;
-      font-size: 16px !important; /* Blindado también en móvil */
+      font-size: 16px !important; 
+      margin: 0; /* Reseteamos margen en móvil */
     }
     
     .nav-links :global(a:last-child) {
       border-bottom: none;
     }
-  }
-   /* Estilo del botón Contacto en móvil */
+
+    /* Ajuste del botón Contacto en móvil */
     .nav-links :global(a[href="/contacto"]) {
-      margin: 15px;
+      margin: 15px auto;
       width: calc(100% - 30px) !important;
-      border-radius: 8px;
     }
+  }
 </style>
 
 <script>
-  /* Script blindado para que el menú móvil funcione al cambiar de página */
+  /* Script a prueba de fallos para menú móvil */
   document.addEventListener('astro:page-load', () => {
     const btn = document.querySelector('.mobile-menu-btn');
     const nav = document.querySelector('.nav-links');
     
     if (btn && nav) {
-      // Limpiamos eventos anteriores para evitar fallos
-      const newBtn = btn.cloneNode(true);
-      btn.parentNode.replaceChild(newBtn, btn);
-      
-      newBtn.addEventListener('click', () => {
+      btn.onclick = () => {
         nav.classList.toggle('open');
-      });
+      };
     }
   });
 </script>

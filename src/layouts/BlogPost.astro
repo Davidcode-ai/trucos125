@@ -16,11 +16,24 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     <head>
         <BaseHead title={title} description={description} />
         <style>
+            /* Reset y contenedor general */
             main {
-                width: calc(100% - 2em);
-                max-width: 100%;
+                width: 100%;
                 margin: 0;
+                padding: 0;
+                box-sizing: border-box;
             }
+            
+            /* Contenedor central ancho para PC */
+            article {
+                width: 100%;
+                max-width: 950px; /* Tamaño generoso en PC */
+                margin: 0 auto;
+                padding: 2rem 1.5rem;
+                box-sizing: border-box;
+                animation: fadeUp 0.6s ease-out forwards;
+            }
+
             .hero-image {
                 width: 100%;
             }
@@ -28,79 +41,82 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
                 display: block;
                 margin: 0 auto;
                 border-radius: 12px;
-                box-shadow: var(--box-shadow);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                width: 100%;
+                height: auto;
             }
+
+            /* Texto grande y legible para PC */
             .prose {
-                width: 720px;
-                max-width: calc(100% - 2em);
+                width: 100%;
                 margin: auto;
-                padding: 1em;
-                color: rgb(var(--gray-dark));
-            }
-            .title {
-                margin-bottom: 1em;
                 padding: 1em 0;
-                text-align: center;
-                line-height: 1;
+                color: #222;
+                font-size: 20px; /* Tamaño de lectura profesional */
+                line-height: 1.8;
             }
-            .title h1 {
-                margin: 0 0 0.5em 0;
-            }
-            .date {
-                margin-bottom: 0.5em;
-                color: rgb(var(--gray));
-            }
-            .last-updated-on {
-                font-style: italic;
-            }
-            /* --- ANIMACIÓN PREMIUM DE ENTRADA --- */
-            article {
-                animation: fadeUp 0.6s ease-out forwards;
-            }
-
-            @keyframes fadeUp {
-                from { opacity: 0; transform: translateY(30px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-
-            /* --- ARREGLOS PARA MÓVIL Y FLUIDEZ --- */
-            /* Forzamos a que las imágenes NUNCA se salgan de la pantalla del móvil */
+            
+            /* Arreglo imágenes dentro del artículo */
             .prose img {
                 max-width: 100% !important;
                 height: auto !important;
                 border-radius: 12px;
                 box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                margin: 2rem auto;
+                display: block;
+            }
+
+            .title {
+                margin-bottom: 2rem;
+                padding: 1em 0;
+                text-align: center;
+                line-height: 1.1;
+            }
+            .title h1 {
+                margin: 0 0 0.5em 0;
+                font-size: 3rem;
+                font-family: 'Barlow Condensed', sans-serif;
+                font-weight: 900;
+                text-transform: uppercase;
+            }
+            .date {
+                margin-bottom: 0.5em;
+                color: rgb(var(--gray));
+                font-size: 1.1rem;
+            }
+            .last-updated-on {
+                font-style: italic;
+            }
+
+            /* --- ANIMACIÓN PREMIUM DE ENTRADA --- */
+            @keyframes fadeUp {
+                from { opacity: 0; transform: translateY(30px); }
+                to { opacity: 1; transform: translateY(0); }
             }
 
             /* --- ARREGLOS DEFINITIVOS PARA MÓVIL --- */
             @media (max-width: 768px) {
                 body {
-                    overflow-x: hidden; /* Evita que la pantalla baile hacia los lados */
+                    overflow-x: hidden; 
                 }
-                main {
-                    width: 100%;
-                    padding: 0 !important;
-                    margin: 0 !important;
-                    box-sizing: border-box;
+                article {
+                    padding: 1rem 15px !important;
                 }
                 .hero-image {
-                    width: 100%;
                     margin: 0 0 20px 0;
                 }
                 .hero-image img {
                     border-radius: 0;
-                    width: 100%;
                 }
                 .prose {
-                    width: 100%;
-                    padding: 0 15px; /* Margen solo para el texto, no para la foto */
-                    box-sizing: border-box;
+                    font-size: 18px !important; /* En móvil un poco más pequeño */
+                    padding: 0; 
                 }
                 .title h1 {
                     font-size: 2.2rem;
                     line-height: 1.1;
                     margin: 0.5em 0;
-                    word-wrap: break-word; /* Para que palabras largas no rompan la pantalla */
+                    word-wrap: break-word; 
                 }
                 .date {
                     margin-bottom: 0.5em;
@@ -114,7 +130,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
         <main>
             <article>
                 <div class="hero-image">
-					{heroImage && <img width={1020} height={510} src={typeof heroImage === 'object' ? heroImage.src : heroImage} alt="" />}                </div>
+                    {heroImage && <img width={1020} height={510} src={typeof heroImage === 'object' ? heroImage.src : heroImage} alt="" />}                </div>
                 <div class="prose">
                     <div class="title">
                         <div class="date">
@@ -131,7 +147,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
                         <hr />
                     </div>
                     <slot />
-					<Newsletter />
+                    <Newsletter />
                     <div style="margin-top: 3rem; padding: 1rem; background: #f0f0f0; border-radius: 8px; text-align: center; font-size: 0.9em;">
                         <p>¿Te ha servido este truco? <a href="/blog">Lee más artículos aquí</a>.</p>
                     </div>
