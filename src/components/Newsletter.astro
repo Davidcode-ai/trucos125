@@ -8,8 +8,7 @@
     <h3>¡No te pierdas ni un truco!</h3>
     <p>Únete a más de 500 moteros novatos y recibe consejos de mecánica, seguridad y ofertas en equipamiento cada semana.</p>
     
-    <form class="newsletter-form ml-block-form" action="https://assets.mailerlite.com/jsonp/2184945/forms/181752705366099123/subscribe" data-code="" method="post" target="_blank">
-      
+    <form class="newsletter-form ml-block-form" action="https://assets.mailerlite.com/jsonp/2184945/forms/181752705366099123/subscribe" method="post">      
       <input type="email" name="fields[email]" placeholder="Tu mejor email..." required autocomplete="email" />
       
       <input type="hidden" name="ml-submit" value="1">
@@ -87,14 +86,48 @@
   }
 </style>
 
-<script is:inline>
-  function ml_webform_success_38378151() {
-    var $ = ml_jQuery || jQuery;
-    $('.ml-subscribe-form-38378151 .row-success').show();
-    $('.ml-subscribe-form-38378151 .row-form').hide();
-  }
-</script>
-<script is:inline src="https://groot.mailerlite.com/js/w/webforms.min.js?v95037e5bac78f29ed026832ca21a7c7b" type="text/javascript"></script>
-<script is:inline>
-  fetch("https://assets.mailerlite.com/jsonp/2184945/forms/181752705366099123/takel");
+<script>
+  // Interceptamos el formulario para que no nos saque de la web
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('.newsletter-form');
+    
+    // Comprobamos que el formulario existe y es de tipo Formulario
+    if (form instanceof HTMLFormElement) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault(); // Cortamos de raíz que te envíe a la página blanca
+        
+        const actionUrl = form.getAttribute('action') || '';
+        const formData = new FormData(form);
+        const btn = form.querySelector('button.primary');
+        
+        // Comprobamos que el botón existe y es de tipo Botón
+        if (btn instanceof HTMLButtonElement) {
+            // Cambiamos el texto del botón para que parezca que carga
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Enviando...';
+            btn.disabled = true;
+
+            // Enviamos los datos por detrás sin recargar
+            fetch(actionUrl, {
+              method: 'POST',
+              body: formData,
+              mode: 'no-cors' // Esto es vital para que MailerLite lo acepte
+            }).then(() => {
+              // Buscamos las cajas de contenido
+              const rowForm = document.querySelector('.row-form');
+              const rowSuccess = document.querySelector('.row-success');
+              
+              // Si existen, les cambiamos el estilo (ocultar una y mostrar otra)
+              if (rowForm instanceof HTMLElement) rowForm.style.display = 'none';
+              if (rowSuccess instanceof HTMLElement) rowSuccess.style.display = 'block';
+              
+            }).catch((err) => {
+              console.error(err);
+              btn.innerHTML = originalText;
+              btn.disabled = false;
+            });
+        }
+      });
+    }
+  });
 </script>
