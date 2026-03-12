@@ -1,111 +1,111 @@
 ---
-const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+import HeaderLink from './HeaderLink.astro';
+import { SITE_TITLE } from '../consts';
 ---
 
-<header class="header-wrapper">
-  <div class="top-bar">
-    <div class="container top-inner">
-      <span class="date">{today}</span>
-      <div class="top-menu">
-        <a href="/sobre-mi">SOBRE MÍ</a>
-        <a href="/contacto">CONTACTO</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="main-bar">
-    <div class="container main-inner">
-      <a href="/" class="logo">
-        TRUCOS<span class="red">125</span>
-      </a>
-
-      <nav class="desktop-nav">
-        <a href="/">Inicio</a>
-        <a href="/blog">Artículos</a>
-        <a href="/sobre-mi">Sobre mí</a>
-      </nav>
-
-      <a href="/contacto" class="btn-sub desktop-only">CONTACTAR</a>
-
-      <button class="hamburger" id="menuBtn" aria-label="Abrir menú">
-        <svg viewBox="0 0 24 24" width="30" height="30" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-      </button>
-    </div>
-  </div>
-
-  <nav class="mobile-nav" id="mobileNav">
-    <a href="/">Inicio</a>
-    <a href="/blog">Artículos</a>
-    <a href="/sobre-mi">Sobre mí</a>
-    <a href="/contacto">Contacto</a>
-  </nav>
+<header>
+	<nav>
+		<a href="/" class="logo-link">
+			<div class="css-logo">
+				<span class="logo-trucos">TRUCOS</span><span class="logo-125">125</span>
+			</div>
+		</a>
+		
+		<div class="internal-links">
+			<HeaderLink href="/">Inicio</HeaderLink>
+			<HeaderLink href="/blog">Artículos</HeaderLink>
+			<HeaderLink href="/sobre-mi">Sobre mí</HeaderLink>
+		</div>
+	</nav>
 </header>
 
 <style>
-  .header-wrapper {
-    position: sticky;
-    top: 0;
-    z-index: 9999;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    background: white; /* Añadido para que no se transparente al hacer scroll */
-  }
+	header {
+		margin: 0;
+		padding: 0 1em;
+		background: #111; /* Fondo negro Racing */
+		box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+		position: sticky; /* Se queda fijo arriba al hacer scroll */
+		top: 0;
+		z-index: 100;
+	}
 
-  /* Top Bar */
-  .top-bar { background: #1a1a1a; color: #ccc; font-size: 0.75rem; padding: 6px 0; text-transform: uppercase; font-weight: 700; }
-  .top-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-  .top-menu a { margin-left: 20px; color: #aaa; text-decoration: none; }
-  .top-menu a:hover { color: white; }
+	nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		max-width: 1280px;
+		margin: 0 auto;
+		height: 80px; /* Altura fija del menú */
+	}
 
-  /* Main Bar */
-  .main-bar { background: white; padding: 15px 0; border-bottom: 4px solid #e11d48; }
-  .main-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+	/* --- ESTILOS DEL LOGO POR CÓDIGO --- */
+	.logo-link {
+		text-decoration: none;
+	}
 
-  .logo { font-family: 'Barlow Condensed', sans-serif; font-size: 2.8rem; font-weight: 900; color: black; line-height: 0.8; letter-spacing: -1px; text-decoration: none; }
-  .logo .red { color: #e11d48; }
+	.css-logo {
+		font-family: 'Barlow Condensed', sans-serif;
+		font-size: 2.4rem;
+		font-weight: 900;
+		text-transform: uppercase;
+		font-style: italic; /* Da sensación de movimiento y velocidad */
+		letter-spacing: -1px; /* Letras un poco más juntas, más agresivo */
+		display: flex;
+		align-items: center;
+		transition: transform 0.2s ease;
+	}
 
-  .desktop-nav { display: flex; gap: 30px; }
-  .desktop-nav a { 
-    font-family: 'Barlow Condensed', sans-serif; font-size: 1.3rem; font-weight: 700; color: #1f2937; 
-    text-decoration: none; text-transform: uppercase;
-    position: relative;
-  }
-  .desktop-nav a:hover { color: #e11d48; }
+	.logo-link:hover .css-logo {
+		transform: scale(1.05) skewX(-5deg); /* Efecto "acelerón" al pasar el ratón */
+	}
 
-  .btn-sub {
-    background: black; color: white; font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
-    padding: 8px 20px; font-size: 1.1rem; transform: skew(-12deg);
-    text-decoration: none; display: inline-block;
-  }
-  .btn-sub:hover { background: #e11d48; }
+	.logo-trucos {
+		color: #ffffff; /* Blanco puro */
+	}
 
-  /* Elementos del Móvil */
-  .hamburger { display: none; background: none; border: none; cursor: pointer; color: black; }
-  .mobile-nav { display: none; background: white; border-bottom: 4px solid #e11d48; flex-direction: column; }
-  .mobile-nav a { padding: 15px 20px; text-decoration: none; color: black; font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 700; border-top: 1px solid #eee; text-transform: uppercase; }
-  .mobile-nav a:hover { background: #f9fafb; color: #e11d48; }
-  .mobile-nav.active { display: flex; } /* Clase que activa el menú en móvil */
+	.logo-125 {
+		color: #e30613; /* Rojo Racing */
+	}
 
-  /* RESPONSIVE: Cuando la pantalla es pequeña (Móvil) */
-  @media(max-width: 768px) {
-    .top-bar { display: none; }
-    .desktop-nav { display: none; }
-    .desktop-only { display: none; } /* Ocultamos el botón negro de contacto para dar espacio al logo */
-    .hamburger { display: block; }
-    .logo { font-size: 2.2rem; }
-  }
+	/* --- ENLACES DEL MENÚ --- */
+	.internal-links {
+		display: flex;
+		gap: 1em;
+	}
+
+	nav :global(a) {
+		padding: 10px 15px;
+		color: #fff;
+		text-decoration: none;
+		font-family: 'Barlow Condensed', sans-serif;
+		text-transform: uppercase;
+		font-weight: 700;
+		font-size: 1.1rem;
+		border-bottom: 4px solid transparent;
+		transition: all 0.2s;
+	}
+
+	nav :global(a:hover),
+	nav :global(a.active) {
+		color: #e30613; /* Rojo Racing */
+		border-bottom-color: #e30613;
+	}
+
+	/* --- RESPONSIVE MÓVIL --- */
+	@media (max-width: 768px) {
+		nav {
+			height: 60px; /* Menú más estrecho en móvil */
+		}
+		.css-logo {
+			font-size: 1.8rem; /* Logo más pequeño para que quepa bien en el móvil */
+		}
+		.internal-links {
+			gap: 5px;
+		}
+		nav :global(a) {
+			padding: 5px 8px;
+			font-size: 0.9rem;
+		}
+	}
 </style>
-
-<script>
-  // Programación del botón del móvil
-  const btn = document.getElementById('menuBtn');
-  const menu = document.getElementById('mobileNav');
-  if(btn && menu) {
-    btn.addEventListener('click', () => {
-      menu.classList.toggle('active');
-    });
-  }
-</script>
