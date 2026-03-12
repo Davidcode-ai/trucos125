@@ -2,7 +2,7 @@
 title: '5 Trucos legales para que tu 125cc corra más'
 description: '¿Tu moto de 125 se queda corta en autovía? Descubre estos trucos mecánicos baratos para ganar velocidad punta sin perder la garantía.'
 pubDate: "2026-03-11"
-heroImage: '../../assets/blog-placeholder-3.jpg'
+heroImage: '../../assets/moto-speed.jpg'
 ---
 
 Si tienes una moto de 125cc, seguramente te has encontrado con el "muro" de los 100-110 km/h. Aquí tienes 5 trucos básicos que puedes aplicar hoy mismo.
