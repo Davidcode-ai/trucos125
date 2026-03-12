@@ -55,8 +55,10 @@ import HeaderLink from './HeaderLink.astro';
   }
 
   .logo-img {
-    height: 45px; /* Altura perfecta para el logo */
-    width: auto;
+    width: 220px; /* Forzamos el ancho para que se vea bien grande */
+    height: auto;
+    max-height: 75px; /* Evita que se salga del menú blanco */
+    object-fit: contain; /* Ajusta la imagen sin deformarla */
     transition: transform 0.2s ease;
   }
   
@@ -101,7 +103,8 @@ import HeaderLink from './HeaderLink.astro';
     }
     
     .logo-img {
-      height: 35px; /* Logo un poco más pequeño en móvil */
+      width: 160px; /* Tamaño adaptado para que quepa en el móvil */
+      height: auto;
     }
     
     .mobile-menu-btn {
