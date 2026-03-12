@@ -19,16 +19,30 @@ const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', day: 'nu
         TRUCOS<span class="red">125</span>
       </a>
 
-      <nav>
+      <nav class="desktop-nav">
         <a href="/">Inicio</a>
-        <a href="/blog">Pruebas</a>
-        <a href="/blog">Mecánica</a>
+        <a href="/blog">Artículos</a>
         <a href="/sobre-mi">Sobre mí</a>
       </nav>
 
-      <a href="/contacto" class="btn-sub">CONTACTAR</a>
+      <a href="/contacto" class="btn-sub desktop-only">CONTACTAR</a>
+
+      <button class="hamburger" id="menuBtn" aria-label="Abrir menú">
+        <svg viewBox="0 0 24 24" width="30" height="30" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
     </div>
   </div>
+
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="/">Inicio</a>
+    <a href="/blog">Artículos</a>
+    <a href="/sobre-mi">Sobre mí</a>
+    <a href="/contacto">Contacto</a>
+  </nav>
 </header>
 
 <style>
@@ -37,6 +51,7 @@ const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', day: 'nu
     top: 0;
     z-index: 9999;
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    background: white; /* Añadido para que no se transparente al hacer scroll */
   }
 
   /* Top Bar */
@@ -55,7 +70,7 @@ const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', day: 'nu
   .desktop-nav { display: flex; gap: 30px; }
   .desktop-nav a { 
     font-family: 'Barlow Condensed', sans-serif; font-size: 1.3rem; font-weight: 700; color: #1f2937; 
-    text-decoration: none;
+    text-decoration: none; text-transform: uppercase;
     position: relative;
   }
   .desktop-nav a:hover { color: #e11d48; }
@@ -63,13 +78,34 @@ const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', day: 'nu
   .btn-sub {
     background: black; color: white; font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
     padding: 8px 20px; font-size: 1.1rem; transform: skew(-12deg);
-    text-decoration: none;
-    display: inline-block;
+    text-decoration: none; display: inline-block;
   }
   .btn-sub:hover { background: #e11d48; }
 
+  /* Elementos del Móvil */
+  .hamburger { display: none; background: none; border: none; cursor: pointer; color: black; }
+  .mobile-nav { display: none; background: white; border-bottom: 4px solid #e11d48; flex-direction: column; }
+  .mobile-nav a { padding: 15px 20px; text-decoration: none; color: black; font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 700; border-top: 1px solid #eee; text-transform: uppercase; }
+  .mobile-nav a:hover { background: #f9fafb; color: #e11d48; }
+  .mobile-nav.active { display: flex; } /* Clase que activa el menú en móvil */
+
+  /* RESPONSIVE: Cuando la pantalla es pequeña (Móvil) */
   @media(max-width: 768px) {
     .top-bar { display: none; }
     .desktop-nav { display: none; }
+    .desktop-only { display: none; } /* Ocultamos el botón negro de contacto para dar espacio al logo */
+    .hamburger { display: block; }
+    .logo { font-size: 2.2rem; }
   }
 </style>
+
+<script>
+  // Programación del botón del móvil
+  const btn = document.getElementById('menuBtn');
+  const menu = document.getElementById('mobileNav');
+  if(btn && menu) {
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('active');
+    });
+  }
+</script>
