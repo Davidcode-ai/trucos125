@@ -122,6 +122,35 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
                     margin-bottom: 0.5em;
                 }
             }
+            /* --- BLINDAJE ANTI-DESBORDAMIENTO (100% RESPONSIVE) --- */
+  
+            /* 1. Obligamos a TODOS los títulos a partirse si chocan con el borde */
+            :global(h1), :global(h2), :global(h3), :global(h4), :global(h5), :global(h6), :global(a) {
+                overflow-wrap: break-word !important;
+                word-wrap: break-word !important;
+                word-break: break-word !important;
+                max-width: 100% !important;
+                hyphens: auto;
+            }
+        
+            /* 2. Textos elásticos mágicos para móvil */
+            @media (max-width: 768px) {
+                /* El título principal del artículo */
+                .title h1 {
+                    font-size: clamp(1.8rem, 8vw, 2.5rem) !important; 
+                    line-height: 1.1 !important;
+                }
+                
+                /* Los subtítulos dentro del texto (H2 y H3) */
+                .prose :global(h2) {
+                    font-size: clamp(1.5rem, 6vw, 2rem) !important;
+                    line-height: 1.2 !important;
+                }
+                
+                .prose :global(h3) {
+                    font-size: clamp(1.3rem, 5vw, 1.7rem) !important;
+                }
+            }
         </style>
     </head>
 
