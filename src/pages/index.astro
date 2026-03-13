@@ -269,7 +269,12 @@ const postConsejos = allPosts.find(p => p.id.includes('scooter') || p.id.include
         .side-story { height: 250px; }
         
         .overlay h1 { font-size: 2rem; }
-        
+
+		.section-title h2 { 
+            font-size: 1.8rem; /* Hacemos la letra un poco más pequeña */
+            white-space: normal; /* Le damos permiso para saltar a la línea de abajo */
+            line-height: 1.1; 
+        }
         .news-grid {
             grid-template-columns: 1fr; 
         }
