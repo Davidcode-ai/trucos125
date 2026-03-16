@@ -2,44 +2,58 @@
 const today = new Date();
 ---
 
-<footer>
-	&copy; {today.getFullYear()} trucos125.com. Todos los derechos reservados.
-	
-	<div class="legal-links">
-		<a href="/aviso-legal">Aviso Legal</a>
-		<span>|</span>
-		<a href="/privacidad">Política de Privacidad</a>
-		<span>|</span>
-		<a href="/cookies">Política de Cookies</a>
-	</div>
+<footer class="site-footer">
+    <div class="footer-content">
+        <p>&copy; {today.getFullYear()} Trucos125.com - Todos los derechos reservados.</p>
+        <nav class="legal-links">
+            <a href="/aviso-legal">Aviso Legal</a>
+            <span class="separator">|</span>
+            <a href="/privacidad">Política de Privacidad</a>
+            <span class="separator">|</span>
+            <a href="/cookies">Política de Cookies</a>
+        </nav>
+    </div>
 </footer>
 
 <style>
-	footer {
-		padding: 2em 1em 6em 1em;
-		background: linear-gradient(var(--gray-light) 0%, transparent 100%);
-		color: rgb(var(--gray));
-		text-align: center;
-	}
-	.legal-links {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-wrap: wrap;
-		gap: 0.5em 1em;
-		margin-top: 1em;
-		font-size: 0.85em;
-	}
-	.legal-links a {
-		color: rgb(var(--gray));
-		text-decoration: none;
-		transition: color 0.2s ease;
-	}
-	.legal-links a:hover {
-		color: rgb(var(--black));
-		text-decoration: underline;
-	}
-	.legal-links span {
-		color: rgb(var(--gray-light));
-	}
+    .site-footer {
+        background-color: #111;
+        color: #f8f9fa;
+        padding: 40px 20px;
+        margin-top: 60px;
+        text-align: center;
+        border-top: 5px solid #e30613;
+    }
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    p {
+        margin: 0;
+        font-size: 1rem;
+        color: #ccc;
+    }
+    .legal-links {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    .legal-links a {
+        color: #999;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.2s ease;
+    }
+    .legal-links a:hover {
+        color: #e30613;
+    }
+    .separator {
+        color: #555;
+    }
 </style>
