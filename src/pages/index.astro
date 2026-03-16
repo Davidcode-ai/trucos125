@@ -128,11 +128,25 @@ const postConsejos = allPosts.find(p => p.id.includes('scooter') || p.id.include
                                     </a>
                                     <div class="card-content">
                                         <h3>{post.data.title}</h3>
+                                        <p class="comment-count">
+                                            <a href={`/blog/${post.id}/#disqus_thread`}>0 Comentarios</a>
+                                        </p>
                                     </div>
                                 </article>
                             ))
                         }
                     </div>
+                    <style>
+                        /* Añade esto al final de tu bloque <style> */
+                        .comment-count { margin-top: 5px; }
+                        .comment-count a {
+                            font-size: 0.85rem;
+                            color: #e30613;
+                            text-decoration: none;
+                            font-weight: 700;
+                            font-family: 'Barlow Condensed', sans-serif;
+                        }
+                    </style>
                 </section>
 
             </div>

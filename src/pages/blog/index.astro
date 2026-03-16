@@ -40,9 +40,23 @@ const posts = (await getCollection('blog')).sort(
                                     <div class="post-content">
                                         <p class="date">
                                             <FormattedDate date={post.data.pubDate} />
+                                            <span class="sep">|</span>
+                                            <a href={`/blog/${post.id}/#disqus_thread`} class="comment-link">0 Comentarios</a>
                                         </p>
                                         <h4 class="title">{post.data.title}</h4>
                                     </div>
+                                    <style>
+                                        /* Añade estos estilos a tu bloque <style> existente */
+                                        .sep { margin: 0 8px; color: #ddd; }
+                                        .comment-link {
+                                            color: #e30613;
+                                            text-decoration: none;
+                                            transition: color 0.2s;
+                                        }
+                                        .post-card:hover .comment-link {
+                                            text-decoration: underline;
+                                        }
+                                    </style>
                                 </a>
                             </li>
                         ))
