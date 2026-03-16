@@ -106,7 +106,24 @@ import { SITE_TITLE } from '../consts';
   }
 
   @media(max-width: 768px) {
-    .forum-layout { grid-template-columns: 1fr; }
+    /* Cambiamos el grid por flexbox en móvil para poder reordenar fácilmente */
+    .forum-layout { 
+        display: flex; 
+        flex-direction: column; 
+        gap: 20px;
+    }
+    
+    /* ¡LA MAGIA! Le decimos que las normas vayan primero (-1) */
+    .forum-sidebar { 
+        order: -1; 
+    }
+    
+    /* Y el chat de Disqus se pone debajo (1) */
+    .forum-topics { 
+        order: 1; 
+        padding: 20px; /* Reducimos un poco el padding en móvil para que respire mejor */
+    }
+
     .forum-header h1 { font-size: 2.5rem; }
   }
 </style>
