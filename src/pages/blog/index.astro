@@ -41,7 +41,7 @@ const posts = (await getCollection('blog')).sort(
                                         <p class="date">
                                             <FormattedDate date={post.data.pubDate} />
                                             <span class="sep">|</span>
-                                            <a href={`/blog/${post.id}/#disqus_thread`} class="comment-link">0 Comentarios</a>
+                                            <span class="comment-link">0 Comentarios</span>
                                         </p>
                                         <h4 class="title">{post.data.title}</h4>
                                     </div>
@@ -157,7 +157,8 @@ const posts = (await getCollection('blog')).sort(
         text-transform: uppercase;
         font-weight: 700;
         letter-spacing: 1px;
-        display: flex; /* Para alinear bien el separador y el link */
+        /* Para alinear el contador con la fecha */
+        display: flex;
         align-items: center;
     }
     .title {
@@ -173,19 +174,12 @@ const posts = (await getCollection('blog')).sort(
         color: #e30613;
     }
 
-    /* --- ESTILOS DE COMENTARIOS AÑADIDOS --- */
-    .sep { margin: 0 8px; color: #ddd; }
-    
+    /* --- ESTILOS EXCLUSIVOS DEL CONTADOR --- */
+    .sep { margin: 0 8px; color: #ddd; font-weight: normal; }
     .comment-link {
         color: #e30613;
-        text-decoration: none;
-        transition: color 0.2s;
-        text-transform: none; /* Para que no sea todo mayúsculas como la fecha */
-        font-weight: 600;
-    }
-    
-    .post-card:hover .comment-link {
-        text-decoration: underline;
+        font-weight: 800;
+        transition: text-decoration 0.2s;
     }
 
     /* --- RESPONSIVE --- */
