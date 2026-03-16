@@ -23,13 +23,18 @@ const posts = (await getCollection('blog')).sort(
                 <h1>TODOS LOS ARTÍCULOS</h1>
                 <div class="title-line"></div>
                 <p>Pruebas, tutoriales de mecánica y consejos legales para dominar tu 125cc.</p>
+                
+                <div class="search-wrapper">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="buscador-articulos" placeholder="Buscar trucos, modelos, ITV..." autocomplete="off" />
+                </div>
             </section>
 
             <section>
-                <ul class="blog-grid">
+                <ul class="blog-grid" id="lista-articulos">
                     {
                         posts.map((post) => (
-                            <li>
+                            <li class="articulo-item">
                                 <article class="post-card">
                                     <a href={`/blog/${post.id}/`} class="img-container">
                                         {post.data.heroImage ? (
@@ -55,9 +60,46 @@ const posts = (await getCollection('blog')).sort(
                         ))
                     }
                 </ul>
+                <div id="no-resultados" style="display: none; text-align: center; padding: 40px; color: #666; font-size: 1.2rem;">
+                    No hemos encontrado ningún artículo con esa palabra. ¡Prueba con otra! 🏍️
+                </div>
             </section>
         </main>
         <Footer />
+
+        <script is:inline>
+            document.addEventListener('astro:page-load', () => {
+                const buscador = document.getElementById('buscador-articulos');
+                const articulos = document.querySelectorAll('.articulo-item');
+                const mensajeVacio = document.getElementById('no-resultados');
+
+                if (buscador) {
+                    buscador.addEventListener('input', (e) => {
+                        const textoBusqueda = e.target.value.toLowerCase();
+                        let contadorVisibles = 0;
+
+                        articulos.forEach(articulo => {
+                            // Busca dentro del título de cada tarjeta
+                            const titulo = articulo.querySelector('.title').textContent.toLowerCase();
+                            
+                            if (titulo.includes(textoBusqueda)) {
+                                articulo.style.display = 'block';
+                                contadorVisibles++;
+                            } else {
+                                articulo.style.display = 'none';
+                            }
+                        });
+
+                        // Mostrar mensaje si no hay resultados
+                        if (contadorVisibles === 0) {
+                            mensajeVacio.style.display = 'block';
+                        } else {
+                            mensajeVacio.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        </script>
     </body>
 </html>
 
@@ -85,13 +127,44 @@ const posts = (await getCollection('blog')).sort(
     .title-line {
         width: 80px;
         height: 5px;
-        background-color: #e30613; /* Rojo racing */
+        background-color: #e30613;
         margin: 15px auto;
     }
     .page-header p {
         color: #555;
         font-size: 1.2rem;
         font-weight: 500;
+        margin-bottom: 30px;
+    }
+
+    /* --- ESTILOS DEL BUSCADOR --- */
+    .search-wrapper {
+        position: relative;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    .search-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #888;
+    }
+    #buscador-articulos {
+        width: 100%;
+        padding: 16px 20px 16px 50px;
+        font-size: 1.1rem;
+        border: 2px solid #eee;
+        border-radius: 50px;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+        outline: none;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        font-family: inherit;
+    }
+    #buscador-articulos:focus {
+        border-color: #e30613;
+        box-shadow: 0 4px 20px rgba(227, 6, 19, 0.1);
     }
 
     /* --- GRID DE ARTÍCULOS --- */
@@ -121,7 +194,6 @@ const posts = (await getCollection('blog')).sort(
         box-shadow: 0 15px 30px rgba(0,0,0,0.12);
     }
 
-    /* Quitar subrayado a los nuevos enlaces */
     .img-container, .title-link {
         text-decoration: none;
     }
@@ -132,7 +204,7 @@ const posts = (await getCollection('blog')).sort(
         overflow: hidden;
         background-color: #111; 
         position: relative;
-        display: block; /* Necesario para que el enlace ocupe todo el bloque */
+        display: block;
     }
     .img-container img {
         width: 100%;
@@ -199,5 +271,6 @@ const posts = (await getCollection('blog')).sort(
     @media (max-width: 768px) {
         .page-header h1 { font-size: 2.8rem; }
         .blog-grid { gap: 20px; }
+        .search-wrapper { padding: 0 10px; }
     }
 </style>
