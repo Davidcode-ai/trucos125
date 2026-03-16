@@ -58,4 +58,13 @@ const { title, description, image = FallbackImage } = Astro.props;
 <ViewTransitions />
 
 <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3576421202416487" crossorigin="anonymous"></script>
+
 <script id="dsq-count-scr" src="//trucos125.disqus.com/count.js" async></script>
+
+<script is:inline>
+    document.addEventListener('astro:page-load', () => {
+        if (typeof DISQUSWIDGETS !== 'undefined') {
+            DISQUSWIDGETS.getCount({reset: true});
+        }
+    });
+</script>

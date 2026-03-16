@@ -189,18 +189,32 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
                     <slot />
 
                     <div id="disqus_thread" style="margin-top: 60px; padding-top: 30px; border-top: 4px solid #e30613;"></div>
-                    <script is:inline>
-                        var disqus_config = function () {
-                            this.page.url = window.location.href;  
-                            this.page.identifier = window.location.pathname; 
-                        };
-                        (function() { 
+                <script is:inline>
+                    // Le decimos al navegador que ejecute esto cada vez que Astro carga una nueva vista
+                    document.addEventListener('astro:page-load', () => {
+
+                        // Si no hay caja de comentarios en esta página, no hacemos nada
+                        const disqusThread = document.getElementById('disqus_thread');
+                        if (!disqusThread) return;
+                    
+                        // Si Disqus ya estaba cargado de antes, lo reseteamos con la nueva URL
+                        if (window.DISQUS) {
+                            window.DISQUS.reset({
+                                reload: true,
+                                config: function () {
+                                    this.page.url = window.location.href;
+                                    this.page.identifier = window.location.pathname;
+                                }
+                            });
+                        } else {
+                            // Si es la primera vez que entramos, cargamos el script desde cero
                             var d = document, s = d.createElement('script');
-                            s.src = 'https://trucos125.disqus.com/embed.js';
+                            s.src = 'https://trucos125.disqus.com/embed.js'; // Tu enlace de Disqus
                             s.setAttribute('data-timestamp', +new Date());
                             (d.head || d.body).appendChild(s);
-                        })();
-                    </script>
+                        }
+                    });
+                </script>
                     <noscript>Por favor, activa JavaScript para ver los <a href="https://disqus.com/?ref_noscript">comentarios.</a></noscript>
                     <Newsletter />
                     <div style="margin-top: 3rem; padding: 1rem; background: #f0f0f0; border-radius: 8px; text-align: center; font-size: 0.9em;">
