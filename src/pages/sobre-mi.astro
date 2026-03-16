@@ -2,63 +2,181 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE } from '../consts';
-
-// Aquí puedes poner una foto tuya en /public/yo.jpg
-const myPhoto = "/sobre-mi.jpg"; 
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { Image } from 'astro:assets';
+// Importamos tu foto. Asegúrate de que el archivo 'yo.jpg' esté en 'src/assets/'
+import fotoPerfil from '../assets/yo.jpg'; 
 ---
 
+<!doctype html>
 <html lang="es">
-	<head>
-		<BaseHead title={`Sobre mí - ${SITE_TITLE}`} description="Quién está detrás de trucos125" />
-	</head>
-	<body>
-		<Header />
-		<main class="container">
-			<div class="about-grid">
-				<div class="image-box">
-					<img src={myPhoto} alt="Creador de Trucos125" />
-					<div class="experience-badge">10+ AÑOS EN DOS RUEDAS</div>
-				</div>
-				<div class="text-box">
-					<span class="subtitle">La historia detrás del casco</span>
-					<h1>POR QUÉ CREÉ TRUCOS125</h1>
-					<p>Empecé en el mundo de las motos por pura necesidad: <strong>odiaba los atascos</strong>. Como muchos de vosotros, el coche se convirtió en una cárcel de metal y la 125cc fue mi llave de salida.</p>
-					<p>Trucos125 nació para ayudar a todos esos conductores de coche que, como yo en su día, tienen mil dudas: ¿Qué moto compro? ¿Es peligroso? ¿Cómo se mantiene? Aquí cuento la verdad sin rodeos de taller.</p>
-					<div class="signature">Gas y prudencia, compañeros.</div>
-				</div>
-			</div>
-		</main>
-		<Footer />
-	</body>
+    <head>
+        <BaseHead title={`Sobre Mí | ${SITE_TITLE}`} description="Conoce al motero detrás de Trucos125" />
+    </head>
+    <body class="page-wrapper">
+        <Header />
+        
+        <main class="container">
+            <section class="about-hero">
+                <div class="photo-container">
+                    {fotoPerfil ? (
+                        <Image 
+                            src={fotoPerfil} 
+                            alt="El autor de Trucos125" 
+                            width={300} 
+                            height={300} 
+                            quality="max"
+                            class="profile-photo"
+                            format="webp"
+                        />
+                    ) : (
+                        <div style="width:180px; height:180px; background:#ddd; border-radius:50%;"></div>
+                    )}
+                </div>
+                
+                <div class="hero-content">
+                    <span class="badge">EL AUTOR</span>
+                    <h1>¡Hola! Soy el <span class="highlight">Truquero</span> Mayor</h1>
+                    <p class="subtitle">Apasionado de las dos ruedas y experto en exprimir las 125cc.</p>
+                </div>
+            </section>
+
+            <section class="about-story">
+                <div class="prose">
+                    <h2>¿Por qué Trucos125?</h2>
+                    <p>Todo empezó con mi primera 125cc. Me di cuenta de que había muchísima información para "motos grandes", pero el mundo de las octavo de litro estaba un poco olvidado. Había novatos (como yo en ese entonces) con mil dudas sobre mecánica básica, mantenimiento y seguridad.</p>
+                    <p>Trucos125 nació con una misión clara: ser la guía definitiva, sincera y práctica para todos los que empiezan o disfrutan de la agilidad y diversión de una moto de 125cc. Aquí no encontrarás tecnicismos complicados, solo consejos que funcionan, de motero a motero.</p>
+                    
+                    <h3>Mi Filosofía</h3>
+                    <blockquote class="racing-quote">
+                        <p>"No importa la cilindrada, lo que importa es la pasión y el respeto por la carretera. Rodar seguro es rodar divertido."</p>
+                    </blockquote>
+                    <p>En este blog, priorizo la seguridad y el mantenimiento correcto. Aprenderás a cuidar tu moto para que dure años y a conducirla con confianza, ya sea entre el tráfico de la ciudad o en tu primera ruta por curvas.</p>
+                    
+                    <a href="/contacto" class="btn-cta">¿Hablamos? Escríbeme</a>
+                </div>
+            </section>
+        </main>
+        
+        <Footer />
+    </body>
 </html>
 
 <style>
-	.container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
-	.about-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 60px; align-items: center; }
-	
-	.image-box { position: relative; }
-	.image-box img { width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 5px solid white; }
-	
-	.experience-badge {
-		position: absolute; bottom: -20px; right: -20px;
-		background: #e30613; color: white; padding: 15px 25px;
-		font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
-		border-radius: 10px; transform: rotate(-3deg);
-	}
+    /* --- ESTILOS GLOBALES PARA FORZAR EL FOOTER ABAJO (REMEDIO DEFINITIVO) --- */
+    :global(html), :global(body) {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+    }
 
-	.subtitle { color: #e30613; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
-	.text-box h1 { font-family: 'Barlow Condensed', sans-serif; font-size: 4rem; font-weight: 900; line-height: 0.9; margin: 15px 0 30px; }
-	.text-box p { font-size: 1.2rem; line-height: 1.6; color: #444; margin-bottom: 20px; }
-	.signature { font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 800; color: #111; margin-top: 40px; font-style: italic; }
+    /* --- ESTILOS DE LA PÁGINA (RESPECTANDO TU DISEÑO) --- */
+    .page-wrapper {
+        min-height: 100vh; /* Ocupa al menos el 100% de la altura de la pantalla */
+    }
 
-	@media (max-width: 768px) {
-		.about-grid { grid-template-columns: 1fr; }
-		.text-box h1 { font-size: 3rem; }
-		.image-box { margin-bottom: 40px; }
-	}
+    .container {
+        flex: 1; /* Esto empuja el footer hacia abajo si hay poco contenido */
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 60px 20px;
+        box-sizing: border-box;
+    }
 
-	html, body { height: 100%; margin: 0; }
-    .page-wrapper { display: flex; flex-direction: column; min-height: 100vh; }
-    main { flex: 1; }
+    /* Sección Hero (Foto y Título principal) */
+    .about-hero {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        margin-bottom: 60px;
+        padding-bottom: 40px;
+        border-bottom: 2px solid #eee;
+    }
+
+    /* ESTILO "TOP" PARA TU FOTO `yo.jpg` */
+    .photo-container {
+        flex-shrink: 0; /* Evita que la foto se encoja */
+    }
+    
+    .profile-photo {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%; /* Recorte circular perfecto */
+        object-fit: cover; /* Asegura que la imagen llene el círculo sin deformarse */
+        border: 5px solid #fff; /* Borde blanco grueso */
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15); /* Sombra elegante */
+        transition: transform 0.3s ease;
+    }
+    .profile-photo:hover {
+        transform: scale(1.05) rotate(2deg); /* Pequeño efecto al pasar el ratón */
+    }
+
+    .hero-content {
+        flex: 1;
+    }
+    .badge { background: #111; color: white; padding: 5px 12px; font-weight: 800; text-transform: uppercase; font-size: 0.8rem; border-radius: 4px; display: inline-block; margin-bottom: 10px; }
+    h1 { font-family: 'Barlow Condensed', sans-serif; font-size: 3rem; font-weight: 900; margin: 0 0 10px 0; line-height: 1.1; text-transform: uppercase; }
+    .highlight { color: #e30613; }
+    .subtitle { font-size: 1.3rem; color: #555; margin: 0; font-weight: 600; }
+
+    /* Sección de la historia (Contenido Markdown-style) */
+    .prose {
+        color: #333;
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+    .prose h2, .prose h3 { font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; font-weight: 800; color: #111; }
+    .prose h2 { font-size: 2.2rem; margin-top: 0; }
+    .prose h3 { font-size: 1.8rem; margin-top: 30px; }
+    .prose p { margin-bottom: 1.5rem; }
+
+    /* Cita destacada (Racing Style) */
+    .racing-quote {
+        margin: 30px 0;
+        padding: 20px 30px;
+        background-color: #f9f9f9;
+        border-left: 5px solid #e30613;
+        border-radius: 4px;
+        font-style: italic;
+    }
+    .racing-quote p {
+        font-size: 1.2rem;
+        color: #e30613;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    /* Botón CTA al final */
+    .btn-cta {
+        display: inline-block;
+        background: #111;
+        color: white;
+        text-decoration: none;
+        padding: 12px 24px;
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 800;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        border-radius: 6px;
+        transition: background 0.2s, transform 0.2s;
+        margin-top: 20px;
+    }
+    .btn-cta:hover { background: #e30613; transform: translateY(-2px); }
+
+    /* Responsive para móvil */
+    @media (max-width: 768px) {
+        .about-hero {
+            flex-direction: column;
+            text-align: center;
+            gap: 20px;
+        }
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+        }
+        h1 { font-size: 2.2rem; }
+        .prose { font-size: 1rem; }
+    }
 </style>
