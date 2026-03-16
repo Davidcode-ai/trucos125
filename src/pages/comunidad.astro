@@ -8,7 +8,7 @@ import { SITE_TITLE } from '../consts';
 <!doctype html>
 <html lang="es">
   <head>
-    <BaseHead title={`Comunidad - ${SITE_TITLE}`} description="Foro de discusión sobre motos 125cc" />
+    <BaseHead title={`Comunidad - ${SITE_TITLE}`} description="El punto de encuentro para todos los moteros de 125cc." />
   </head>
   <body>
     <Header />
@@ -16,74 +16,22 @@ import { SITE_TITLE } from '../consts';
       
       <div class="forum-header">
         <h1>COMUNIDAD TRUCOS125</h1>
-        <p>Resuelve tus dudas mecánicas, comparte tu moto y ayuda a otros.</p>
+        <p>El garaje digital. Pregunta tus dudas mecánicas, presenta tu nueva moto o ayuda a otros compañeros.</p>
       </div>
 
       <div class="forum-layout">
         <div class="forum-topics">
-          
-          <div class="topic-card pinned">
-            <div class="topic-icon">📢</div>
-            <div class="topic-info">
-              <h3><a href="#">NORMAS DE LA COMUNIDAD</a></h3>
-              <p>Lectura obligatoria antes de postear.</p>
-            </div>
-            <div class="topic-stats">
-              <span>Fijo</span>
-            </div>
-          </div>
-
-          <div class="topic-card">
-            <div class="topic-icon">🔧</div>
-            <div class="topic-info">
-              <h3><a href="#">Mi Yamaha MT125 hace un ruido raro al arrancar</a></h3>
-              <p class="topic-meta">Por: Rider125 • en Mecánica</p>
-            </div>
-            <div class="topic-stats">
-              <span class="replies">12 respuestas</span>
-              <span class="last-active">Hace 10 min</span>
-            </div>
-          </div>
-
-          <div class="topic-card">
-            <div class="topic-icon">👮</div>
-            <div class="topic-info">
-              <h3><a href="#">Duda ITV: ¿Pasa el portamatrículas corto?</a></h3>
-              <p class="topic-meta">Por: MarcMarquezFan • en Legal</p>
-            </div>
-            <div class="topic-stats">
-              <span class="replies">54 respuestas</span>
-              <span class="last-active">Hace 1 hora</span>
-            </div>
-          </div>
-
-          <div class="topic-card">
-            <div class="topic-icon">🏍️</div>
-            <div class="topic-info">
-              <h3><a href="#">Presentación: Mi nueva Duke 125 2026</a></h3>
-              <p class="topic-meta">Por: NewBie • en General</p>
-            </div>
-            <div class="topic-stats">
-              <span class="replies">8 respuestas</span>
-              <span class="last-active">Ayer</span>
-            </div>
-          </div>
-
+            <div id="disqus_thread"></div>
         </div>
 
         <aside class="forum-sidebar">
           <div class="widget">
-            <h4>CREAR TEMA</h4>
-            <p>¿Tienes una duda?</p>
-            <a href="#" class="btn-new-topic">NUEVO HILO</a>
-          </div>
-
-          <div class="widget stats">
-            <h4>ESTADÍSTICAS</h4>
-            <ul>
-              <li><strong>Usuarios:</strong> 1,240</li>
-              <li><strong>Temas:</strong> 450</li>
-              <li><strong>Mensajes:</strong> 3,200</li>
+            <h4>📢 NORMAS DEL GARAJE</h4>
+            <ul class="rules-list">
+              <li><strong>1. Respeto ante todo:</strong> Aquí todos estamos para aprender y disfrutar.</li>
+              <li><strong>2. Usa el buscador:</strong> Si tienes una duda técnica muy específica, mira primero en el Blog.</li>
+              <li><strong>3. ¡Sube fotos!:</strong> Nos encanta ver vuestras 125cc. Cuando comentes, dale al icono de la imagen y presume de máquina.</li>
+              <li><strong>4. Cero Spam:</strong> Los enlaces de venta o publicidad serán borrados.</li>
             </ul>
           </div>
         </aside>
@@ -91,55 +39,74 @@ import { SITE_TITLE } from '../consts';
 
     </main>
     <Footer />
+
+    <script is:inline>
+        document.addEventListener('astro:page-load', () => {
+            const disqusThread = document.getElementById('disqus_thread');
+            if (!disqusThread) return;
+
+            if (window.DISQUS) {
+                window.DISQUS.reset({
+                    reload: true,
+                    config: function () {
+                        this.page.url = window.location.href;
+                        this.page.identifier = 'comunidad-general'; // Identificador único para el foro
+                    }
+                });
+            } else {
+                var d = document, s = d.createElement('script');
+                s.src = 'https://trucos125.disqus.com/embed.js'; 
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            }
+        });
+    </script>
   </body>
 </html>
 
 <style>
   body { background-color: #f4f4f4; }
-  main { padding-top: 40px; padding-bottom: 60px; }
+  main { padding-top: 40px; padding-bottom: 60px; min-height: 80vh; }
 
   .forum-header {
     background: white; padding: 40px; border-radius: 8px; margin-bottom: 30px;
-    border-left: 5px solid var(--moto-red); box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border-left: 5px solid #e30613; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   }
-  .forum-header h1 { font-size: 2.5rem; color: #111; margin-bottom: 10px; }
-  .forum-header p { font-size: 1.1rem; color: #666; }
+  .forum-header h1 { font-size: 3rem; color: #111; margin-bottom: 10px; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; letter-spacing: -1px;}
+  .forum-header p { font-size: 1.2rem; color: #555; font-weight: 500;}
 
   .forum-layout { display: grid; grid-template-columns: 3fr 1fr; gap: 30px; }
 
-  /* TARJETAS DE TEMA */
-  .topic-card {
-    background: white; padding: 20px; display: flex; align-items: center; gap: 20px;
-    border-bottom: 1px solid #eee; transition: 0.2s;
+  .forum-topics {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   }
-  .topic-card:first-child { border-top-left-radius: 8px; border-top-right-radius: 8px; }
-  .topic-card:last-child { border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; }
-  .topic-card:hover { background: #fafafa; border-left: 3px solid var(--moto-red); padding-left: 17px; }
-  
-  .pinned { background: #fffbe6; border-left: 3px solid #ffd700; }
-
-  .topic-icon { font-size: 1.5rem; background: #f4f4f4; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
-  
-  .topic-info { flex: 1; }
-  .topic-info h3 { font-size: 1.2rem; margin-bottom: 5px; font-family: 'Roboto', sans-serif; font-weight: 700; }
-  .topic-meta { font-size: 0.85rem; color: #888; }
-
-  .topic-stats { text-align: right; display: flex; flex-direction: column; font-size: 0.8rem; color: #666; }
-  .replies { font-weight: 700; color: #111; }
 
   /* SIDEBAR */
-  .widget { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-  .widget h4 { margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 10px; color: #111; }
+  .widget { background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-top: 4px solid #111;}
+  .widget h4 { margin-top: 0; margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 10px; color: #111; font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem;}
   
-  .btn-new-topic {
-    display: block; text-align: center; background: var(--moto-red); color: white;
-    font-weight: 700; padding: 12px; border-radius: 4px; font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem;
+  .rules-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
   }
-  .btn-new-topic:hover { background: black; }
-
-  .stats ul li { padding: 8px 0; border-bottom: 1px solid #f9f9f9; display: flex; justify-content: space-between; }
+  .rules-list li {
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.5;
+  }
+  .rules-list li strong {
+      display: block;
+      color: #111;
+      margin-bottom: 3px;
+  }
 
   @media(max-width: 768px) {
     .forum-layout { grid-template-columns: 1fr; }
+    .forum-header h1 { font-size: 2.5rem; }
   }
 </style>

@@ -29,6 +29,7 @@ import HeaderLink from './HeaderLink.astro';
     <nav class="nav-links">
       <HeaderLink href="/">Inicio</HeaderLink>
       <HeaderLink href="/blog">Artículos</HeaderLink>
+      <HeaderLink href="/comunidad">Comunidad</HeaderLink>
       <HeaderLink href="/sobre-mi">Sobre mí</HeaderLink>
       <HeaderLink href="/contacto">Contacto</HeaderLink>
     </nav>
@@ -95,7 +96,7 @@ import HeaderLink from './HeaderLink.astro';
     font-size: 18px !important; 
     text-transform: uppercase;
     transition: color 0.2s ease;
-    white-space: nowrap; /* Evita que SOBRE MÍ se parta en dos líneas */
+    white-space: nowrap; 
   }
 
   .nav-links :global(a:hover),
@@ -162,7 +163,7 @@ import HeaderLink from './HeaderLink.astro';
     }
     
     .nav-links.open {
-      max-height: 350px; 
+      max-height: 400px; /* Aumentado para que quepa el nuevo botón sin cortarse */
     }
     
     .nav-links :global(a) {
@@ -173,7 +174,7 @@ import HeaderLink from './HeaderLink.astro';
       display: block;
       text-align: center;
       font-size: 16px !important; 
-      margin: 0; /* Reseteamos margen en móvil */
+      margin: 0; 
     }
     
     .nav-links :global(a:last-child) {
