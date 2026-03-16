@@ -187,6 +187,21 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
                         <hr />
                     </div>
                     <slot />
+
+                    <div id="disqus_thread" style="margin-top: 60px; padding-top: 30px; border-top: 4px solid #e30613;"></div>
+                    <script is:inline>
+                        var disqus_config = function () {
+                            this.page.url = window.location.href;  
+                            this.page.identifier = window.location.pathname; 
+                        };
+                        (function() { 
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://trucos125.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                    <noscript>Por favor, activa JavaScript para ver los <a href="https://disqus.com/?ref_noscript">comentarios.</a></noscript>
                     <Newsletter />
                     <div style="margin-top: 3rem; padding: 1rem; background: #f0f0f0; border-radius: 8px; text-align: center; font-size: 0.9em;">
                         <p>¿Te ha servido este truco? <a href="/blog">Lee más artículos aquí</a>.</p>
