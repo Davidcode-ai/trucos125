@@ -6,7 +6,15 @@ import HeaderLink from './HeaderLink.astro';
   <div class="header-container">
     
     <a href="/" class="logo-link">
-      <img src="/logo.png" alt="Trucos 125" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+      <img 
+        src="/logo.png" 
+        alt="Trucos 125" 
+        class="logo-img" 
+        width="220" 
+        height="75" 
+        fetchpriority="high"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" 
+      />
       <span class="fallback-logo" style="display:none; font-family:'Barlow Condensed', sans-serif; font-weight:900; font-size:2rem; color:#111; font-style:italic;">TRUCOS<span style="color:#e30613">125</span></span>
     </a>
 
