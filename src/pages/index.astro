@@ -136,17 +136,6 @@ const postConsejos = allPosts.find(p => p.id.includes('scooter') || p.id.include
                             ))
                         }
                     </div>
-                    <style>
-                        /* Añade esto al final de tu bloque <style> */
-                        .comment-count { margin-top: 5px; }
-                        .comment-count a {
-                            font-size: 0.85rem;
-                            color: #e30613;
-                            text-decoration: none;
-                            font-weight: 700;
-                            font-family: 'Barlow Condensed', sans-serif;
-                        }
-                    </style>
                 </section>
 
             </div>
@@ -294,6 +283,19 @@ const postConsejos = allPosts.find(p => p.id.includes('scooter') || p.id.include
     }
     .news-card:hover .card-content h3 {
         color: #e30613; 
+    }
+
+    /* --- ESTILOS DEL CONTADOR DE COMENTARIOS --- */
+    .comment-count { margin-top: 5px; }
+    .comment-count a {
+        font-size: 0.85rem;
+        color: #e30613;
+        text-decoration: none;
+        font-weight: 700;
+        font-family: 'Barlow Condensed', sans-serif;
+    }
+    .comment-count a:hover {
+        text-decoration: underline;
     }
 
     @media (max-width: 768px) {
