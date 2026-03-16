@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import CalculadoraAhorro from '../components/CalculadoraAhorro.astro';
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets'; // Importamos la herramienta de optimización
 
 const allPosts = (await getCollection('blog')).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -14,8 +15,6 @@ const allPosts = (await getCollection('blog')).sort(
 const latestPosts = allPosts.slice(0, 3);
 
 // --- MAGIA PARA LA CABECERA ---
-// Buscamos los artículos por alguna palabra clave de su archivo. 
-// Si no los encuentra, coge el 1º, 2º y 3º por defecto para que la web nunca se rompa.
 const postPrincipal = allPosts.find(p => p.id.includes('velocidad') || p.id.includes('corra-mas')) || allPosts[0];
 const postMecanica = allPosts.find(p => p.id.includes('rodaje')) || allPosts[1];
 const postConsejos = allPosts.find(p => p.id.includes('scooter') || p.id.includes('marchas')) || allPosts[2];
@@ -38,7 +37,14 @@ const postConsejos = allPosts.find(p => p.id.includes('scooter') || p.id.include
                         <a href={`/blog/${postPrincipal.id}/`} class="img-link zoom-effect">
                             <span class="badge red">DESTACADO</span>
                             {postPrincipal.data.heroImage ? (
-                                <img src={postPrincipal.data.heroImage.src} alt={postPrincipal.data.title} />
+                                <Image 
+                                    src={postPrincipal.data.heroImage} 
+                                    alt={postPrincipal.data.title} 
+                                    width={800} 
+                                    height={550} 
+                                    format="webp"
+                                    loading="eager" 
+                                />
                             ) : (
                                 <div style="width:100%; height:100%; background:#333;"></div>
                             )}
@@ -55,12 +61,18 @@ const postConsejos = allPosts.find(p => p.id.includes('scooter') || p.id.include
                             <a href={`/blog/${postMecanica.id}/`} class="img-link zoom-effect">
                                 <span class="badge black">MECÁNICA</span>
                                 {postMecanica.data.heroImage ? (
-                                    <img src={postMecanica.data.heroImage.src} alt={postMecanica.data.title} />
+                                    <Image 
+                                        src={postMecanica.data.heroImage} 
+                                        alt={postMecanica.data.title} 
+                                        width={450} 
+                                        height={265} 
+                                        format="webp"
+                                    />
                                 ) : (
                                     <div style="width:100%; height:100%; background:#333;"></div>
                                 )}
                                 <div class="overlay small">
-                                    <h3>{postMecanica.data.title}</h3>
+                                    <h2>{postMecanica.data.title}</h2>
                                 </div>
                             </a>
                         </article>
@@ -69,12 +81,18 @@ const postConsejos = allPosts.find(p => p.id.includes('scooter') || p.id.include
                             <a href={`/blog/${postConsejos.id}/`} class="img-link zoom-effect">
                                 <span class="badge black">CONSEJOS</span>
                                 {postConsejos.data.heroImage ? (
-                                    <img src={postConsejos.data.heroImage.src} alt={postConsejos.data.title} />
+                                    <Image 
+                                        src={postConsejos.data.heroImage} 
+                                        alt={postConsejos.data.title} 
+                                        width={450} 
+                                        height={265} 
+                                        format="webp"
+                                    />
                                 ) : (
                                     <div style="width:100%; height:100%; background:#333;"></div>
                                 )}
                                 <div class="overlay small">
-                                    <h3>{postConsejos.data.title}</h3>
+                                    <h2>{postConsejos.data.title}</h2>
                                 </div>
                             </a>
                         </article>
@@ -97,7 +115,13 @@ const postConsejos = allPosts.find(p => p.id.includes('scooter') || p.id.include
                                     <a href={`/blog/${post.id}/`} class="card-img zoom-effect">
                                         <span class="badge red">NUEVO</span>
                                         {post.data.heroImage ? (
-                                            <img src={post.data.heroImage.src} alt={post.data.title} />
+                                            <Image 
+                                                src={post.data.heroImage} 
+                                                alt={post.data.title} 
+                                                width={400} 
+                                                height={220} 
+                                                format="webp"
+                                            />
                                         ) : (
                                             <div style="width:100%; height:100%; background:#333;"></div>
                                         )}
@@ -118,8 +142,7 @@ const postConsejos = allPosts.find(p => p.id.includes('scooter') || p.id.include
 </html>
 
 <style>
-    /* --- ESTILOS CRÍTICOS PARA LA PORTADA --- */
-    
+    /* --- TUS ESTILOS ORIGINALES INTACTOS --- */
     .container {
         max-width: 1280px;
         margin: 0 auto;
@@ -188,7 +211,7 @@ const postConsejos = allPosts.find(p => p.id.includes('scooter') || p.id.include
         pointer-events: none; 
     }
 
-    .overlay h1, .overlay h3 {
+    .overlay h1, .overlay h2, .overlay h3 {
         color: white; 
         text-shadow: 2px 2px 6px rgba(0,0,0,0.9); 
         margin-bottom: 10px;
@@ -207,7 +230,7 @@ const postConsejos = allPosts.find(p => p.id.includes('scooter') || p.id.include
     }
 
     .overlay.small { padding: 20px; }
-    .overlay.small h3 { font-size: 1.6rem; }
+    .overlay.small h2 { font-size: 1.6rem; }
     
     .badge {
         position: absolute;
@@ -270,9 +293,9 @@ const postConsejos = allPosts.find(p => p.id.includes('scooter') || p.id.include
         
         .overlay h1 { font-size: 2rem; }
 
-		.section-title h2 { 
-            font-size: 1.8rem; /* Hacemos la letra un poco más pequeña */
-            white-space: normal; /* Le damos permiso para saltar a la línea de abajo */
+        .section-title h2 { 
+            font-size: 1.8rem;
+            white-space: normal;
             line-height: 1.1; 
         }
         .news-grid {
