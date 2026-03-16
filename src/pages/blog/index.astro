@@ -33,7 +33,7 @@ const posts = (await getCollection('blog')).sort(
                                 <a href={`/blog/${post.id}/`} class="post-card">
                                     <div class="img-container">
                                         {post.data.heroImage ? (
-											<img src={post.data.heroImage.src} alt={post.data.title} />                                        ) : (
+                                            <img src={post.data.heroImage.src} alt={post.data.title} />                                        ) : (
                                             <div class="no-img">Sin imagen</div>
                                         )}
                                     </div>
@@ -45,18 +45,6 @@ const posts = (await getCollection('blog')).sort(
                                         </p>
                                         <h4 class="title">{post.data.title}</h4>
                                     </div>
-                                    <style>
-                                        /* Añade estos estilos a tu bloque <style> existente */
-                                        .sep { margin: 0 8px; color: #ddd; }
-                                        .comment-link {
-                                            color: #e30613;
-                                            text-decoration: none;
-                                            transition: color 0.2s;
-                                        }
-                                        .post-card:hover .comment-link {
-                                            text-decoration: underline;
-                                        }
-                                    </style>
                                 </a>
                             </li>
                         ))
@@ -101,7 +89,7 @@ const posts = (await getCollection('blog')).sort(
         font-weight: 500;
     }
 
-    /* --- GRID DE ARTÍCULOS (Se adapta solo al móvil) --- */
+    /* --- GRID DE ARTÍCULOS --- */
     .blog-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -129,10 +117,9 @@ const posts = (await getCollection('blog')).sort(
         box-shadow: 0 15px 30px rgba(0,0,0,0.12);
     }
 
-    /* --- EL TRUCO PARA LAS IMÁGENES PERFECTAS --- */
     .img-container {
         width: 100%;
-        aspect-ratio: 16 / 9; /* Proporción panorámica para que todas midan lo mismo */
+        aspect-ratio: 16 / 9;
         overflow: hidden;
         background-color: #111; 
         position: relative;
@@ -140,11 +127,11 @@ const posts = (await getCollection('blog')).sort(
     .img-container img {
         width: 100%;
         height: 100%;
-        object-fit: cover; /* Este es el comando mágico que recorta y encaja sin deformar */
+        object-fit: cover;
         transition: transform 0.6s ease;
     }
     .post-card:hover .img-container img {
-        transform: scale(1.08); /* Efecto zoom premium al pasar el ratón */
+        transform: scale(1.08);
     }
 
     .no-img {
@@ -170,6 +157,8 @@ const posts = (await getCollection('blog')).sort(
         text-transform: uppercase;
         font-weight: 700;
         letter-spacing: 1px;
+        display: flex; /* Para alinear bien el separador y el link */
+        align-items: center;
     }
     .title {
         margin: 0;
@@ -181,7 +170,22 @@ const posts = (await getCollection('blog')).sort(
         transition: color 0.2s;
     }
     .post-card:hover .title {
-        color: #e30613; /* El título se pone rojo */
+        color: #e30613;
+    }
+
+    /* --- ESTILOS DE COMENTARIOS AÑADIDOS --- */
+    .sep { margin: 0 8px; color: #ddd; }
+    
+    .comment-link {
+        color: #e30613;
+        text-decoration: none;
+        transition: color 0.2s;
+        text-transform: none; /* Para que no sea todo mayúsculas como la fecha */
+        font-weight: 600;
+    }
+    
+    .post-card:hover .comment-link {
+        text-decoration: underline;
     }
 
     /* --- RESPONSIVE --- */
