@@ -28,7 +28,15 @@ const posts = (await getCollection('blog')).sort(
                     <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     <input type="text" id="buscador-articulos" placeholder="Buscar trucos, modelos, ITV..." autocomplete="off" />
                 </div>
-            </section>
+
+                <nav class="category-nav">
+                    <a href="/blog" class="category-pill active">Todos</a>
+                    <a href="/mecanica" class="category-pill">🔧 Mecánica</a>
+                    <a href="/conduccion" class="category-pill">🏍️ Conducción</a>
+                    <a href="/equipamiento" class="category-pill">🪖 Equipamiento</a>
+                    <a href="/normativa" class="category-pill">🏙️ Normativa</a>
+                </nav>
+                </section>
 
             <section>
                 <ul class="blog-grid" id="lista-articulos">
@@ -167,6 +175,37 @@ const posts = (await getCollection('blog')).sort(
         border-color: #e30613;
         box-shadow: 0 4px 20px rgba(227, 6, 19, 0.1);
     }
+
+    /* 👇 ESTILOS DE LOS BOTONES DE CATEGORÍAS 👇 */
+    .category-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 35px; /* Separación con el buscador */
+    }
+    .category-pill {
+        background-color: #f4f4f4;
+        color: #111;
+        padding: 10px 22px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+    .category-pill:hover, .category-pill.active {
+        background-color: #fff;
+        border-color: #e30613;
+        color: #e30613;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(227, 6, 19, 0.15);
+    }
+    /* 👆 ----------------------------------- 👆 */
 
     /* --- GRID DE ARTÍCULOS --- */
     .blog-grid {
