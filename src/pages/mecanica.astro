@@ -1,0 +1,42 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+import { getCollection } from 'astro:content';
+
+// 1. Traemos todos los artículos del blog
+const posts = (await getCollection('blog')).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// 2. Filtramos SOLO los de Mecánica
+const postsMecanica = posts.filter((post) => post.data.categoria === 'Mecánica');
+---
+
+<!doctype html>
+<html lang="es">
+    <head>
+        <BaseHead title={`Mecánica | ${SITE_TITLE}`} description="Trucos de mecánica y mantenimiento para tu moto 125cc." />
+    </head>
+    <body>
+        <Header />
+        <main>
+            <h1>Mecánica y Mantenimiento</h1>
+            <section>
+                <ul>
+                    {
+                        postsMecanica.map((post) => (
+                            <li>
+                                <a href={`/blog/${post.id}/`}>
+                                    <h4 class="title">{post.data.title}</h4>
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </section>
+        </main>
+        <Footer />
+    </body>
+</html>

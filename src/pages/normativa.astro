@@ -1,0 +1,41 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// Filtramos SOLO los de Normativa
+const postsNormativa = posts.filter((post) => post.data.categoria === 'Normativa');
+---
+
+<!doctype html>
+<html lang="es">
+    <head>
+        <BaseHead title={`Normativa | ${SITE_TITLE}`} description="Leyes de la DGT, carnets, multas y normativa urbana para motos de 125cc." />
+    </head>
+    <body>
+        <Header />
+        <main>
+            <h1>Normativa y Vida Urbana</h1>
+            <section>
+                <ul>
+                    {
+                        postsNormativa.map((post) => (
+                            <li>
+                                <a href={`/blog/${post.id}/`}>
+                                    <h4 class="title">{post.data.title}</h4>
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </section>
+        </main>
+        <Footer />
+    </body>
+</html>

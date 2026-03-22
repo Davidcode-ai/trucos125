@@ -6,11 +6,17 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import CookieBanner from '../components/CookieBanner.astro';
-import { Image } from 'astro:assets'; // <-- IMPORTAMOS LA MAGIA AQUÍ
+import { Image } from 'astro:assets'; 
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+// 👇 1. Extraemos la "categoria" aquí 👇
+const { title, description, pubDate, updatedDate, heroImage, categoria } = Astro.props;
+
+// 👇 2. Limpiamos la URL (Quita acentos: "Mecánica" -> "mecanica") 👇
+const categoryUrl = categoria 
+  ? `/${categoria.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")}` 
+  : '';
 ---
 
 <html lang="es">
@@ -28,7 +34,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
             /* Contenedor central ancho para PC */
             article {
                 width: 100%;
-                max-width: 950px; /* Tamaño generoso en PC */
+                max-width: 950px; 
                 margin: 0 auto;
                 padding: 2rem 1.5rem;
                 box-sizing: border-box;
@@ -53,7 +59,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
                 margin: auto;
                 padding: 1em 0;
                 color: #222;
-                font-size: 20px; /* Tamaño de lectura profesional */
+                font-size: 20px; 
                 line-height: 1.8;
             }
             
@@ -89,6 +95,26 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
                 font-style: italic;
             }
 
+            /* 👇 3. ESTILOS DE LA ETIQUETA DE CATEGORÍA 👇 */
+            .post-category-badge {
+                display: inline-block;
+                background-color: #e30613;
+                color: #ffffff !important;
+                padding: 5px 15px;
+                border-radius: 20px;
+                font-family: 'Barlow Condensed', sans-serif;
+                font-size: 1rem;
+                font-weight: bold;
+                text-transform: uppercase;
+                text-decoration: none;
+                margin-bottom: 15px;
+                transition: background-color 0.3s ease, transform 0.2s ease;
+            }
+            .post-category-badge:hover {
+                background-color: #111;
+                transform: translateY(-2px);
+            }
+
             /* --- ANIMACIÓN PREMIUM DE ENTRADA --- */
             @keyframes fadeUp {
                 from { opacity: 0; transform: translateY(30px); }
@@ -110,7 +136,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
                     border-radius: 0;
                 }
                 .prose {
-                    font-size: 18px !important; /* En móvil un poco más pequeño */
+                    font-size: 18px !important; 
                     padding: 0; 
                 }
                 .title h1 {
@@ -123,9 +149,8 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
                     margin-bottom: 0.5em;
                 }
             }
+            
             /* --- BLINDAJE ANTI-DESBORDAMIENTO (100% RESPONSIVE) --- */
-  
-            /* 1. Obligamos a TODOS los títulos a partirse si chocan con el borde */
             :global(h1), :global(h2), :global(h3), :global(h4), :global(h5), :global(h6), :global(a) {
                 overflow-wrap: break-word !important;
                 word-wrap: break-word !important;
@@ -134,20 +159,15 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
                 hyphens: auto;
             }
         
-            /* 2. Textos elásticos mágicos para móvil */
             @media (max-width: 768px) {
-                /* El título principal del artículo */
                 .title h1 {
                     font-size: clamp(1.8rem, 8vw, 2.5rem) !important; 
                     line-height: 1.1 !important;
                 }
-                
-                /* Los subtítulos dentro del texto (H2 y H3) */
                 .prose :global(h2) {
                     font-size: clamp(1.5rem, 6vw, 2rem) !important;
                     line-height: 1.2 !important;
                 }
-                
                 .prose :global(h3) {
                     font-size: clamp(1.3rem, 5vw, 1.7rem) !important;
                 }
@@ -173,6 +193,13 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
                 </div>
                 <div class="prose">
                     <div class="title">
+                        
+                        {categoria && (
+                            <a href={categoryUrl} class="post-category-badge">
+                                {categoria}
+                            </a>
+                        )}
+
                         <div class="date">
                             <FormattedDate date={pubDate} />
                             {
@@ -190,14 +217,10 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
                     <div id="disqus_thread" style="margin-top: 60px; padding-top: 30px; border-top: 4px solid #e30613;"></div>
                 <script is:inline>
-                    // Le decimos al navegador que ejecute esto cada vez que Astro carga una nueva vista
                     document.addEventListener('astro:page-load', () => {
-
-                        // Si no hay caja de comentarios en esta página, no hacemos nada
                         const disqusThread = document.getElementById('disqus_thread');
                         if (!disqusThread) return;
                     
-                        // Si Disqus ya estaba cargado de antes, lo reseteamos con la nueva URL
                         if (window.DISQUS) {
                             window.DISQUS.reset({
                                 reload: true,
@@ -207,9 +230,8 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
                                 }
                             });
                         } else {
-                            // Si es la primera vez que entramos, cargamos el script desde cero
                             var d = document, s = d.createElement('script');
-                            s.src = 'https://trucos125.disqus.com/embed.js'; // Tu enlace de Disqus
+                            s.src = 'https://trucos125.disqus.com/embed.js'; 
                             s.setAttribute('data-timestamp', +new Date());
                             (d.head || d.body).appendChild(s);
                         }
