@@ -6,6 +6,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import CalculadoraAhorro from '../components/CalculadoraAhorro.astro';
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets'; // Importamos la herramienta de optimización
+import CookieBanner from '../components/CookieBanner.astro';
 
 const allPosts = (await getCollection('blog')).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -141,6 +142,7 @@ const postConsejos = allPosts.find(p => p.id.includes('scooter') || p.id.include
             </div>
         </main>
         <Footer />
+        <CookieBanner />
     </body>
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-52J2VS5S" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </html>

@@ -3,6 +3,8 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE } from '../consts';
+import CookieBanner from '../components/CookieBanner.astro';
+
 
 const { title, description } = Astro.props;
 ---
@@ -19,6 +21,8 @@ const { title, description } = Astro.props;
                 <slot /> </article>
         </main>
         <Footer />
+        <CookieBanner />
+
     </body>
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-52J2VS5S" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </html>
