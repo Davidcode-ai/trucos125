@@ -1,67 +1,53 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE_TITLE } from '../../consts';
 import { Image } from 'astro:assets';
 // Importamos tu foto. Asegúrate de que el archivo 'yo.jpg' esté en 'src/assets/'
 import fotoPerfil from '../assets/yo.jpg'; 
 ---
 
-<!doctype html>
-<html lang="es">
-    <head>
-        <BaseHead title={`Sobre Mí | ${SITE_TITLE}`} description="Conoce al motero detrás de Trucos125" />
-    </head>
-    <body class="page-wrapper">
-        <Header />
+<BaseLayout title={`Sobre Mí | ${SITE_TITLE}`} description="Conoce al motero detrás de Trucos125">
+    <section class="about-hero">
+        <div class="photo-container">
+            {fotoPerfil ? (
+                <Image 
+                    src={fotoPerfil} 
+                    alt="El autor de Trucos125" 
+                    width={300} 
+                    height={300} 
+                    quality="max"
+                    class="profile-photo"
+                    format="webp"
+                />
+            ) : (
+                <div style="width:180px; height:180px; background:#ddd; border-radius:50%;"></div>
+            )}
+        </div>
         
-        <main class="container">
-            <section class="about-hero">
-                <div class="photo-container">
-                    {fotoPerfil ? (
-                        <Image 
-                            src={fotoPerfil} 
-                            alt="El autor de Trucos125" 
-                            width={300} 
-                            height={300} 
-                            quality="max"
-                            class="profile-photo"
-                            format="webp"
-                        />
-                    ) : (
-                        <div style="width:180px; height:180px; background:#ddd; border-radius:50%;"></div>
-                    )}
-                </div>
-                
-                <div class="hero-content">
-                    <span class="badge">EL AUTOR</span>
-                    <h1>¡Hola! Soy el <span class="highlight">Truquero</span> Mayor</h1>
-                    <p class="subtitle">Apasionado de las dos ruedas y experto en exprimir las 125cc.</p>
-                </div>
-            </section>
+        <div class="hero-content">
+            <span class="badge">EL AUTOR</span>
+            <h1>¡Hola! Soy el <span class="highlight">Truquero</span> Mayor</h1>
+            <p class="subtitle">Apasionado de las dos ruedas y experto en exprimir las 125cc.</p>
+        </div>
+    </section>
 
-            <section class="about-story">
-                <div class="prose">
-                    <h2>¿Por qué Trucos125?</h2>
-                    <p>Todo empezó con mi primera 125cc. Me di cuenta de que había muchísima información para "motos grandes", pero el mundo de las octavo de litro estaba un poco olvidado. Había novatos (como yo en ese entonces) con mil dudas sobre mecánica básica, mantenimiento y seguridad.</p>
-                    <p>Trucos125 nació con una misión clara: ser la guía definitiva, sincera y práctica para todos los que empiezan o disfrutan de la agilidad y diversión de una moto de 125cc. Aquí no encontrarás tecnicismos complicados, solo consejos que funcionan, de motero a motero.</p>
-                    
-                    <h3>Mi Filosofía</h3>
-                    <blockquote class="racing-quote">
-                        <p>"No importa la cilindrada, lo que importa es la pasión y el respeto por la carretera. Rodar seguro es rodar divertido."</p>
-                    </blockquote>
-                    <p>En este blog, priorizo la seguridad y el mantenimiento correcto. Aprenderás a cuidar tu moto para que dure años y a conducirla con confianza, ya sea entre el tráfico de la ciudad o en tu primera ruta por curvas.</p>
-                    
-                    <a href="/contacto" class="btn-cta">¿Hablamos? Escríbeme</a>
-                </div>
-            </section>
-        </main>
-        
-        <Footer />
-    </body>
+    <section class="about-story">
+        <div class="prose">
+            <h2>¿Por qué Trucos125?</h2>
+            <p>Todo empezó con mi primera 125cc. Me di cuenta de que había muchísima información para "motos grandes", pero el mundo de las octavo de litro estaba un poco olvidado. Había novatos (como yo en ese entonces) con mil dudas sobre mecánica básica, mantenimiento y seguridad.</p>
+            <p>Trucos125 nació con una misión clara: ser la guía definitiva, sincera y práctica para todos los que empiezan o disfrutan de la agilidad y diversión de una moto de 125cc. Aquí no encontrarás tecnicismos complicados, solo consejos que funcionan, de motero a motero.</p>
+            
+            <h3>Mi Filosofía</h3>
+            <blockquote class="racing-quote">
+                <p>"No importa la cilindrada, lo que importa es la pasión y el respeto por la carretera. Rodar seguro es rodar divertido."</p>
+            </blockquote>
+            <p>En este blog, priorizo la seguridad y el mantenimiento correcto. Aprenderás a cuidar tu moto para que dure años y a conducirla con confianza, ya sea entre el tráfico de la ciudad o en tu primera ruta por curvas.</p>
+            
+            <a href="/contacto" class="btn-cta">¿Hablamos? Escríbeme</a>
+        </div>
+    </section>
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-52J2VS5S" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-</html>
+</BaseLayout>
 
 <style>
     /* --- ESTILOS GLOBALES PARA FORZAR EL FOOTER ABAJO (REMEDIO DEFINITIVO) --- */

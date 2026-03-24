@@ -1,10 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
-import Header from '../components/Header.astro';
-import { SITE_TITLE } from '../consts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import { SITE_TITLE } from '../../consts';
 
 // 1. Traemos todos los artículos y los ordenamos por fecha
 const posts = (await getCollection('blog')).sort(
@@ -15,102 +13,92 @@ const posts = (await getCollection('blog')).sort(
 const filteredPosts = posts.filter((post) => post.data.categoria === 'Normativa');
 ---
 
-<!doctype html>
-<html lang="es">
-    <head>
-        <BaseHead title={`Normativa - ${SITE_TITLE}`} description="Leyes de la DGT, carnets, multas y normativa urbana para motos de 125cc." />
-    </head>
-    <body>
-        <Header />
-        <main class="container">
-            <section class="page-header">
-                <h1>NORMATIVA Y CIUDAD</h1>
-                <div class="title-line"></div>
-                <p>Leyes, multas, ITV y todo lo que necesitas saber para circular legalmente.</p>
-                
-                <div class="search-wrapper">
-                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <input type="text" id="buscador-articulos" placeholder="Buscar normas, carnet, multas..." autocomplete="off" />
-                </div>
+<BaseLayout title={`Normativa - ${SITE_TITLE}`} description="Leyes de la DGT, carnets, multas y normativa urbana para motos de 125cc.">
+    <section class="page-header">
+        <h1>NORMATIVA Y CIUDAD</h1>
+        <div class="title-line"></div>
+        <p>Leyes, multas, ITV y todo lo que necesitas saber para circular legalmente.</p>
+        
+        <div class="search-wrapper">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="buscador-articulos" placeholder="Buscar normas, carnet, multas..." autocomplete="off" />
+        </div>
 
-                <nav class="category-nav">
-                    <a href="/blog" class="category-pill">Todos</a>
-                    <a href="/mecanica" class="category-pill">🔧 Mecánica</a>
-                    <a href="/conduccion" class="category-pill">🏍️ Conducción</a>
-                    <a href="/equipamiento" class="category-pill">🪖 Equipamiento</a>
-                    <a href="/normativa" class="category-pill active">🏙️ Normativa</a>
-                </nav>
-            </section>
+        <nav class="category-nav">
+            <a href="/blog" class="category-pill">Todos</a>
+            <a href="/mecanica" class="category-pill">🔧 Mecánica</a>
+            <a href="/conduccion" class="category-pill">🏍️ Conducción</a>
+            <a href="/equipamiento" class="category-pill">🪖 Equipamiento</a>
+            <a href="/normativa" class="category-pill active">🏙️ Normativa</a>
+        </nav>
+    </section>
 
-            <section>
-                <ul class="blog-grid" id="lista-articulos">
-                    {
-                        filteredPosts.map((post) => (
-                            <li class="articulo-item">
-                                <article class="post-card">
-                                    <a href={`/blog/${post.id}/`} class="img-container">
-                                        {post.data.heroImage ? (
-                                            <img src={post.data.heroImage.src} alt={post.data.title} />
-                                        ) : (
-                                            <div class="no-img">Sin imagen</div>
-                                        )}
-                                    </a>
-                                    
-                                    <div class="post-content">
-                                        <p class="date">
-                                            <FormattedDate date={post.data.pubDate} />
-                                            <span class="sep">|</span>
-                                            <a href={`/blog/${post.id}/#disqus_thread`} class="comment-link">0 Comentarios</a>
-                                        </p>
-                                        
-                                        <a href={`/blog/${post.id}/`} class="title-link">
-                                            <h4 class="title">{post.data.title}</h4>
-                                        </a>
-                                    </div>
-                                </article>
-                            </li>
-                        ))
-                    }
-                </ul>
-                <div id="no-resultados" style="display: none; text-align: center; padding: 40px; color: #666; font-size: 1.2rem;">
-                    No hemos encontrado ningún artículo con esa palabra en esta categoría. 🏍️
-                </div>
-            </section>
-        </main>
-        <Footer />
+    <section>
+        <ul class="blog-grid" id="lista-articulos">
+            {
+                filteredPosts.map((post) => (
+                    <li class="articulo-item">
+                        <article class="post-card">
+                            <a href={`/blog/${post.id}/`} class="img-container">
+                                {post.data.heroImage ? (
+                                    <img src={post.data.heroImage.src} alt={post.data.title} />
+                                ) : (
+                                    <div class="no-img">Sin imagen</div>
+                                )}
+                            </a>
+                            
+                            <div class="post-content">
+                                <p class="date">
+                                    <FormattedDate date={post.data.pubDate} />
+                                    <span class="sep">|</span>
+                                    <a href={`/blog/${post.id}/#disqus_thread`} class="comment-link">0 Comentarios</a>
+                                </p>
+                                
+                                <a href={`/blog/${post.id}/`} class="title-link">
+                                    <h4 class="title">{post.data.title}</h4>
+                                </a>
+                            </div>
+                        </article>
+                    </li>
+                ))
+            }
+        </ul>
+        <div id="no-resultados" style="display: none; text-align: center; padding: 40px; color: #666; font-size: 1.2rem;">
+            No hemos encontrado ningún artículo con esa palabra en esta categoría. 🏍️
+        </div>
+    </section>
 
-        <script is:inline>
-            document.addEventListener('astro:page-load', () => {
-                const buscador = document.getElementById('buscador-articulos');
-                const articulos = document.querySelectorAll('.articulo-item');
-                const mensajeVacio = document.getElementById('no-resultados');
+    <script is:inline>
+        document.addEventListener('astro:page-load', () => {
+            const buscador = document.getElementById('buscador-articulos');
+            const articulos = document.querySelectorAll('.articulo-item');
+            const mensajeVacio = document.getElementById('no-resultados');
 
-                if (buscador) {
-                    buscador.addEventListener('input', (e) => {
-                        const textoBusqueda = e.target.value.toLowerCase();
-                        let contadorVisibles = 0;
+            if (buscador) {
+                buscador.addEventListener('input', (e) => {
+                    const textoBusqueda = e.target.value.toLowerCase();
+                    let contadorVisibles = 0;
 
-                        articulos.forEach(articulo => {
-                            const titulo = articulo.querySelector('.title').textContent.toLowerCase();
-                            if (titulo.includes(textoBusqueda)) {
-                                articulo.style.display = 'block';
-                                contadorVisibles++;
-                            } else {
-                                articulo.style.display = 'none';
-                            }
-                        });
-
-                        if (contadorVisibles === 0) {
-                            mensajeVacio.style.display = 'block';
+                    articulos.forEach(articulo => {
+                        const titulo = articulo.querySelector('.title').textContent.toLowerCase();
+                        if (titulo.includes(textoBusqueda)) {
+                            articulo.style.display = 'block';
+                            contadorVisibles++;
                         } else {
-                            mensajeVacio.style.display = 'none';
+                            articulo.style.display = 'none';
                         }
                     });
-                }
-            });
-        </script>
-    </body>
-</html>
+
+                    if (contadorVisibles === 0) {
+                        mensajeVacio.style.display = 'block';
+                    } else {
+                        mensajeVacio.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+</BaseLayout>
 
 <style>
     /* --- ESTRUCTURA PRINCIPAL --- */

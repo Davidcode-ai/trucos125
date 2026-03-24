@@ -1,72 +1,59 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE_TITLE } from '../consts';
 ---
 
-<!doctype html>
-<html lang="es">
-  <head>
-    <BaseHead title={`Comunidad - ${SITE_TITLE}`} description="El punto de encuentro para todos los moteros de 125cc." />
-  </head>
-  <body>
-    <Header />
-    <main class="container">
-      
-      <div class="forum-header">
-        <h1>COMUNIDAD TRUCOS125</h1>
-        <p>El garaje digital. Pregunta tus dudas mecánicas, presenta tu nueva moto o ayuda a otros compañeros.</p>
+<BaseLayout title={`Comunidad - ${SITE_TITLE}`} description="El punto de encuentro para todos los moteros de 125cc.">
+  
+  <div class="forum-header">
+    <h1>COMUNIDAD TRUCOS125</h1>
+    <p>El garaje digital. Pregunta tus dudas mecánicas, presenta tu nueva moto o ayuda a otros compañeros.</p>
+  </div>
+
+  <div class="forum-layout">
+    <div class="forum-topics">
+        <div id="disqus_thread"></div>
+    </div>
+
+    <aside class="forum-sidebar">
+      <div class="widget">
+        <h4>📢 NORMAS DEL GARAJE</h4>
+        <ul class="rules-list">
+          <li><strong>1. Respeto ante todo:</strong> Aquí todos estamos para aprender y disfrutar.</li>
+          <li><strong>2. Usa el buscador:</strong> Si tienes una duda técnica muy específica, mira primero en el Blog.</li>
+          <li><strong>3. ¡Sube fotos!:</strong> Nos encanta ver vuestras 125cc. Cuando comentes, dale al icono de la imagen y presume de máquina.</li>
+          <li><strong>4. Cero Spam:</strong> Los enlaces de venta o publicidad serán borrados.</li>
+        </ul>
       </div>
+    </aside>
+  </div>
 
-      <div class="forum-layout">
-        <div class="forum-topics">
-            <div id="disqus_thread"></div>
-        </div>
+  <script is:inline>
+      document.addEventListener('astro:page-load', () => {
+          const disqusThread = document.getElementById('disqus_thread');
+          if (!disqusThread) return;
 
-        <aside class="forum-sidebar">
-          <div class="widget">
-            <h4>📢 NORMAS DEL GARAJE</h4>
-            <ul class="rules-list">
-              <li><strong>1. Respeto ante todo:</strong> Aquí todos estamos para aprender y disfrutar.</li>
-              <li><strong>2. Usa el buscador:</strong> Si tienes una duda técnica muy específica, mira primero en el Blog.</li>
-              <li><strong>3. ¡Sube fotos!:</strong> Nos encanta ver vuestras 125cc. Cuando comentes, dale al icono de la imagen y presume de máquina.</li>
-              <li><strong>4. Cero Spam:</strong> Los enlaces de venta o publicidad serán borrados.</li>
-            </ul>
-          </div>
-        </aside>
-      </div>
-
-    </main>
-    <Footer />
-
-    <script is:inline>
-        document.addEventListener('astro:page-load', () => {
-            const disqusThread = document.getElementById('disqus_thread');
-            if (!disqusThread) return;
-
-            if (window.DISQUS) {
-                window.DISQUS.reset({
-                    reload: true,
-                    config: function () {
-                        this.page.url = window.location.href;
-                        this.page.identifier = 'comunidad-general'; // Identificador único para el foro
-                    }
-                });
-            } else {
-                var d = document, s = d.createElement('script');
-                s.src = 'https://trucos125.disqus.com/embed.js'; 
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-            }
-        });
-    </script>
-  </body>
+          if (window.DISQUS) {
+              window.DISQUS.reset({
+                  reload: true,
+                  config: function () {
+                      this.page.url = window.location.href;
+                      this.page.identifier = 'comunidad-general'; // Identificador único para el foro
+                  }
+              });
+          } else {
+              var d = document, s = d.createElement('script');
+              s.src = 'https://trucos125.disqus.com/embed.js'; 
+              s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+          }
+      });
+  </script>
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-52J2VS5S" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-</html>
+</BaseLayout>
 
 <style>
-  body { background-color: #f4f4f4; }
+  :global(body) { background-color: #f4f4f4; }
   main { padding-top: 40px; padding-bottom: 60px; min-height: 80vh; }
 
   .forum-header {
