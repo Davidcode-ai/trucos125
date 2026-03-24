@@ -192,7 +192,7 @@ import HeaderLink from './HeaderLink.astro';
 <script>
   /* Script a prueba de fallos para menú móvil */
   document.addEventListener('astro:page-load', () => {
-    const btn = document.querySelector('.mobile-menu-btn');
+    const btn = document.querySelector('.mobile-menu-btn') as HTMLElement;
     const nav = document.querySelector('.nav-links');
     
     if (btn && nav) {
