@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
-import { SITE_TITLE } from '../../consts';
+import FormattedDate from '../components/FormattedDate.astro';
+import { SITE_TITLE } from '../consts';
 
 // 1. Traemos todos los artículos y los ordenamos por fecha
 const posts = (await getCollection('blog')).sort(
