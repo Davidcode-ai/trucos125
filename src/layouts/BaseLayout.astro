@@ -1,0 +1,45 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+    <head>
+        <BaseHead {title} {description} />
+    </head>
+    <body class="page-wrapper">
+        <Header />
+        <main class="container">
+            <slot />
+        </main>
+        <Footer />
+        <CookieBanner />
+    </body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-52J2VS5S" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+</html>
+
+<style>
+    /* --- TRUCO PARA MANTENER EL FOOTER ABAJO --- */
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+    .page-wrapper {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    .container { 
+        flex: 1; /* Esto empuja el footer hacia abajo */
+        width: 100%;
+        max-width: 1100px; 
+        margin: 0 auto; 
+        padding: 60px 20px; 
+        box-sizing: border-box;
+    }
+</style>
