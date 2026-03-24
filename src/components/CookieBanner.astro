@@ -15,17 +15,19 @@
 </div>
 
 <script is:inline>
-  // LÓGICA DE BLOQUEO Y CONSENTIMIENTO
+  // --- LÓGICA DE BLOQUEO Y CONSENTIMIENTO (REFACTORIZADA PARA VIEW TRANSITIONS) ---
+
+  // Elementos del DOM
   const banner = document.getElementById('cookie-banner');
   const acceptBtn = document.getElementById('accept-cookies');
   const rejectBtn = document.getElementById('reject-cookies');
   
-  // IMPORTANTE: Pon aquí tu ID de AdSense real cuando te lo den
+  // ID de AdSense
   const adsenseClientId = "ca-pub-0000000000000000"; 
 
+  // Función para cargar AdSense
   function loadAdSense() {
     if (document.querySelector('script[src*="pagead2.googlesyndication.com"]')) return;
-
     const script = document.createElement('script');
     script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`;
     script.async = true;
@@ -33,19 +35,21 @@
     document.head.appendChild(script);
   }
 
-  const consentStatus = localStorage.getItem('cookieConsent');
-
-  if (consentStatus === 'accepted') {
-    loadAdSense();
-  } else if (consentStatus === null) {
-    // Si es la primera visita, mostramos el banner
-    if (banner) {
-      setTimeout(() => {
+  // Función para decidir si mostrar el banner o cargar anuncios
+  function showBannerIfNeeded() {
+    const consentStatus = localStorage.getItem('cookieConsent');
+    
+    if (consentStatus === 'accepted') {
+      loadAdSense();
+    } else if (consentStatus === null) {
+      // Si es la primera visita (o no hay consentimiento), mostramos el banner
+      if (banner) {
         banner.classList.remove('hidden');
-      }, 100);
+      }
     }
   }
 
+  // Event listeners para los botones (solo se añaden una vez)
   acceptBtn?.addEventListener('click', () => {
     localStorage.setItem('cookieConsent', 'accepted');
     banner?.classList.add('hidden');
@@ -56,6 +60,13 @@
     localStorage.setItem('cookieConsent', 'rejected');
     banner?.classList.add('hidden');
   });
+
+  // --- EJECUCIÓN ---
+  // 1. Ejecutar al cargar la página por primera vez
+  showBannerIfNeeded();
+  
+  // 2. Ejecutar en cada navegación del cliente (View Transitions)
+  document.addEventListener('astro:page-load', showBannerIfNeeded);
 </script>
 
 <style>
