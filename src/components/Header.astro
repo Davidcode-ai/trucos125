@@ -1,63 +1,136 @@
 ---
-import HeaderLink from './HeaderLink.astro';
+import HeaderLink from "./HeaderLink.astro";
 ---
 
 <header class="site-header">
-  <div class="header-container">
-    
-    <a href="/" class="logo-link">
-      <img 
-        src="/logo.png" 
-        alt="Trucos 125" 
-        class="logo-img" 
-        width="220" 
-        height="75" 
-        fetchpriority="high"
-        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" 
-      />
-      <span class="fallback-logo" style="display:none; font-family:'Barlow Condensed', sans-serif; font-weight:900; font-size:2rem; color:#111; font-style:italic;">TRUCOS<span style="color:#e30613">125</span></span>
-    </a>
+  <!-- Top Bar (Estilo Revista) para links administrativos y de utilidad -->
+  <div class="top-bar">
+    <div class="top-bar-container">
+      <div class="top-bar-left">
+        <span class="network-name">TRUCOS125.COM</span>
+      </div>
+      <div class="top-bar-right">
+        <HeaderLink href="/sobre-mi" class="utility-link">Sobre mí</HeaderLink>
+        <HeaderLink href="/contacto" class="utility-link">Contacto</HeaderLink>
+      </div>
+    </div>
+  </div>
 
-    <button class="mobile-menu-btn" aria-label="Abrir menú">
-      <svg viewBox="0 0 24 24" width="30" height="30" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="3" y1="12" x2="21" y2="12"></line>
-        <line x1="3" y1="6" x2="21" y2="6"></line>
-        <line x1="3" y1="18" x2="21" y2="18"></line>
-      </svg>
-    </button>
+  <!-- Main Header -->
+  <div class="header-main">
+    <div class="header-container">
+      <a href="/" class="logo-link">
+        <img
+          src="/logo.png"
+          alt="Trucos 125"
+          class="logo-img"
+          width="200"
+          height="60"
+          fetchpriority="high"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+        />
+        <span
+          class="fallback-logo"
+          style="display:none; font-family:'Inter', sans-serif; font-weight:900; font-size:2rem; color:#1a1a1a; letter-spacing:-1px; text-transform: uppercase;"
+          >TRUCOS<span style="color:#e30613">125</span></span
+        >
+      </a>
 
-    <nav class="nav-links">
-      <HeaderLink href="/">Inicio</HeaderLink>
-      <HeaderLink href="/blog">Artículos</HeaderLink>
-      <HeaderLink href="/comunidad">Comunidad</HeaderLink>
-      <HeaderLink href="/sobre-mi">Sobre mí</HeaderLink>
-      <HeaderLink href="/contacto">Contacto</HeaderLink>
-    </nav>
-    
+      <!-- Botón Menú Móvil -->
+      <button class="mobile-menu-btn" aria-label="Abrir menú">
+        <svg
+          viewBox="0 0 24 24"
+          width="28"
+          height="28"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
+      <!-- Navegación Principal -->
+      <nav class="nav-links">
+        <HeaderLink href="/">Portada</HeaderLink>
+        <HeaderLink href="/blog">Todos los artículos</HeaderLink>
+        <HeaderLink href="/comunidad">Comunidad</HeaderLink>
+      </nav>
+    </div>
   </div>
 </header>
 
 <style>
-  /* --- EVITAR QUE LA WEB SALTE A LA DERECHA EN PÁGINAS CORTAS --- */
   :global(html) {
     overflow-y: scroll;
   }
 
-  /* --- ESTILOS PRINCIPALES (ORDENADOR) --- */
-  .site-header {
-    background: #ffffff; 
-    border-bottom: 3px solid #e30613; 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    position: sticky;
-    top: 0;
-    z-index: 999;
+  /* TOP BAR (Estilo Xataka/Weblogs) */
+  .top-bar {
+    background-color: #111;
+    color: #fff;
+    font-size: 11px;
+    font-family: var(--font-title);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
   }
-  
+
+  .top-bar-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+    height: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .network-name {
+    color: #999;
+  }
+
+  .top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .top-bar-right :global(a.utility-link) {
+    color: #ddd;
+    text-decoration: none;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+  }
+
+  .top-bar-right :global(a.utility-link:hover) {
+    color: #fff;
+  }
+
+  /* MAIN HEADER */
+  .site-header {
+    background: #ffffff;
+    border-bottom: 3px solid var(--moto-red); /* Traemos de vuelta un toque vibrante al borde inferior como Xataka */
+    position: sticky;
+    top: -36px; /* Esconde la top bar al bajar */
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Sombra difusa revista */
+  }
+
+  .header-main {
+    background: #fff;
+  }
+
   .header-container {
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 20px;
-    height: 80px;
+    height: 75px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -67,137 +140,136 @@ import HeaderLink from './HeaderLink.astro';
     display: flex;
     align-items: center;
     text-decoration: none;
+    margin-right: 40px; /* Separar logo del menú */
   }
 
   .logo-img {
-    width: 220px;
-    height: auto;
-    max-height: 75px; 
+    width: auto;
+    height: 50px;
     object-fit: contain;
     transition: transform 0.2s ease;
   }
-  
+
   .logo-link:hover .logo-img {
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
 
   .nav-links {
     display: flex;
-    gap: 30px;
+    gap: 25px;
     align-items: center;
+    flex-grow: 1; /* Para que ocupe espacio si alineamos distinto */
   }
 
-  /* --- TEXTO DEL MENÚ BLINDADO (No se parte) --- */
   .nav-links :global(a) {
-    font-family: 'Barlow Condensed', sans-serif;
-    color: #111;
+    font-family: var(--font-title);
+    color: #1a1a1a;
     text-decoration: none;
-    font-weight: 800;
-    font-size: 18px !important; 
+    font-weight: 800; /* Extra bold para impacto revista tech */
+    font-size: 15px !important;
     text-transform: uppercase;
+    letter-spacing: -0.01em;
     transition: color 0.2s ease;
-    white-space: nowrap; 
+    white-space: nowrap;
+    position: relative;
+    padding: 5px 0;
   }
 
   .nav-links :global(a:hover),
   .nav-links :global(a.active) {
-    color: #e30613; 
+    color: var(--moto-red);
+  }
+
+  /* Subrayado Xataka hover */
+  .nav-links :global(a::after) {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--moto-red);
+    transition: width 0.2s ease;
+  }
+  .nav-links :global(a:hover::after) {
+    width: 100%;
   }
 
   .mobile-menu-btn {
-    display: none; 
+    display: none;
     background: none;
     border: none;
-    color: #111;
+    color: #1a1a1a;
     cursor: pointer;
     padding: 5px;
   }
 
-  /* --- ESTILO ESPECIAL PARA EL BOTÓN DE CONTACTO --- */
-  .nav-links :global(a[href="/contacto"]) {
-    background-color: #e30613; 
-    color: #ffffff !important; 
-    padding: 10px 24px !important;
-    border-radius: 8px; 
-    margin-left: 15px; 
-    border-bottom: none !important; 
-    transition: all 0.3s ease;
-  }
-
-  .nav-links :global(a[href="/contacto"]:hover) {
-    background-color: #b30009; 
-    color: #ffffff !important;
-    transform: translateY(-2px); 
-    box-shadow: 0 4px 12px rgba(227, 6, 19, 0.3); 
-  }
-
   /* --- RESPONSIVE (MÓVIL) --- */
   @media (max-width: 768px) {
+    .top-bar {
+      display: none;
+    } /* Ocultar en móvil para ganar espacio, se pueden meter al final del menú */
+
     .header-container {
-      height: 70px;
+      height: 65px;
     }
-    
+
     .logo-img {
-      width: 160px; 
-      height: auto;
+      height: 42px;
     }
-    
+
     .mobile-menu-btn {
-      display: block; 
+      display: block;
     }
-    
+
     .nav-links {
       position: absolute;
-      top: 73px; 
+      top: 65px;
       left: 0;
       width: 100%;
       background: #ffffff;
       flex-direction: column;
       gap: 0;
-      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-      border-bottom: 3px solid #e30613;
-      
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border-bottom: 3px solid var(--moto-red);
+
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.3s ease-out;
     }
-    
+
     .nav-links.open {
-      max-height: 400px; /* Aumentado para que quepa el nuevo botón sin cortarse */
-    }
-    
-    .nav-links :global(a) {
-      padding: 15px 20px;
-      width: 100%;
-      border-bottom: 1px solid #f0f0f0;
-      box-sizing: border-box;
-      display: block;
-      text-align: center;
-      font-size: 16px !important; 
-      margin: 0; 
-    }
-    
-    .nav-links :global(a:last-child) {
-      border-bottom: none;
+      max-height: 500px; /* Suficiente para los items caídos */
     }
 
-    /* Ajuste del botón Contacto en móvil */
-    .nav-links :global(a[href="/contacto"]) {
-      margin: 15px auto;
-      width: calc(100% - 30px) !important;
+    .nav-links :global(a) {
+      padding: 16px 20px;
+      width: 100%;
+      border-bottom: 1px solid #f4f4f4;
+      box-sizing: border-box;
+      display: block;
+      text-align: left;
+      font-size: 16px !important;
+      margin: 0;
+    }
+
+    .nav-links :global(a::after) {
+      display: none;
+    } /* Quitamos linea en movil */
+    .nav-links :global(a:last-child) {
+      border-bottom: none;
     }
   }
 </style>
 
 <script>
-  /* Script a prueba de fallos para menú móvil */
-  document.addEventListener('astro:page-load', () => {
-    const btn = document.querySelector('.mobile-menu-btn') as HTMLElement;
-    const nav = document.querySelector('.nav-links');
-    
+  document.addEventListener("astro:page-load", () => {
+    const btn = document.querySelector(".mobile-menu-btn") as HTMLElement;
+    const nav = document.querySelector(".nav-links");
+
     if (btn && nav) {
       btn.onclick = () => {
-        nav.classList.toggle('open');
+        nav.classList.toggle("open");
       };
     }
   });

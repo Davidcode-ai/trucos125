@@ -160,6 +160,20 @@
       rejected.classList.add('hidden');
       banner.classList.remove('hidden');
     };
+
+    function closeOverlay() {
+      overlay.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // Exponer función global para abrir el panel de configuración desde cualquier parte
+    window.openCookieSettings = () => {
+      overlay.classList.remove('hidden');
+      banner.classList.add('hidden');
+      rejected.classList.add('hidden');
+      settings.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    };
   }
 
   // Inicializar en la carga inicial y en la navegación de Astro

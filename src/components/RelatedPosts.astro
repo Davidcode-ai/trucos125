@@ -1,24 +1,172 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 
-const { currentId } = Astro.props;
+const { currentTitle, currentCategory } = Astro.props;
+
 const allPosts = await getCollection('blog');
-// Filtramos de forma más segura
-const relatedPosts = allPosts
-  .filter((p) => p.id !== currentId)
-  .slice(0, 3);
+
+// Filtrar para quitar el post actual
+const filteredPosts = allPosts.filter(post => post.data.title !== currentTitle);
+
+// Priorizar posts de la misma categoría, y luego añadir otros si faltan
+const sameCategoryPosts = filteredPosts.filter(post => post.data.categoria === currentCategory);
+const otherCategoryPosts = filteredPosts.filter(post => post.data.categoria !== currentCategory);
+
+// Ordenar por fecha de publicación (los más recientes primero)
+sameCategoryPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+otherCategoryPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Tomamos 3 o 4 posts en total (Xataka pone grid de 3 o 4, ponemos 3 para que no descuadre mucho si hay 3)
+const relatedPosts = [...sameCategoryPosts, ...otherCategoryPosts].slice(0, 3);
 ---
 
 {relatedPosts.length > 0 && (
-  <section style="margin-top: 4rem; border-top: 1px solid #eee; padding-top: 2rem;">
-    <h3>También te puede interesar...</h3>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
-      {relatedPosts.map((post) => (
-        <a href={`/blog/${post.id}/`} style="text-decoration: none; color: inherit; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
-          <img src={typeof post.data.heroImage === 'string' ? post.data.heroImage : post.data.heroImage?.src} alt="" style="width: 100%; height: 120px; object-fit: cover;" />
-          <h4 style="padding: 10px; font-size: 0.9rem;">{post.data.title}</h4>
-        </a>
-      ))}
-    </div>
-  </section>
+    <section class="related-posts">
+        <div class="section-title">
+            <h2>TE RECOMENDAMOS</h2>
+            <div class="title-line"></div>
+        </div>
+        <div class="news-grid">
+            {
+                relatedPosts.map((post) => (
+                    <article class="news-card">
+                        <a href={`/blog/${post.id}/`} class="card-img zoom-effect">
+                            {post.data.categoria && (
+                                <span class="badge red">{post.data.categoria}</span>
+                            )}
+                            {post.data.heroImage ? (
+                                <Image 
+                                    src={post.data.heroImage} 
+                                    alt={post.data.title} 
+                                    width={400} 
+                                    height={220} 
+                                    format="webp"
+                                    loading="lazy"
+                                />
+                            ) : (
+                                <div style="width:100%; height:100%; background:#333;"></div>
+                            )}
+                        </a>
+                        <div class="card-content">
+                            <h3><a href={`/blog/${post.id}/`}>{post.data.title}</a></h3>
+                        </div>
+                    </article>
+                ))
+            }
+        </div>
+    </section>
 )}
+
+<style>
+    .related-posts {
+        margin-top: 50px;
+        padding-top: 30px;
+        border-top: 4px solid #111;
+    }
+    .section-title {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 25px;
+    }
+    .section-title h2 { 
+        font-size: 2rem; 
+        color: var(--text-title); 
+        white-space: nowrap; 
+        font-family: var(--font-title);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .title-line { 
+        width: 100%; 
+        height: 4px; 
+        background-color: #e30613; 
+    }
+
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+
+    .news-card {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .news-card .card-img {
+        display: block;
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 12px;
+        background: #111;
+        border-radius: 8px; 
+    }
+
+    .card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease, opacity 0.6s ease;
+    }
+
+    .zoom-effect:hover img {
+        transform: scale(1.08); 
+        opacity: 0.9; 
+    }
+
+    .badge {
+        position: absolute;
+        top: 20px; left: 20px;
+        padding: 4px 10px;
+        font-size: 0.75rem;
+        color: white;
+        z-index: 10;
+        font-family: var(--font-title);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        font-weight: 700;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        border-radius: 2px;
+    }
+    .badge.red { background-color: var(--moto-red); }
+
+    .card-content {
+        flex-grow: 1;
+    }
+
+    .card-content h3 {
+        margin: 0;
+        font-size: 1.2rem;
+        line-height: 1.3;
+        font-family: var(--font-title);
+        font-weight: 800;
+        letter-spacing: -0.01em;
+    }
+    
+    .card-content a {
+        color: #111;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .card-content a:hover, .news-card:hover .card-content a {
+        color: #e30613; 
+    }
+
+    @media (max-width: 768px) {
+        .news-grid {
+            grid-template-columns: 1fr; 
+            gap: 20px;
+        }
+        .section-title h2 { 
+            font-size: 1.6rem;
+            white-space: normal;
+            line-height: 1.1; 
+        }
+    }
+</style>

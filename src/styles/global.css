@@ -1,22 +1,24 @@
 /* =========================================
    1. IMPORTACIÓN DE FUENTES (CRÍTICO)
-   Barlow Condensed: Para títulos (Estilo Racing/Revista)
-   Roboto: Para texto de lectura
+   Revista Moderna: Inter para UI/Titulares, Roboto/System para lectura
    ========================================= */
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,800&family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap');
 
 /* =========================================
    2. VARIABLES DE MARCA
    ========================================= */
 :root {
-	--moto-red: #e30613;       /* Rojo Ducati/Honda intenso */
-	--moto-black: #111111;     /* Negro casi puro */
-	--moto-dark: #1a1a1a;      /* Gris muy oscuro para fondos */
-	--moto-gray: #f4f4f4;      /* Gris claro para fondos de sección */
-	--text-main: #333333;      /* Color de texto lectura */
+	--moto-red: #d32f2f;       /* Rojo más sobrio y elegante */
+	--moto-black: #1a1a1a;     /* Negro menos puro, más gris oscuro antracita */
+	--moto-dark: #202124;      /* Gris muy oscuro para fondos */
+	--moto-gray: #f8f9fa;      /* Gris claro premium para fondos de sección */
+	--text-main: #3c4043;      /* Color de texto lectura más suave */
+	--text-title: #202124;     /* Color títulos principal */
 	
-	--font-title: 'Barlow Condensed', sans-serif;
-	--font-body: 'Roboto', sans-serif;
+	/* Tipografía moderna premium (Inter o system) */
+	--font-title: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+	--font-body: 'Georgia', 'Times New Roman', serif; /* Para contenido largo un serif da toque revista, pero optaremos por sans puro como Xataka */
+	--font-body: 'Inter', system-ui, -apple-system, sans-serif; 
 }
 
 /* =========================================
@@ -41,12 +43,11 @@ html, body {
    ========================================= */
 h1, h2, h3, h4, h5, h6 {
 	font-family: var(--font-title);
-	text-transform: uppercase;
-	font-weight: 800; /* Extra negrita */
-	color: var(--moto-black);
-	margin: 0 0 0.5rem 0;
-	line-height: 1.1;
-	letter-spacing: -0.5px; /* Las letras juntas dan sensación de bloque sólido */
+	font-weight: 800;
+	color: var(--text-title);
+	margin: 0 0 0.75rem 0;
+	line-height: 1.2;
+	letter-spacing: -0.02em; /* Kerning ajustado propio de diseños pro */
 }
 
 a {
@@ -71,27 +72,29 @@ img {
 	padding: 0 20px;
 }
 
-/* Efecto ZOOM GLOBAL para cualquier imagen con clase .zoom-effect */
+/* Efecto ZOOM GLOBAL moderado */
 .zoom-effect {
 	overflow: hidden;
 	display: block;
 }
 .zoom-effect img {
-	transition: transform 0.5s ease, opacity 0.3s ease;
+	transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
 }
 .zoom-effect:hover img {
-	transform: scale(1.1);
+	transform: scale(1.05); /* Zoom menos exagerado, más elegante */
 }
 
-/* Etiquetas (Badges) globales */
+/* Etiquetas (Badges) globales más refinadas */
 .badge {
 	display: inline-block;
 	font-family: var(--font-title);
 	font-weight: 700;
 	text-transform: uppercase;
-	font-size: 0.85rem;
-	padding: 4px 10px;
+	font-size: 0.7rem;
+	letter-spacing: 0.05em;
+	padding: 4px 8px;
 	color: white;
 	background-color: var(--moto-red);
+	border-radius: 2px;
 }
 .badge.black { background-color: var(--moto-black); }

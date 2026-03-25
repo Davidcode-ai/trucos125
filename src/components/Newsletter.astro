@@ -1,149 +1,238 @@
 ---
-// Componente Newsletter - trucos125.com (Conectado a MailerLite)
+// Componente Newsletter rediseñado estilo bloque Xataka (MECÁNICA VITAL)
 ---
-<div class="newsletter-card ml-subscribe-form-38378151">
+<div class="theme-block ml-subscribe-form-38378151">
   
-  <div class="content row-form">
-    <span class="badge">COMUNIDAD TRUQUERA</span>
-    <h3>¡Únete a la familia!</h3>
-    <p>Únete a más de 500 <strong>Truqueros</strong> y recibe consejos de mecánica, seguridad y ofertas en equipamiento cada semana.</p>
-    
-    <form class="newsletter-form ml-block-form" action="https://assets.mailerlite.com/jsonp/2184945/forms/181752705366099123/subscribe" method="post">      
-      <input type="email" name="fields[email]" placeholder="Tu mejor email..." required autocomplete="email" />
-      
-      <input type="hidden" name="ml-submit" value="1">
-      <input type="hidden" name="anticsrf" value="true">
-      
-      <button type="submit" class="primary">¡QUIERO SER TRUQUERO!</button>
-      
-      <button disabled="disabled" style="display: none;" type="button" class="loading">
-        Enviando...
-      </button>
-    </form>
-    <p class="spam-free">🔒 Sin spam. Solo gas del bueno.</p>
+  <div class="row-form theme-container">
+    <div class="theme-block-left">
+        <div class="theme-icon">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+        </div>
+        <h3 class="theme-title">LA REVISTA</h3>
+        <p class="theme-desc">Únete a más de 500 <strong>Truqueros</strong> y recibe consejos de mecánica, seguridad y ofertas cada semana.</p>
+        <span class="theme-more">🔒 SIN SPAM</span>
+    </div>
+
+    <div class="theme-block-right">
+        <form class="newsletter-form ml-block-form" action="https://assets.mailerlite.com/jsonp/2184945/forms/181752705366099123/subscribe" method="post">      
+            <h4 class="form-title">¡ÚNETE A LA FAMILIA!</h4>
+            <div class="input-group">
+                <input type="email" name="fields[email]" placeholder="Tu mejor email..." required autocomplete="email" />
+                <input type="hidden" name="ml-submit" value="1">
+                <input type="hidden" name="anticsrf" value="true">
+                <button type="submit" class="primary">¡QUIERO SER TRUQUERO!</button>
+                <button disabled="disabled" style="display: none;" type="button" class="loading">Enviando...</button>
+            </div>
+        </form>
+    </div>
   </div>
 
-  <div class="content row-success" style="display: none;">
-    <span class="badge">¡BINGO!</span>
-    <h3>¡Bienvenido a los Truqueros!</h3>
-    <p>Te acabas de suscribir con éxito. Revisa tu bandeja de entrada (y la de spam por si acaso), en breve recibirás noticias.</p>
+  <div class="row-success theme-container" style="display: none;">
+    <div class="theme-block-left">
+        <div class="theme-icon">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+        </div>
+        <h3 class="theme-title">¡BINGO!</h3>
+    </div>
+    <div class="theme-block-right success-msg">
+        <h4>¡Bienvenido a los Truqueros!</h4>
+        <p>Te acabas de suscribir con éxito. Revisa tu bandeja de entrada (y la de spam por si acaso), en breve recibirás noticias nuestras.</p>
+    </div>
   </div>
 
 </div>
 
 <style>
-  /* --- LOS MISMOS ESTILOS RACING DE SIEMPRE --- */
-  .newsletter-card {
-    background: #111;
-    color: white;
-    padding: 3rem 2rem;
-    border-radius: 20px;
-    margin: 4rem 0;
-    text-align: center;
-    border-left: 8px solid #e30613;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-  }
-  .badge { background: #e30613; padding: 8px 18px; font-weight: 900; font-size: 1.2rem; border-radius: 6px; display: inline-block; margin-bottom: 15px; letter-spacing: 1px;}
-  h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 2.5rem; margin: 0 0 1rem 0; text-transform: uppercase; }
-  p { font-size: 1.1rem; color: #ccc; max-width: 600px; margin: 0 auto 2rem; }
-  
-  .newsletter-form {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    max-width: 500px;
-    margin: 0 auto;
-  }
-  
-  input {
-    flex: 1;
-    padding: 1rem;
-    border-radius: 8px;
-    border: none;
-    font-size: 1rem;
-    color: #111;
-  }
-  
-  button.primary {
-    background: #e30613;
-    color: white;
-    border: none;
-    padding: 0 1.5rem;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    font-size: 1.2rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
-  
-  button.primary:hover { transform: scale(1.05); background: #be123c; }
-  .spam-free { font-size: 0.8rem; margin-top: 1rem; opacity: 0.6; }
+    .theme-block {
+        background-color: #1a1e23; /* Azul muy oscuro/casi negro */
+        border-radius: 4px;
+        margin: 40px 0;
+        padding: 30px;
+        color: #fff;
+    }
+    
+    .theme-container {
+        display: flex;
+        gap: 25px;
+    }
 
-  @media (max-width: 600px) {
-    .newsletter-form { flex-direction: column; }
-    button.primary { padding: 1rem; }
-  }
-  /* --- AJUSTES EXTRA PARA MÓVIL (NEWSLETTER) --- */
-  @media (max-width: 768px) {
-    .newsletter-card {
-      padding: 2rem 1.5rem; 
-      margin: 2rem 10px; 
-      border-left-width: 4px; 
-      box-sizing: border-box; 
+    .theme-block-left {
+        width: 220px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
     }
-    h3 {
-      font-size: 2rem; 
+
+    .theme-icon {
+        color: #e30613; /* Rojo Moto */
+        margin-bottom: 10px;
     }
-    .newsletter-form { 
-      flex-direction: column; 
-      width: 100%;
+
+    .theme-title {
+        color: #e30613;
+        font-family: var(--font-title);
+        font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        margin: 0 0 15px 0;
+        line-height: 1.1;
     }
-    input {
-      width: 100%;
-      box-sizing: border-box;
+
+    .theme-desc {
+        color: #b0bec5;
+        font-family: var(--font-body);
+        font-size: 1rem;
+        line-height: 1.5;
+        margin: 0 0 20px 0;
     }
-    button.primary { 
-      width: 100%;
-      padding: 1rem; 
+    
+    .theme-more {
+        margin-top: auto;
+        color: #e30613;
+        font-family: var(--font-title);
+        font-size: 0.85rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
     }
-  }
+
+    .theme-block-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-grow: 1;
+        background: #111;
+        padding: 30px;
+        border-radius: 4px;
+        box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .form-title {
+        font-family: var(--font-title);
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #fff;
+        margin: 0 0 15px 0;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .input-group {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .newsletter-form input[type="email"] {
+        flex: 1;
+        padding: 14px 15px;
+        border-radius: 4px;
+        border: 2px solid transparent;
+        font-size: 1rem;
+        color: #111;
+        background: #fff;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+    
+    .newsletter-form input[type="email"]:focus {
+        border-color: #e30613;
+    }
+
+    button.primary, button.loading {
+        background: #e30613;
+        color: white;
+        border: 2px solid #e30613;
+        padding: 0 25px;
+        font-family: var(--font-title);
+        font-weight: 800;
+        font-size: 1.1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: transform 0.2s, background 0.2s, border-color 0.2s;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+    }
+
+    button.primary:hover {
+        background: #be123c;
+        border-color: #be123c;
+        transform: translateY(-2px);
+    }
+
+    .success-msg h4 {
+        font-family: var(--font-title);
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #e30613;
+        margin: 0 0 10px 0;
+    }
+
+    .success-msg p {
+        font-size: 1.1rem;
+        color: #ddd;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+        .theme-container {
+            flex-direction: column;
+            gap: 20px;
+        }
+        .theme-block-left {
+            width: 100%;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 5px;
+        }
+        .theme-more { margin-top: 10px; }
+        .input-group {
+            flex-direction: column;
+        }
+        button.primary {
+            padding: 15px;
+        }
+        .theme-block-right {
+            padding: 20px 15px;
+        }
+    }
 </style>
 
 <script>
-  // Interceptamos el formulario para que no nos saque de la web
   document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.newsletter-form');
-    
-    // Comprobamos que el formulario existe y es de tipo Formulario
     if (form instanceof HTMLFormElement) {
       form.addEventListener('submit', (e) => {
-        e.preventDefault(); // Cortamos de raíz que te envíe a la página blanca
+        e.preventDefault();
         
         const actionUrl = form.getAttribute('action') || '';
         const formData = new FormData(form);
         const btn = form.querySelector('button.primary');
         
-        // Comprobamos que el botón existe y es de tipo Botón
         if (btn instanceof HTMLButtonElement) {
-            // Cambiamos el texto del botón para que parezca que carga
             const originalText = btn.innerHTML;
             btn.innerHTML = 'Enviando...';
             btn.disabled = true;
 
-            // Enviamos los datos por detrás sin recargar
             fetch(actionUrl, {
               method: 'POST',
               body: formData,
-              mode: 'no-cors' // Esto es vital para que MailerLite lo acepte
+              mode: 'no-cors'
             }).then(() => {
-              // Buscamos las cajas de contenido
               const rowForm = document.querySelector('.row-form');
               const rowSuccess = document.querySelector('.row-success');
               
-              // Si existen, les cambiamos el estilo (ocultar una y mostrar otra)
               if (rowForm instanceof HTMLElement) rowForm.style.display = 'none';
-              if (rowSuccess instanceof HTMLElement) rowSuccess.style.display = 'block';
+              if (rowSuccess instanceof HTMLElement) rowSuccess.style.display = 'flex'; // Usamos flex porque la clase theme-container usa flex
               
             }).catch((err) => {
               console.error(err);

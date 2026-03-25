@@ -1,0 +1,187 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+
+// Obtención de todos los posts y filtrado de "Novedades" (últimos 5 días)
+const allPosts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const now = new Date();
+const FIVE_DAYS_IN_MS = 5 * 24 * 60 * 60 * 1000;
+
+// Filtramos estricto (ignora artículos futuros si la diferencia es un valor negativo)
+const novedadesPosts = allPosts.filter(post => {
+    const diffTime = now.getTime() - post.data.pubDate.getTime();
+    return diffTime >= 0 && diffTime <= FIVE_DAYS_IN_MS;
+});
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<BaseHead title={`Novedades recientes - ${SITE_TITLE}`} description="Los artículos más recientes de Trucos125 en los últimos días." />
+		<style>
+			main {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 30px 20px;
+                background-color: #f7f9fc;
+			}
+			h1 {
+				font-family: var(--font-title);
+				font-size: 2.5rem;
+				color: #111;
+				margin-bottom: 30px;
+				text-transform: uppercase;
+				letter-spacing: -0.03em;
+				border-left: 6px solid var(--moto-red);
+				padding-left: 15px;
+			}
+            
+            .feed-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .feed-item {
+                background: #fff;
+                border-radius: 4px;
+                padding: 15px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+                border: 1px solid #eaeaea;
+                transition: box-shadow 0.2s;
+            }
+            .feed-item:hover {
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            }
+
+            .feed-link {
+                text-decoration: none;
+                color: inherit;
+                display: flex;
+                gap: 25px;
+            }
+
+            .feed-img {
+                width: 320px;
+                height: 180px;
+                flex-shrink: 0;
+                overflow: hidden;
+                border-radius: 2px;
+            }
+
+            .feed-img img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.3s;
+            }
+
+            .feed-item:hover .feed-img img {
+                transform: scale(1.05);
+            }
+
+            .feed-text {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .feed-cat {
+                color: #4caf50;
+                font-family: var(--font-title);
+                font-size: 0.75rem;
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                margin-bottom: 8px;
+            }
+
+            .feed-text h2 {
+                margin: 0 0 10px 0;
+                font-family: var(--font-title);
+                font-size: 1.6rem;
+                color: #111;
+                line-height: 1.2;
+                letter-spacing: -0.02em;
+                transition: color 0.2s;
+            }
+
+            .feed-item:hover .feed-text h2 {
+                color: var(--moto-red);
+            }
+
+            .feed-desc {
+                color: #555;
+                font-size: 1rem;
+                margin: 0 0 15px 0;
+                line-height: 1.5;
+                font-family: var(--font-body);
+            }
+
+            /* METADATA STYLE XATAKA */
+            .feed-meta {
+                font-family: var(--font-title);
+                font-size: 0.75rem;
+                color: #888;
+                font-weight: 600;
+                text-transform: uppercase;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+            .feed-meta span.author {
+                color: #555;
+            }
+
+            @media (max-width: 768px) {
+                .feed-link {
+                    flex-direction: column;
+                }
+                .feed-img {
+                    width: 100%;
+                    height: 200px;
+                }
+            }
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Novedades de la Semana</h1>
+            
+            <div class="feed-grid">
+                {novedadesPosts.length > 0 ? novedadesPosts.map((post) => (
+                    <article class="feed-item">
+                        <a href={`/blog/${post.id}/`} class="feed-link">
+                            <div class="feed-img">
+                                {post.data.heroImage && <Image src={post.data.heroImage} alt={post.data.title} width={350} height={200} format="webp" />}
+                            </div>
+                            <div class="feed-text">
+                                {post.data.categoria ? (
+                                    <span class="feed-cat">{post.data.categoria}</span>
+                                ) : (
+                                    <span class="feed-cat">Novedades</span>
+                                )}
+                                <h2>{post.data.title}</h2>
+                                <p class="feed-desc">{post.data.description?.substring(0, 140)}...</p>
+                            </div>
+                        </a>
+                    </article>
+                )) : (
+                    <div style="background: #fff; border-radius: 4px; padding: 40px 30px; border: 1px solid #eaeaea; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+                        <h3 style="margin: 0 0 10px 0; color: #111; font-family: var(--font-title); font-size: 1.5rem; letter-spacing: -0.02em;">No hay Novedades en portada 📭</h3>
+                        <p style="color: #666; font-size: 1.1rem; line-height: 1.5; margin-bottom: 0;">Los creadores se han tomado un pequeño descanso de publicar en los últimos 5 días. <br /> <a href="/blog" style="color: #e30613; font-weight: bold; text-decoration: underline; margin-top: 10px; display: inline-block;">Explora el repositorio de Trucos125 completo aquí 👉</a></p>
+                    </div>
+                )}
+            </div>
+		</main>
+		<Footer />
+	</body>
+</html>

@@ -7,6 +7,28 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 const posts = (await getCollection('blog')).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+function getFormattedDateInfo(date: Date | string): string {
+    if (!date) return '';
+    const now = new Date();
+    const pubDate = new Date(date);
+    const diffTime = now.getTime() - pubDate.getTime();
+    
+    if (diffTime < 0 || diffTime >= 15 * 24 * 60 * 60 * 1000) {
+        const day = pubDate.getDate().toString().padStart(2, '0');
+        const month = (pubDate.getMonth() + 1).toString().padStart(2, '0');
+        const year = pubDate.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+    
+    const diffMinutes = Math.floor(diffTime / (1000 * 60));
+    const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffMinutes < 60) return 'hace unos minutos';
+    if (diffHours < 24) return `hace ${Math.max(1, diffHours)}h`;
+    return `hace ${diffDays === 1 ? '1 día' : diffDays + ' días'}`;
+}
 ---
 
 <BaseLayout title={`Todos los artículos - ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
@@ -30,35 +52,31 @@ const posts = (await getCollection('blog')).sort(
         </section>
 
     <section>
-        <ul class="blog-grid" id="lista-articulos">
+        <div class="list-feed" id="lista-articulos">
             {
                 posts.map((post) => (
-                    <li class="articulo-item">
-                        <article class="post-card">
-                            <a href={`/blog/${post.id}/`} class="img-container">
+                    <article class="feed-item articulo-item">
+                        <a href={`/blog/${post.id}/`} class="feed-link" style="text-decoration: none; color: inherit;">
+                            <div class="feed-img">
                                 {post.data.heroImage ? (
                                     <img src={post.data.heroImage.src} alt={post.data.title} />
                                 ) : (
                                     <div class="no-img">Sin imagen</div>
                                 )}
-                            </a>
-                            
-                            <div class="post-content">
-                                <p class="date">
-                                    <FormattedDate date={post.data.pubDate} />
-                                    <span class="sep">|</span>
-                                    <a href={`/blog/${post.id}/#disqus_thread`} class="comment-link">0 Comentarios</a>
-                                </p>
-                                
-                                <a href={`/blog/${post.id}/`} class="title-link">
-                                    <h4 class="title">{post.data.title}</h4>
-                                </a>
                             </div>
-                        </article>
-                    </li>
+                            <div class="feed-text">
+                                {post.data.categoria && <span class="feed-cat">{post.data.categoria}</span>}
+                                <h2 class="title">{post.data.title}</h2>
+                                <p class="feed-desc" style="margin: 0 0 10px 0;">{post.data.description?.substring(0, 100)}...</p>
+                                <span style="font-size: 0.75rem; color: #888; font-weight: 700; text-transform: uppercase; font-family: var(--font-title); display: block; margin-top: 8px;">
+                                    DAVID MUÑOZ &bull; {getFormattedDateInfo(post.data.pubDate)} &bull; <span class="disqus-comment-count" data-disqus-identifier={post.id}>0 comentarios</span>
+                                </span>
+                            </div>
+                        </a>
+                    </article>
                 ))
             }
-        </ul>
+        </div>
         <div id="no-resultados" style="display: none; text-align: center; padding: 40px; color: #666; font-size: 1.2rem;">
             No hemos encontrado ningún artículo con esa palabra. ¡Prueba con otra! 🏍️
         </div>
@@ -195,55 +213,92 @@ const posts = (await getCollection('blog')).sort(
     }
     /* 👆 ----------------------------------- 👆 */
 
-    /* --- GRID DE ARTÍCULOS --- */
-    .blog-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-        gap: 35px;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
-
-    /* --- TARJETAS DE LOS ARTÍCULOS --- */
-    .post-card {
+    /* --- LISTA DE ARTÍCULOS --- */
+    .list-feed {
         display: flex;
         flex-direction: column;
-        background: white;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        height: 100%;
-        border: 1px solid #eee;
-    }
-    .post-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        gap: 25px;
+        max-width: 900px;
+        margin: 0 auto;
     }
 
-    .img-container, .title-link {
+    .feed-item {
+        background: #fff;
+        border-radius: 4px;
+        padding: 15px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        border: 1px solid #eaeaea;
+        transition: box-shadow 0.2s;
+    }
+    .feed-item:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .feed-link {
+        display: flex;
         text-decoration: none;
+        color: inherit;
+        gap: 25px;
     }
 
-    .img-container {
-        width: 100%;
-        aspect-ratio: 16 / 9;
+    .feed-img {
+        width: 320px;
+        height: 200px;
+        flex-shrink: 0;
         overflow: hidden;
-        background-color: #111; 
-        position: relative;
-        display: block;
+        background-color: #111;
+        border-radius: 4px;
     }
-    .img-container img {
+    .feed-img img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         transition: transform 0.6s ease;
     }
-    .post-card:hover .img-container img {
+    .feed-link:hover .feed-img img {
         transform: scale(1.08);
     }
 
+    .feed-text {
+        padding: 0px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .feed-cat {
+        display: block;
+        font-size: 0.75rem;
+        color: #e30613;
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        letter-spacing: 0.05em;
+    }
+
+    .feed-text h2 {
+        font-size: 1.6rem;
+        margin: 0 0 10px 0;
+        line-height: 1.25;
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 800;
+        transition: color 0.2s;
+        color: #111;
+        letter-spacing: -0.5px;
+    }
+    .feed-link:hover .feed-text h2 {
+        color: #e30613;
+    }
+
+    .feed-desc {
+        color: #555;
+        font-size: 1.05rem;
+        margin: 0;
+        line-height: 1.5;
+        font-family: inherit;
+    }
+    
     .no-img {
         display: flex;
         align-items: center;
@@ -253,52 +308,11 @@ const posts = (await getCollection('blog')).sort(
         font-weight: bold;
     }
 
-    /* --- TEXTOS DE LA TARJETA --- */
-    .post-content {
-        padding: 25px 20px;
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-    }
-    .date {
-        margin: 0 0 12px 0;
-        color: #888;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        font-weight: 700;
-        letter-spacing: 1px;
-        display: flex;
-        align-items: center;
-    }
-    .title {
-        margin: 0;
-        color: #111;
-        font-size: 1.6rem;
-        line-height: 1.2;
-        font-family: 'Barlow Condensed', sans-serif;
-        font-weight: 800;
-        transition: color 0.2s;
-    }
-    .post-card:hover .title {
-        color: #e30613;
-    }
-
-    /* --- ESTILOS EXCLUSIVOS DEL CONTADOR --- */
-    .sep { margin: 0 8px; color: #ddd; font-weight: normal; }
-    .comment-link {
-        color: #e30613;
-        font-weight: 800;
-        text-decoration: none;
-        transition: text-decoration 0.2s;
-    }
-    .comment-link:hover {
-        text-decoration: underline;
-    }
-
     /* --- RESPONSIVE --- */
     @media (max-width: 768px) {
         .page-header h1 { font-size: 2.8rem; }
-        .blog-grid { gap: 20px; }
         .search-wrapper { padding: 0 10px; }
+        .feed-link { flex-direction: column; }
+        .feed-img { width: 100%; height: 220px; }
     }
 </style>
