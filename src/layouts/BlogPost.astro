@@ -6,6 +6,7 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 import RelatedPosts from '../components/RelatedPosts.astro';
+import Adsense from '../components/Adsense.astro';
 import { Image } from 'astro:assets'; 
 
 type Props = CollectionEntry<'blog'>['data'];
@@ -214,7 +215,13 @@ const categoryUrl = categoria
                         <h1>{title}</h1>
                         <hr />
                     </div>
+                    
+                    <Adsense bloque="in-article" />
+                    
                     <slot />
+                    
+                    <Adsense bloque="display" />
+                    
                 </div> <!-- Fin de .prose -->
 
                 <div id="disqus_thread" style="margin-top: 60px; padding-top: 30px; border-top: 4px solid #e30613;"></div>
