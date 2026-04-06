@@ -7,7 +7,6 @@
   <div id="cookie-banner" class="cookie-box">
     <h2>Uso de Cookies 🍪</h2>
     <p>Utilizamos cookies propias y de terceros (como Google AdSense) para analizar el tráfico y mostrar publicidad personalizada. Puedes aceptarlas todas, configurarlas o rechazarlas.</p>
-    <p class="warning-text">⚠️ <strong>Aviso:</strong> Si decides rechazarlas, no podrás seguir navegando por la web.</p>
     
     <div class="cookie-buttons">
       <button id="btn-accept-all" class="btn btn-primary">Aceptar Todas</button>
@@ -51,13 +50,6 @@
     </div>
   </div>
 
-  <!-- Modal de rechazo (Bloqueo Total) -->
-  <div id="cookie-rejected" class="cookie-box hidden text-center">
-    <h2>Acceso Bloqueado 🚫</h2>
-    <p>Has decidido rechazar las cookies.</p>
-    <p>Para poder disfrutar de nuestro contenido y navegar por <strong>Trucos125</strong>, es necesario aceptar al menos las condiciones de navegación.</p>
-    <button id="btn-back-rejected" class="btn btn-primary mt-4">Volver a las opciones</button>
-  </div>
 </div>
 
 <script is:inline>
@@ -77,16 +69,14 @@
     const overlay = document.getElementById('cookie-overlay');
     const banner = document.getElementById('cookie-banner');
     const settings = document.getElementById('cookie-settings');
-    const rejected = document.getElementById('cookie-rejected');
     
-    if (!overlay || !banner || !settings || !rejected) return;
+    if (!overlay || !banner || !settings) return;
 
     const btnAcceptAll = document.getElementById('btn-accept-all');
     const btnReject = document.getElementById('btn-reject');
     const btnConfig = document.getElementById('btn-config');
     const btnSaveSettings = document.getElementById('btn-save-settings');
     const btnBackSettings = document.getElementById('btn-back-settings');
-    const btnBackRejected = document.getElementById('btn-back-rejected');
 
     const chkAnalytics = document.getElementById('chk-analytics');
     const chkMarketing = document.getElementById('chk-marketing');
@@ -97,20 +87,16 @@
     overlay.classList.add('hidden');
     banner.classList.add('hidden');
     settings.classList.add('hidden');
-    rejected.classList.add('hidden');
     document.body.style.overflow = '';
 
     // Comprobamos la decisión del usuario
     if (!consent) {
-      // Sin decisión: mostramos banner y bloqueamos scroll
+      // Sin decisión: mostramos banner pero permitimos navegación/scroll (Anti-bot block)
       overlay.classList.remove('hidden');
       banner.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
     } else if (consent === 'rejected') {
-      // Rechazadas: mostramos pantalla de bloqueo total sin banner
-      overlay.classList.remove('hidden');
-      rejected.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
+      // Rechazadas: ocultar todo, no cargar AdSense
+      overlay.classList.add('hidden');
     } else {
       // Aceptadas (all o custom): liberamos scroll y cargamos scripts
       if (consent === 'all' || (consent === 'custom' && localStorage.getItem('cookieMarketing') === 'true')) {
@@ -130,9 +116,10 @@
 
     if (btnReject) btnReject.onclick = () => {
       localStorage.setItem('cookieConsent', 'rejected');
-      banner.classList.add('hidden');
-      rejected.classList.remove('hidden');
-      // No restauramos el scroll para dejarle bloqueado
+      localStorage.setItem('cookieAnalytics', 'false');
+      localStorage.setItem('cookieMarketing', 'false');
+      overlay.classList.add('hidden');
+      document.body.style.overflow = '';
     };
 
     if (btnConfig) btnConfig.onclick = () => {
@@ -156,11 +143,6 @@
       banner.classList.remove('hidden');
     };
 
-    if (btnBackRejected) btnBackRejected.onclick = () => {
-      rejected.classList.add('hidden');
-      banner.classList.remove('hidden');
-    };
-
     function closeOverlay() {
       overlay.classList.add('hidden');
       document.body.style.overflow = '';
@@ -170,9 +152,9 @@
     window.openCookieSettings = () => {
       overlay.classList.remove('hidden');
       banner.classList.add('hidden');
-      rejected.classList.add('hidden');
       settings.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
+      // No bloqueamos scroll (mejor usabilidad y SEO)
+      document.body.style.overflow = '';
     };
   }
 
@@ -182,17 +164,16 @@
 </script>
 
 <style>
-  /* Fondo oscuro que bloquea absolutamente todo */
+  /* Contenedor transparente en la parte inferior para no incordiar/bloquear bots */
   .cookie-overlay {
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: rgba(0, 0, 0, 0.9);
-    backdrop-filter: blur(8px);
+    bottom: 20px; left: 0; right: 0;
     z-index: 999999;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     padding: 20px;
+    pointer-events: none; /* Permite clic hacia el contenido web trasero */
   }
   .cookie-overlay.hidden {
     display: none !important;
@@ -200,6 +181,7 @@
   
   /* Cajas de diálogo */
   .cookie-box {
+    pointer-events: auto; /* Reactiva los clics dentro de la caja */
     background: #fff;
     max-width: 600px;
     width: 100%;
@@ -227,11 +209,6 @@
     color: #444;
     line-height: 1.6;
     margin-bottom: 20px;
-  }
-
-  .warning-text {
-    color: #e30613 !important;
-    font-weight: 500;
   }
 
   /* Botones */
