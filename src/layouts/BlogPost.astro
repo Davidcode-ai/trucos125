@@ -174,6 +174,62 @@ const categoryUrl = categoria
                     font-size: clamp(1.3rem, 5vw, 1.7rem) !important;
                 }
             }
+
+            /* --- ESTILOS DE LA CAJA DE AUTOR --- */
+            .author-box {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                background: #f8f9fa;
+                border-left: 4px solid var(--moto-red);
+                padding: 20px;
+                margin-top: 40px;
+                border-radius: 4px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            }
+            .author-avatar img {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 2px solid #fff;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+            .author-info-box {
+                flex: 1;
+            }
+            .author-name {
+                margin: 0 0 8px 0;
+                font-family: var(--font-title);
+                font-size: 1.2rem;
+                font-weight: 800;
+                color: #111;
+            }
+            .author-bio {
+                margin: 0 0 10px 0;
+                font-size: 0.95rem;
+                line-height: 1.5;
+                color: #555;
+            }
+            .author-link {
+                font-size: 0.85rem;
+                font-family: var(--font-title);
+                font-weight: 700;
+                color: var(--moto-red);
+                text-decoration: none;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+            .author-link:hover {
+                text-decoration: underline;
+            }
+
+            @media (max-width: 600px) {
+                .author-box {
+                    flex-direction: column;
+                    text-align: center;
+                }
+            }
         </style>
     </head>
 
@@ -221,6 +277,20 @@ const categoryUrl = categoria
                     <slot />
                     
                     <Adsense bloque="display" />
+                    
+                    <!-- CAJA DE AUTOR (E-E-A-T para SEO y AdSense) -->
+                    <div class="author-box">
+                        <div class="author-avatar">
+                            <img src="https://ui-avatars.com/api/?name=David+Muñoz&background=e30613&color=fff&size=128" alt="David Muñoz" loading="lazy" />
+                        </div>
+                        <div class="author-info-box">
+                            <h4 class="author-name">Sobre el autor: David Muñoz</h4>
+                            <p class="author-bio">
+                                Apasionado de las dos ruedas con años de experiencia exprimiendo motores de 125cc. Mi objetivo es ayudarte a disfrutar de tu moto con seguridad, enseñarte los mejores trucos de mantenimiento y guiarte en el caótico mundo del equipamiento y la normativa.
+                            </p>
+                            <a href="/sobre-mi" class="author-link">Leer más sobre mi trayectoria &rarr;</a>
+                        </div>
+                    </div>
                     
                 </div> <!-- Fin de .prose -->
 
