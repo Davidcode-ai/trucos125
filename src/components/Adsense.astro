@@ -34,11 +34,11 @@ const slotId = adSlots[bloque] || adSlots['display'];
 
 <style>
   .adsense-container {
-    min-height: 250px; 
+    min-height: 100px; /* Reducido para no dejar un hueco gigante si no hay anuncio */
     margin: 2rem 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f9fafb;
+    /* Eliminado el background-color gris para que no parezca un error de diseño cuando está vacío */
   }
 </style>
