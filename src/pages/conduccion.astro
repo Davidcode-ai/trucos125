@@ -102,11 +102,22 @@ const filteredPosts = posts.filter((post) => post.data.categoria === 'Conducció
 
 <style>
     /* --- ESTRUCTURA PRINCIPAL --- */
-    .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+    .container { max-width: 1200px; width: 100%; margin: 0 auto; padding: 40px 20px; box-sizing: border-box; overflow-x: clip; }
 
     /* --- CABECERA DE LA PÁGINA --- */
-    .page-header { text-align: center; margin-bottom: 50px; }
-    .page-header h1 { font-family: 'Barlow Condensed', sans-serif; font-size: 3.5rem; font-weight: 900; color: #111; margin: 0; letter-spacing: -1px; text-transform: uppercase; }
+    .page-header { text-align: center; margin-bottom: 50px; width: 100%; max-width: 100%; }
+    .page-header h1 {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 3.5rem;
+        font-weight: 900;
+        color: #111;
+        margin: 0;
+        letter-spacing: -1px;
+        text-transform: uppercase;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        line-height: 1.05;
+    }
     .title-line { width: 80px; height: 5px; background-color: #e30613; margin: 15px auto; }
     .page-header p { color: #555; font-size: 1.2rem; font-weight: 500; margin-bottom: 30px; }
 
@@ -122,7 +133,7 @@ const filteredPosts = posts.filter((post) => post.data.categoria === 'Conducció
     .category-pill:hover, .category-pill.active { background-color: #fff; border-color: #e30613; color: #e30613; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(227, 6, 19, 0.15); }
 
     /* --- GRID DE ARTÍCULOS --- */
-    .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 35px; list-style-type: none; margin: 0; padding: 0; }
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 35px; list-style-type: none; margin: 0; padding: 0; }
 
     /* --- TARJETAS DE LOS ARTÍCULOS --- */
     .post-card { display: flex; flex-direction: column; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); transition: transform 0.3s ease, box-shadow 0.3s ease; height: 100%; border: 1px solid #eee; }
@@ -143,5 +154,15 @@ const filteredPosts = posts.filter((post) => post.data.categoria === 'Conducció
     .comment-link:hover { text-decoration: underline; }
 
     /* --- RESPONSIVE --- */
-    @media (max-width: 768px) { .page-header h1 { font-size: 2.8rem; } .blog-grid { gap: 20px; } .search-wrapper { padding: 0 10px; } }
+    @media (max-width: 768px) {
+        .container { padding: 24px 12px 40px; }
+        .page-header h1 { font-size: clamp(1.45rem, 7vw, 2.8rem); letter-spacing: 0; }
+        .page-header p { font-size: 1.05rem; padding: 0 10px; }
+        .blog-grid { gap: 20px; grid-template-columns: 1fr; }
+        .search-wrapper { padding: 0; }
+        .category-nav { gap: 8px; padding: 0; }
+        .category-pill { font-size: 0.85rem; padding: 8px 14px; }
+        .title { font-size: 1.25rem; word-wrap: break-word; }
+        .post-content { padding: 18px 14px; }
+    }
 </style>

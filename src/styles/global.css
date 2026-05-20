@@ -21,7 +21,8 @@
    3. RESET Y BASE
    ========================================= */
 *, *::before, *::after {
-	box-sizing: border-box; /* Esto evita que las cajas se rompan con el padding */
+	box-sizing: border-box;
+	min-width: 0;
 }
 
 html, body {
@@ -31,7 +32,29 @@ html, body {
 	color: var(--text-main);
 	font-family: var(--font-body);
 	line-height: 1.6;
-	overflow-x: hidden; /* Evita el scroll lateral indeseado */
+	overflow-x: hidden;
+	width: 100%;
+	max-width: 100%;
+}
+
+img,
+video,
+iframe,
+svg,
+table {
+	max-width: 100%;
+}
+
+@media (max-width: 768px) {
+	.container {
+		padding-left: 12px !important;
+		padding-right: 12px !important;
+		max-width: 100% !important;
+	}
+	h1, h2, h3, h4, h5, h6, p, a, li, span {
+		overflow-wrap: break-word;
+		word-break: break-word;
+	}
 }
 
 /* =========================================

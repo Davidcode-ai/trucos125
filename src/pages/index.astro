@@ -32,25 +32,6 @@ const postDestacado4 = allPosts[3]; // Lateral inf (si lo hay, sino cogemos el 0
 // Resto de posts en un muro de noticias denso
 const feedPosts = allPosts.slice(4);
 
-const fiat125PillarLinks = [
-    {
-        label: 'Motor, culata y cilindros',
-        url: '/blog/motor-clasico-fiat-125-diagnostico-culata-cilindros-guia-taller/',
-    },
-    {
-        label: 'Weber doble cuerpo',
-        url: '/blog/weber-doble-cuerpo-fiat-125-puesta-punto-carburador/',
-    },
-    {
-        label: 'Frenos clásicos',
-        url: '/blog/restauracion-frenos-clasicos-fiat-125-bomba-pinzas-zapatas/',
-    },
-    {
-        label: 'Encendido por platinos',
-        url: '/blog/encendido-platinos-fiat-125-esquema-electrico-fallos/',
-    },
-]; 
-
 // Extraemos subconjuntos de posts para los bloques variados
 const poolBasics = allPosts.filter(p => p.data.categoria?.toLowerCase() === 'consejos' || p.data.categoria?.toLowerCase() === 'mecánica' || !p.data.categoria);
 const validPool = poolBasics.length >= 3 ? poolBasics : allPosts;
@@ -166,23 +147,6 @@ function getFormattedDateInfo(date: Date | string): string {
 
 
             <div class="container container-magazine">
-
-                <section class="fiat-home-band" aria-labelledby="fiat-home-heading">
-                    <div class="fiat-home-inner">
-                        <h2 id="fiat-home-heading">Restauración FIAT 125 — guías de taller</h2>
-                        <p>
-                            Manuales interpretados con criterio de mecánica clásica: motor, carburación Weber, frenos y
-                            encendido. Empiece por la <a href="/mecanica">sección de mecánica</a>.
-                        </p>
-                        <ul class="fiat-home-links">
-                            {fiat125PillarLinks.map((item) => (
-                                <li>
-                                    <a href={item.url}>{item.label}</a>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </section>
                 
                 <!-- PORTADA XATAKA-STYLE: GRID DENSO -->
                 <section class="story-grid">
@@ -371,64 +335,15 @@ function getFormattedDateInfo(date: Date | string): string {
 
 <style>
     .magazine-body {
-        background-color: #f7f9fc; /* Fondo ultra claro distintivo de revistas, rompe el blanco nuclear y separa cajas */
+        background-color: #f7f9fc;
+        overflow-x: hidden;
+        max-width: 100%;
     }
 
     .magazine-main {
         background: transparent;
         padding-top: 45px;
         padding-bottom: 60px;
-    }
-
-    .fiat-home-band {
-        margin-bottom: 36px;
-    }
-    .fiat-home-inner {
-        background: #fff;
-        border: 1px solid #eaeaea;
-        border-top: 3px solid #e30613;
-        padding: 24px 28px;
-        border-radius: 8px;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-    }
-    .fiat-home-inner h2 {
-        font-family: var(--font-title);
-        font-size: 1.5rem;
-        margin: 0 0 8px 0;
-        text-transform: uppercase;
-        letter-spacing: 0.02em;
-    }
-    .fiat-home-inner p {
-        margin: 0 0 16px 0;
-        color: #555;
-        line-height: 1.55;
-        font-size: 0.98rem;
-    }
-    .fiat-home-inner p a {
-        color: #e30613;
-        font-weight: 600;
-    }
-    .fiat-home-links {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px 20px;
-    }
-    .fiat-home-links a {
-        font-family: var(--font-title);
-        font-weight: 700;
-        font-size: 0.95rem;
-        text-transform: uppercase;
-        color: #111;
-        text-decoration: none;
-        border-bottom: 2px solid transparent;
-        transition: color 0.2s, border-color 0.2s;
-    }
-    .fiat-home-links a:hover {
-        color: #e30613;
-        border-color: #e30613;
     }
 
     .container-magazine {
@@ -835,14 +750,41 @@ function getFormattedDateInfo(date: Date | string): string {
             grid-template-columns: 1fr;
         }
         .image-wrapper { height: 350px; }
-        .side-stories {
-            flex-direction: row;
+        .magazine-split {
+            grid-template-columns: 1fr;
+            gap: 24px;
         }
     }
 
-    @media (max-width: 850px) {
-        .magazine-split {
-            grid-template-columns: 1fr;
+    @media (max-width: 768px) {
+        .magazine-main {
+            padding-top: 24px;
+            padding-bottom: 32px;
+        }
+        .container-magazine {
+            padding: 0 12px;
+        }
+        .side-stories {
+            flex-direction: column;
+        }
+        .compact-link {
+            flex-direction: column;
+        }
+        .compact-img {
+            width: 100%;
+            height: 180px;
+        }
+        .compact-text h2 {
+            font-size: 1rem;
+        }
+        .hero-content {
+            padding: 18px 16px;
+        }
+        .hero-content h1 {
+            font-size: clamp(1.35rem, 6vw, 1.85rem);
+        }
+        .hero-content p {
+            font-size: 1rem;
         }
         .feed-link {
             flex-direction: column;
@@ -851,34 +793,55 @@ function getFormattedDateInfo(date: Date | string): string {
             width: 100%;
             height: 200px;
         }
-        .side-stories {
-            flex-direction: column;
+        .feed-text {
+            padding: 16px;
         }
-        .compact-img {
-            width: 120px; 
+        .feed-text h2 {
+            font-size: clamp(1.1rem, 5vw, 1.35rem);
+        }
+        .feed-desc {
+            font-size: 0.95rem;
         }
         .theme-block {
             flex-direction: column;
-            padding: 20px;
+            padding: 16px;
+            gap: 16px;
+            margin: 20px 0;
         }
         .theme-block-left {
             width: 100%;
             border-bottom: 1px solid #333;
-            padding-bottom: 20px;
-            margin-bottom: 5px;
+            padding-bottom: 16px;
+            margin-bottom: 0;
         }
         .theme-links {
-            flex-direction: row;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 10px;
         }
-    }
-    
-    @media (max-width: 500px) {
-        .hero-content h1 { font-size: 1.8rem; }
-        .hero-content p { display: none; } /* Mucha densidad en movil -> se quitan descripciones */
-        .image-wrapper { height: 250px; }
         .theme-block-right {
             grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        .theme-title {
+            font-size: 1.2rem;
+        }
+        .widget {
+            padding: 14px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-content p { display: none; }
+        .image-wrapper { height: 220px; }
+        .author-info {
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+        .feed-header h3 {
+            font-size: 1.15rem;
+        }
+        .theme-card-text h4 {
+            font-size: 0.95rem;
         }
     }
 </style>

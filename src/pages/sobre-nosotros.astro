@@ -7,7 +7,7 @@ import fotoEquipo from '../assets/yo.jpg';
 
 <BaseLayout
 	title={`Sobre nosotros | ${SITE_TITLE}`}
-	description="Equipo detrás de Trucos125: décadas de experiencia en mecánica clásica, documentación FIAT 125 y misión de preservar el patrimonio automotriz."
+	description="Equipo detrás de Trucos125: experiencia en motos y scooters 125cc, mantenimiento en casa y comunidad de moteros."
 >
 	<article class="about-page">
 		<header class="about-hero">
@@ -26,10 +26,9 @@ import fotoEquipo from '../assets/yo.jpg';
 				<p class="eyebrow">Sobre nosotros</p>
 				<h1>Quienes escribimos para quienes arreglan en serio</h1>
 				<p class="lead">
-					Somos mecánicos y restauradores acostumbrados a culatas de aleación ligera, bloques de fundición y
-					sistemas de encendido que ya no tienen red de concesionarios a la vuelta de la esquina. Trucos125
-					nació para que la mecánica del sedán italiano más querido por la calle no viva solo en PDFs
-					huérfanos sin contexto.
+					Somos moteros y mecánicos de barrio acostumbrados a scooters urbanos, naked de 125cc y el
+					mantenimiento que el concesionario cobra de más. Trucos125 nació para que la mecánica de motos y
+					scooters de 125 centímetros cúbicos no viva solo en manuales huérfanos sin contexto práctico.
 				</p>
 			</div>
 		</header>
@@ -37,24 +36,24 @@ import fotoEquipo from '../assets/yo.jpg';
 		<section class="prose-block" aria-labelledby="historia">
 			<h2 id="historia">Trayectoria y criterio de taller</h2>
 			<p>
-				Llevamos años desmontando y volviendo a montar motores con <strong>árbol de levas en culata</strong>,
-				ajustando holguras de válvulas con calibrador y probando compresión antes de condenar un cilindro.
-				Hemos visto bloques salvados con un rectificado honesto y culadas perdidas por un apriete descuidado o
-				por mezclas de refrigerante mal purgadas.
+				Llevamos años tensando cadenas, purgando frenos, pasando ITVs y enseñando a quien convalida el carnet B
+				que la moto no se conduce como un coche. Hemos visto kits de arrastre muertos por grasa encima de suciedad,
+				aceites pasados de fecha y novatos que frenan solo con el trasero porque alguien les metió miedo al
+				freno delantero.
 			</p>
 			<p>
-				Esa experiencia es la que trasladamos al Sitio: no repetimos fichas técnicas como loros; las enlazamos con
-				el <em>porqué</em> del síntoma, con la tolerancia que mide el micrómetro y con la prudencia que exige el
-				taller cuando el cliente pide milagros para el viernes.
+				Esa experiencia es la que trasladamos al sitio: no repetimos fichas técnicas como loros; las enlazamos con
+				el <em>porqué</em> del síntoma, con las herramientas que sí necesitas en el garaje y con la prudencia que
+				exige circular en ciudad con ruedas de tarjeta de crédito de huella.
 			</p>
 		</section>
 
 		<section class="prose-block" aria-labelledby="mision">
 			<h2 id="mision">Misión</h2>
 			<p>
-				Nuestra misión es <strong>preservar el patrimonio histórico automotriz</strong> y dar herramientas
-				narrativas a otros restauradores: desde el aficionado que afila destornilladores los domingos hasta el
-				taller que necesita una segunda opinión documentada antes de encajar un juego de pistones.
+				Nuestra misión es que cualquier conductor con carnet B y tres años de antigüedad pueda <strong>mantener,
+				inspeccionar y disfrutar su 125cc</strong> sin depender del taller para todo: desde el rodaje de la moto
+				nueva hasta la cadena del viernes por la tarde.
 			</p>
 			<p>
 				Publicamos manuales comentados, guías paso a paso y artículos de diagnóstico que superan la mera caja de
@@ -68,9 +67,9 @@ import fotoEquipo from '../assets/yo.jpg';
 		<section class="prose-block" aria-labelledby="comunidad">
 			<h2 id="comunidad">Comunidad</h2>
 			<p>
-				Si tiene una variante rara de distribución, un carburador que no termina de cuadrar o una duda sobre
-				torques de culata, <a href={`${SITE_URL}/contacto`}>escríbanos</a>. Leemos los mensajes con la misma
-				paciencia con la que medimos una galga: despacio y sin dar por sentado nada.
+				Si tiene dudas sobre convalidación del permiso B, ITV, scooter frente a moto de marchas o un síntoma raro
+				en su 125cc, <a href={`${SITE_URL}/contacto`}>escríbanos</a>. Leemos los mensajes con la misma paciencia
+				con la que revisamos la holgura de una cadena: despacio y sin dar por sentado nada.
 			</p>
 		</section>
 	</article>
@@ -143,6 +142,16 @@ import fotoEquipo from '../assets/yo.jpg';
 	@media (max-width: 768px) {
 		.about-hero {
 			grid-template-columns: 1fr;
+			gap: 1.5rem;
+		}
+		.hero-lead h1 {
+			font-size: clamp(1.6rem, 7vw, 2.25rem);
+		}
+		.lead {
+			font-size: 1.05rem;
+		}
+		.prose-block h2 {
+			font-size: 1.45rem;
 		}
 	}
 </style>

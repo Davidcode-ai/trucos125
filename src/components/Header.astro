@@ -207,10 +207,15 @@ import { SITE_URL } from '../consts';
   @media (max-width: 768px) {
     .top-bar {
       display: none;
-    } /* Ocultar en móvil para ganar espacio, se pueden meter al final del menú */
+    }
+
+    .site-header {
+      top: 0;
+    }
 
     .header-container {
       height: 65px;
+      padding: 0 12px;
     }
 
     .logo-img {

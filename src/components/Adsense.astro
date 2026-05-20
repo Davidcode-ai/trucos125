@@ -63,11 +63,26 @@ const slotId = SLOTS[bloque]?.trim();
 
 <style>
 	.adsense-container {
+		width: 100%;
+		max-width: 100%;
+		min-width: 0;
 		min-height: 250px;
 		margin: 2rem 0;
-		display: flex;
-		justify-content: center;
-		align-items: center;
+		display: block;
+		box-sizing: border-box;
 		background-color: #f9fafb;
+	}
+	.adsense-container :global(ins.adsbygoogle) {
+		display: block;
+		width: 100%;
+		max-width: 100%;
+		min-width: 0;
+		margin: 0 auto;
+	}
+	@media (max-width: 768px) {
+		.adsense-container {
+			min-height: 200px;
+			margin: 1.5rem 0;
+		}
 	}
 </style>

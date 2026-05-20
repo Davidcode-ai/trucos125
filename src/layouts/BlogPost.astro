@@ -26,18 +26,19 @@ const categoryUrl = categoria
             /* Reset y contenedor general */
             main {
                 width: 100%;
+                max-width: 100%;
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
+                overflow-x: clip;
             }
-            
-            /* Contenedor central ancho para PC */
             article {
                 width: 100%;
                 max-width: 950px; 
                 margin: 0 auto;
                 padding: 2rem 1.5rem;
                 box-sizing: border-box;
+                overflow-x: clip;
                 animation: fadeUp 0.6s ease-out forwards;
             }
 
@@ -71,6 +72,54 @@ const categoryUrl = categoria
                 box-shadow: 0 4px 15px rgba(0,0,0,0.1);
                 margin: 2rem auto;
                 display: block;
+            }
+
+            /* Tablas MDX: legibles en móvil sin romper el layout */
+            .prose :global(table) {
+                width: 100%;
+                max-width: 100%;
+                border-collapse: collapse;
+                margin: 1.5rem 0;
+                font-size: 0.95rem;
+                line-height: 1.45;
+            }
+            .prose :global(th),
+            .prose :global(td) {
+                border: 1px solid #e5e7eb;
+                padding: 0.65rem 0.75rem;
+                text-align: left;
+                vertical-align: top;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            .prose :global(thead th) {
+                background: #f4f5f6;
+                font-family: var(--font-title);
+                font-weight: 700;
+            }
+            .prose :global(pre),
+            .prose :global(code) {
+                max-width: 100%;
+                overflow-x: auto;
+            }
+            .prose :global(.table-scroll) {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                margin: 1.5rem 0;
+            }
+            @media (max-width: 768px) {
+                .prose :global(table) {
+                    table-layout: fixed;
+                    font-size: 0.8rem;
+                }
+                .prose :global(th),
+                .prose :global(td) {
+                    font-size: 0.75rem;
+                    padding: 0.45rem 0.5rem;
+                    hyphens: auto;
+                }
             }
 
             .title {
@@ -229,6 +278,16 @@ const categoryUrl = categoria
                     text-align: center;
                 }
             }
+            .disqus-wrap {
+                margin-top: 60px;
+                padding-top: 30px;
+                border-top: 4px solid #e30613;
+                max-width: 100%;
+                overflow-x: auto;
+            }
+            .disqus-wrap :global(iframe) {
+                max-width: 100% !important;
+            }
         </style>
     </head>
 
@@ -289,7 +348,7 @@ const categoryUrl = categoria
                     
                 </div> <!-- Fin de .prose -->
 
-                <div id="disqus_thread" style="margin-top: 60px; padding-top: 30px; border-top: 4px solid #e30613;"></div>
+                <div id="disqus_thread" class="disqus-wrap"></div>
                 <script is:inline>
                     document.addEventListener('astro:page-load', () => {
                         const disqusThread = document.getElementById('disqus_thread');

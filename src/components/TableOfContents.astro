@@ -22,7 +22,7 @@ const toc = headings.filter((heading: any) => heading.depth === 2 || heading.dep
 <style>
   .toc-container {
     background-color: #f8fafc;
-    border-left: 4px solid #3b82f6;
+    border-left: 4px solid var(--moto-red, #d32f2f);
     border-radius: 4px;
     padding: 1.5rem;
     margin: 2rem 0;
@@ -38,6 +38,20 @@ const toc = headings.filter((heading: any) => heading.depth === 2 || heading.dep
   .toc-list { list-style: none; padding: 0; margin: 0; }
   .toc-item { margin-bottom: 0.6rem; line-height: 1.4; }
   .toc-item.depth-3 { padding-left: 1.5rem; font-size: 0.95rem; }
-  .toc-item a { text-decoration: none; color: #475569; transition: color 0.2s; }
-  .toc-item a:hover { color: #3b82f6; text-decoration: underline; }
+  .toc-item a {
+    text-decoration: none;
+    color: #475569;
+    transition: color 0.2s;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  .toc-item a:hover { color: var(--moto-red, #d32f2f); text-decoration: underline; }
+  @media (max-width: 768px) {
+    .toc-container {
+      padding: 1rem 1.1rem;
+      margin: 1.25rem 0;
+    }
+    .toc-title { font-size: 1rem; }
+    .toc-item.depth-3 { padding-left: 1rem; font-size: 0.9rem; }
+  }
 </style>

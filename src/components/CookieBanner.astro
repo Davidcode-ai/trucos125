@@ -208,7 +208,7 @@
 
   .cookie-box h2 {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 2.2rem;
+    font-size: clamp(1.35rem, 5vw, 2.2rem);
     margin-top: 0;
     margin-bottom: 8px;
     color: #111;
@@ -314,14 +314,26 @@
   
   @media (max-width: 600px) {
     .cookie-overlay {
-      padding: 1rem;
+      padding: 0.75rem;
+      align-items: stretch;
+    }
+    .cookie-box {
+      padding: 1.25rem 1.1rem;
+      border-radius: 14px 14px 0 0;
+      max-height: min(85vh, 520px);
+      overflow-y: auto;
+    }
+    .cookie-box p {
+      font-size: 0.95rem;
     }
     .cookie-buttons { 
       flex-direction: column; 
     }
     .btn { 
       width: 100%; 
-      text-align: center; 
+      text-align: center;
+      padding: 11px 18px;
+      font-size: 0.95rem;
     }
   }
 </style>

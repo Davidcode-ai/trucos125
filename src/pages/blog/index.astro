@@ -310,9 +310,16 @@ function getFormattedDateInfo(date: Date | string): string {
 
     /* --- RESPONSIVE --- */
     @media (max-width: 768px) {
-        .page-header h1 { font-size: 2.8rem; }
-        .search-wrapper { padding: 0 10px; }
-        .feed-link { flex-direction: column; }
-        .feed-img { width: 100%; height: 220px; }
+        .container { padding: 24px 12px 40px; }
+        .page-header h1 { font-size: clamp(1.75rem, 8vw, 2.8rem); }
+        .page-header p { font-size: 1.05rem; }
+        .search-wrapper { padding: 0; }
+        .category-nav { gap: 8px; }
+        .category-pill { font-size: 0.85rem; padding: 8px 14px; }
+        .feed-link { flex-direction: column; gap: 12px; }
+        .feed-img { width: 100%; height: 200px; }
+        .feed-text h2 { font-size: clamp(1.1rem, 5vw, 1.4rem); overflow-wrap: anywhere; }
+        .feed-desc { font-size: 0.95rem; }
+        .feed-item { padding: 12px; }
     }
 </style>

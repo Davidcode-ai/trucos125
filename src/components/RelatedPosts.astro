@@ -159,14 +159,26 @@ const relatedPosts = [...sameCategoryPosts, ...otherCategoryPosts].slice(0, 3);
     }
 
     @media (max-width: 768px) {
+        .related-posts {
+            margin-top: 32px;
+            padding-top: 20px;
+        }
         .news-grid {
             grid-template-columns: 1fr; 
             gap: 20px;
         }
+        .section-title {
+            flex-wrap: wrap;
+            gap: 12px;
+        }
         .section-title h2 { 
-            font-size: 1.6rem;
+            font-size: clamp(1.25rem, 5vw, 1.6rem);
             white-space: normal;
             line-height: 1.1; 
+        }
+        .card-content h3 {
+            font-size: 1.05rem;
+            overflow-wrap: anywhere;
         }
     }
 </style>
