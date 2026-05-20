@@ -30,7 +30,26 @@ const postDestacado3 = allPosts[2]; // Lateral medio
 const postDestacado4 = allPosts[3]; // Lateral inf (si lo hay, sino cogemos el 0 o 1 de repuesto o no mostramos)
 
 // Resto de posts en un muro de noticias denso
-const feedPosts = allPosts.slice(4); 
+const feedPosts = allPosts.slice(4);
+
+const fiat125PillarLinks = [
+    {
+        label: 'Motor, culata y cilindros',
+        url: '/blog/motor-clasico-fiat-125-diagnostico-culata-cilindros-guia-taller/',
+    },
+    {
+        label: 'Weber doble cuerpo',
+        url: '/blog/weber-doble-cuerpo-fiat-125-puesta-punto-carburador/',
+    },
+    {
+        label: 'Frenos clásicos',
+        url: '/blog/restauracion-frenos-clasicos-fiat-125-bomba-pinzas-zapatas/',
+    },
+    {
+        label: 'Encendido por platinos',
+        url: '/blog/encendido-platinos-fiat-125-esquema-electrico-fallos/',
+    },
+]; 
 
 // Extraemos subconjuntos de posts para los bloques variados
 const poolBasics = allPosts.filter(p => p.data.categoria?.toLowerCase() === 'consejos' || p.data.categoria?.toLowerCase() === 'mecánica' || !p.data.categoria);
@@ -147,6 +166,23 @@ function getFormattedDateInfo(date: Date | string): string {
 
 
             <div class="container container-magazine">
+
+                <section class="fiat-home-band" aria-labelledby="fiat-home-heading">
+                    <div class="fiat-home-inner">
+                        <h2 id="fiat-home-heading">Restauración FIAT 125 — guías de taller</h2>
+                        <p>
+                            Manuales interpretados con criterio de mecánica clásica: motor, carburación Weber, frenos y
+                            encendido. Empiece por la <a href="/mecanica">sección de mecánica</a>.
+                        </p>
+                        <ul class="fiat-home-links">
+                            {fiat125PillarLinks.map((item) => (
+                                <li>
+                                    <a href={item.url}>{item.label}</a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </section>
                 
                 <!-- PORTADA XATAKA-STYLE: GRID DENSO -->
                 <section class="story-grid">
@@ -342,6 +378,57 @@ function getFormattedDateInfo(date: Date | string): string {
         background: transparent;
         padding-top: 45px;
         padding-bottom: 60px;
+    }
+
+    .fiat-home-band {
+        margin-bottom: 36px;
+    }
+    .fiat-home-inner {
+        background: #fff;
+        border: 1px solid #eaeaea;
+        border-top: 3px solid #e30613;
+        padding: 24px 28px;
+        border-radius: 8px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    }
+    .fiat-home-inner h2 {
+        font-family: var(--font-title);
+        font-size: 1.5rem;
+        margin: 0 0 8px 0;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+    }
+    .fiat-home-inner p {
+        margin: 0 0 16px 0;
+        color: #555;
+        line-height: 1.55;
+        font-size: 0.98rem;
+    }
+    .fiat-home-inner p a {
+        color: #e30613;
+        font-weight: 600;
+    }
+    .fiat-home-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 20px;
+    }
+    .fiat-home-links a {
+        font-family: var(--font-title);
+        font-weight: 700;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        color: #111;
+        text-decoration: none;
+        border-bottom: 2px solid transparent;
+        transition: color 0.2s, border-color 0.2s;
+    }
+    .fiat-home-links a:hover {
+        color: #e30613;
+        border-color: #e30613;
     }
 
     .container-magazine {

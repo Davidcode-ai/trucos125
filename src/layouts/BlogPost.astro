@@ -6,7 +6,6 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 import RelatedPosts from '../components/RelatedPosts.astro';
-import Adsense from '../components/Adsense.astro';
 import { Image } from 'astro:assets'; 
 
 type Props = CollectionEntry<'blog'>['data'];
@@ -272,11 +271,7 @@ const categoryUrl = categoria
                         <hr />
                     </div>
                     
-                    <Adsense bloque="in-article" />
-                    
                     <slot />
-                    
-                    <Adsense bloque="display" />
                     
                     <!-- CAJA DE AUTOR (E-E-A-T para SEO y AdSense) -->
                     <div class="author-box">

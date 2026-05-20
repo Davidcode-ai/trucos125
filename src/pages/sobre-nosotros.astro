@@ -1,0 +1,148 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_TITLE, SITE_URL } from '../consts';
+import { Image } from 'astro:assets';
+import fotoEquipo from '../assets/yo.jpg';
+---
+
+<BaseLayout
+	title={`Sobre nosotros | ${SITE_TITLE}`}
+	description="Equipo detrás de Trucos125: décadas de experiencia en mecánica clásica, documentación FIAT 125 y misión de preservar el patrimonio automotriz."
+>
+	<article class="about-page">
+		<header class="about-hero">
+			<figure class="author-photo-wrap">
+				<Image
+					src={fotoEquipo}
+					alt="Equipo editorial de Trucos125 en el taller"
+					width={320}
+					height={320}
+					class="author-photo"
+					format="webp"
+				/>
+				<figcaption class="photo-cap">Taller y archivo documental que nutren cada guía publicada.</figcaption>
+			</figure>
+			<div class="hero-lead">
+				<p class="eyebrow">Sobre nosotros</p>
+				<h1>Quienes escribimos para quienes arreglan en serio</h1>
+				<p class="lead">
+					Somos mecánicos y restauradores acostumbrados a culatas de aleación ligera, bloques de fundición y
+					sistemas de encendido que ya no tienen red de concesionarios a la vuelta de la esquina. Trucos125
+					nació para que la mecánica del sedán italiano más querido por la calle no viva solo en PDFs
+					huérfanos sin contexto.
+				</p>
+			</div>
+		</header>
+
+		<section class="prose-block" aria-labelledby="historia">
+			<h2 id="historia">Trayectoria y criterio de taller</h2>
+			<p>
+				Llevamos años desmontando y volviendo a montar motores con <strong>árbol de levas en culata</strong>,
+				ajustando holguras de válvulas con calibrador y probando compresión antes de condenar un cilindro.
+				Hemos visto bloques salvados con un rectificado honesto y culadas perdidas por un apriete descuidado o
+				por mezclas de refrigerante mal purgadas.
+			</p>
+			<p>
+				Esa experiencia es la que trasladamos al Sitio: no repetimos fichas técnicas como loros; las enlazamos con
+				el <em>porqué</em> del síntoma, con la tolerancia que mide el micrómetro y con la prudencia que exige el
+				taller cuando el cliente pide milagros para el viernes.
+			</p>
+		</section>
+
+		<section class="prose-block" aria-labelledby="mision">
+			<h2 id="mision">Misión</h2>
+			<p>
+				Nuestra misión es <strong>preservar el patrimonio histórico automotriz</strong> y dar herramientas
+				narrativas a otros restauradores: desde el aficionado que afila destornilladores los domingos hasta el
+				taller que necesita una segunda opinión documentada antes de encajar un juego de pistones.
+			</p>
+			<p>
+				Publicamos manuales comentados, guías paso a paso y artículos de diagnóstico que superan la mera caja de
+				descarga. Creemos que la confianza de quien nos lee —y la de los programas que evalúan calidad— se gana
+				con texto firme, responsabilidad y enlaces claros a <a href={`${SITE_URL}/privacidad`}
+					>privacidad</a
+				>, <a href={`${SITE_URL}/aviso-legal`}>aviso legal</a> y <a href={`${SITE_URL}/contacto`}>contacto</a>.
+			</p>
+		</section>
+
+		<section class="prose-block" aria-labelledby="comunidad">
+			<h2 id="comunidad">Comunidad</h2>
+			<p>
+				Si tiene una variante rara de distribución, un carburador que no termina de cuadrar o una duda sobre
+				torques de culata, <a href={`${SITE_URL}/contacto`}>escríbanos</a>. Leemos los mensajes con la misma
+				paciencia con la que medimos una galga: despacio y sin dar por sentado nada.
+			</p>
+		</section>
+	</article>
+</BaseLayout>
+
+<style>
+	.about-page {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+	.about-hero {
+		display: grid;
+		grid-template-columns: minmax(200px, 280px) 1fr;
+		gap: 2.5rem;
+		align-items: start;
+		margin-bottom: 3rem;
+		padding-bottom: 2.5rem;
+		border-bottom: 2px solid #eee;
+	}
+	.author-photo-wrap {
+		margin: 0;
+	}
+	.author-photo {
+		width: 100%;
+		height: auto;
+		border-radius: 12px;
+		box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+	}
+	.photo-cap {
+		font-size: 0.85rem;
+		color: #666;
+		margin-top: 0.75rem;
+		line-height: 1.4;
+	}
+	.hero-lead .eyebrow {
+		font-family: var(--font-title);
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 0.75rem;
+		color: #e30613;
+		margin: 0 0 0.5rem 0;
+	}
+	.hero-lead h1 {
+		font-family: var(--font-title);
+		font-size: clamp(2rem, 4vw, 2.75rem);
+		line-height: 1.1;
+		margin: 0 0 1rem 0;
+	}
+	.lead {
+		font-size: 1.15rem;
+		line-height: 1.7;
+		color: #444;
+		margin: 0;
+	}
+	.prose-block {
+		margin-bottom: 2.5rem;
+	}
+	.prose-block h2 {
+		font-family: var(--font-title);
+		font-size: 1.75rem;
+		margin: 0 0 1rem 0;
+	}
+	.prose-block p {
+		font-size: 1.05rem;
+		line-height: 1.8;
+		color: #333;
+		margin: 0 0 1rem 0;
+	}
+	@media (max-width: 768px) {
+		.about-hero {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

@@ -3,3 +3,6 @@
 
 export const SITE_TITLE = 'Trucos 125';
 export const SITE_DESCRIPTION = 'Los mejores trucos y consejos para motos de 125cc.';
+
+/** Origen público (enlaces absolutos de confianza: pie, cabecera, formularios). */
+export const SITE_URL = 'https://trucos125.com';

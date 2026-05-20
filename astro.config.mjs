@@ -4,7 +4,14 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://trucos125.com',
-  integrations: [mdx(), sitemap()],
+  integrations: [
+    mdx({
+      components: {
+        Adsense: './src/components/Adsense.astro',
+      },
+    }),
+    sitemap(),
+  ],
   image: {
     domains: ['images.unsplash.com'],
   },

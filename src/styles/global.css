@@ -1,11 +1,7 @@
-/* =========================================
-   1. IMPORTACIÓN DE FUENTES (CRÍTICO)
-   Revista Moderna: Inter para UI/Titulares, Roboto/System para lectura
-   ========================================= */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap');
+/* Fuentes (Inter, Roboto): se cargan en BaseHead.astro con preload + stylesheet para no bloquear el render. */
 
 /* =========================================
-   2. VARIABLES DE MARCA
+   1. VARIABLES DE MARCA
    ========================================= */
 :root {
 	--moto-red: #d32f2f;       /* Rojo más sobrio y elegante */

@@ -1,4 +1,5 @@
 ---
+import { SITE_URL } from '../consts';
 const today = new Date();
 ---
 
@@ -42,7 +43,7 @@ const today = new Date();
                     <input type="hidden" name="anticsrf" value="true">
                     <button type="submit">SUSCRIBIR</button>
                 </form>
-                <p class="privacy-note">Suscribiéndote aceptas nuestra <a href="/privacidad">política de privacidad</a></p>
+                <p class="privacy-note">Suscribiéndote aceptas nuestra <a href={`${SITE_URL}/privacidad`}>política de privacidad</a></p>
 
                 <div class="social-block">
                     <span class="follow-text">Síguenos</span>
@@ -62,10 +63,14 @@ const today = new Date();
     <div class="footer-corp">
         <div class="corp-container">
             <div class="corp-center">
-                <nav class="legal-links">
-                    <a href="/aviso-legal">Aviso legal</a>
-                    <a href="/privacidad">Política de privacidad</a>
-                    <a href="/cookies">Política de cookies</a>
+                <nav class="trust-nav" aria-label="Información legal y contacto">
+                    <ul class="trust-links">
+                        <li><a href={`${SITE_URL}/aviso-legal`}>Aviso legal</a></li>
+                        <li><a href={`${SITE_URL}/privacidad`}>Política de privacidad</a></li>
+                        <li><a href={`${SITE_URL}/cookies`}>Política de cookies</a></li>
+                        <li><a href={`${SITE_URL}/sobre-nosotros`}>Sobre nosotros</a></li>
+                        <li><a href={`${SITE_URL}/contacto`}>Contacto</a></li>
+                    </ul>
                 </nav>
                 <p>&copy; {today.getFullYear()} Trucos125.com - Todos los derechos reservados.</p>
             </div>
@@ -314,18 +319,27 @@ const today = new Date();
         flex-grow: 1;
     }
 
-    .legal-links {
+    .trust-nav {
+        width: 100%;
+    }
+
+    .trust-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
         display: flex;
-        gap: 20px;
+        flex-wrap: wrap;
+        gap: 12px 20px;
         justify-content: center;
     }
-    .legal-links a {
+
+    .trust-links a {
         color: #aaa;
         font-size: 0.85rem;
         text-decoration: none;
         transition: color 0.2s;
     }
-    .legal-links a:hover {
+    .trust-links a:hover {
         color: #fff;
     }
 

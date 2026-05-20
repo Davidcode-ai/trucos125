@@ -1,35 +1,260 @@
 ---
 import LegalLayout from '../layouts/LegalLayout.astro';
+import { SITE_URL } from '../consts';
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'WebPage',
+	name: 'Política de privacidad',
+	description:
+		'Información sobre tratamiento de datos personales, cookies publicitarias de Google y derechos RGPD en trucos125.com.',
+	url: `${SITE_URL}/privacidad`,
+	isPartOf: {
+		'@type': 'WebSite',
+		name: 'Trucos125',
+		url: SITE_URL,
+	},
+	inLanguage: 'es-ES',
+};
 ---
 
-<LegalLayout title="Política de Privacidad" description="Política de privacidad y protección de datos de Trucos125">
-    <h1>Política de Privacidad</h1>
+<LegalLayout
+	title="Política de Privacidad"
+	description="Política de privacidad, cookies (Google AdSense, DoubleClick), derechos RGPD y uso de datos en Trucos125."
+>
+	<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
-    <h2>1. Información básica sobre protección de datos</h2>
-    <p>De acuerdo con el Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo (RGPD) y la Ley Orgánica 3/2018 de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD), te informamos de que en <strong>trucos125.com</strong> velamos por la seguridad de tus datos personales.</p>
-    <ul>
-        <li><strong>Responsable:</strong> El titular de trucos125.com.</li>
-        <li><strong>Finalidad:</strong> Gestionar el envío de la newsletter, responder a consultas del formulario de contacto y moderar comentarios.</li>
-        <li><strong>Legitimación:</strong> Tu consentimiento expreso al marcar las casillas de aceptación y enviar tus datos.</li>
-        <li><strong>Destinatarios:</strong> Tus datos no se cederán a terceros, salvo obligación legal. Utilizamos MailerLite como plataforma de email marketing, cuyos servidores cumplen con los escudos de privacidad europeos.</li>
-        <li><strong>Derechos:</strong> Tienes derecho a acceder, rectificar, limitar y suprimir tus datos en cualquier momento.</li>
-    </ul>
+	<h1>Política de privacidad</h1>
 
-    <h2>2. ¿Qué datos personales recogemos y cómo?</h2>
-    <p>Cuando un usuario se conecta con esta web, ya sea para mandar un correo al titular, suscribirse o realizar algún comentario, está facilitando información de carácter personal. Esa información puede incluir datos como tu dirección IP, nombre y dirección de correo electrónico.</p>
-    <p>Los sistemas de captura de información son:</p>
-    <ul>
-        <li><strong>Formulario de contacto:</strong> Solicitamos nombre y email para responder a las dudas o propuestas que los usuarios envíen a <em>hola@trucos125.com</em>.</li>
-        <li><strong>Formulario de suscripción a la Newsletter:</strong> Solicitamos un email para enviar actualizaciones, nuevos artículos de mecánica y ofertas de equipamiento.</li>
-    </ul>
+	<p>
+		En <strong>trucos125.com</strong> (en adelante, el «Sitio») tratamos la información personal con
+		transparencia y conforme al <strong>Reglamento (UE) 2016/679</strong> (RGPD) y la normativa española de
+		desarrollo, en particular la <strong>Ley Orgánica 3/2018</strong> (LOPDGDD). Esta política explica qué
+		datos recogemos, con qué fines, qué cookies pueden instalarse (incluidas las de publicidad de Google y
+		DoubleClick) y cuáles son sus derechos.
+	</p>
 
-    <h2>3. Terceros y monetización (Google AdSense)</h2>
-    <p>Esta web utiliza servicios de terceros para funcionar y financiarse:</p>
-    <p>Utilizamos <strong>Google AdSense</strong> para mostrar anuncios. Google, como proveedor asociado, utiliza cookies para publicar anuncios basados en las visitas anteriores de los usuarios a este sitio web o a otros sitios de Internet. Los usuarios pueden inhabilitar la publicidad personalizada visitando la Configuración de anuncios de Google.</p>
+	<section aria-labelledby="sec-responsable">
+		<h2 id="sec-responsable">1. Responsable del tratamiento</h2>
+		<ul>
+			<li><strong>Titular del Sitio:</strong> el responsable del dominio trucos125.com.</li>
+			<li>
+				<strong>Contacto para ejercer derechos y consultas de privacidad:</strong>
+				<a href="mailto:hola@trucos125.com">hola@trucos125.com</a>
+			</li>
+		</ul>
+		<p>
+			Le atenderemos en el plazo legal aplicable. Si considera que el tratamiento no se ajusta a la normativa,
+			tiene derecho a reclamar ante la Agencia Española de Protección de Datos (<a
+				href="https://www.aepd.es"
+				rel="noopener noreferrer">www.aepd.es</a
+			>).
+		</p>
+	</section>
 
-    <h2>4. ¿Cuánto tiempo conservamos tus datos?</h2>
-    <p>Los datos personales proporcionados se conservarán hasta que no se solicite su supresión por el interesado. En el caso de la Newsletter, en cada correo enviado encontrarás un enlace en la parte inferior para darte de baja automáticamente con un solo clic.</p>
+	<section aria-labelledby="sec-datos">
+		<h2 id="sec-datos">2. Categorías de datos que podemos tratar</h2>
+		<p>Según la interacción con el Sitio, podemos tratar, entre otros:</p>
+		<ul>
+			<li>
+				<strong>Datos identificativos y de contacto:</strong> nombre, correo u otros que nos facilite al usar el
+				formulario de contacto o al suscribirse a comunicaciones.
+			</li>
+			<li>
+				<strong>Datos de navegación y dispositivo:</strong> dirección IP, identificadores técnicos generados por
+				cookies o tecnologías similares, tipo de navegador, idioma, páginas visitadas y eventos de interacción.
+			</li>
+			<li>
+				<strong>Datos relacionados con publicidad y medición:</strong> información agregada o pseudonimizada que
+				suministran socios publicitarios cuando usted haya aceptado dicho uso.
+			</li>
+		</ul>
+	</section>
 
-    <h2>5. Tus derechos</h2>
-    <p>Cualquier persona tiene derecho a obtener confirmación sobre si en trucos125.com estamos tratando datos personales que le conciernen o no. Puedes ejercer tus derechos de acceso, rectificación, cancelación y oposición enviando un correo a <strong>hola@trucos125.com</strong>.</p>
+	<section aria-labelledby="sec-fines">
+		<h2 id="sec-fines">3. Finalidades y bases legales</h2>
+		<table class="policy-table">
+			<caption class="visually-hidden">Resumen de finalidades y bases legales del tratamiento</caption>
+			<thead>
+				<tr>
+					<th scope="col">Finalidad</th>
+					<th scope="col">Base legal (RGPD)</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td
+						>Gestionar y responder consultas enviadas por el formulario de contacto o correo electrónico.</td
+					>
+					<td
+						>Ejecución de medidas precontractuales, interés legítimo o consentimiento al enviar el formulario,
+						según el caso.</td
+					>
+				</tr>
+				<tr>
+					<td>Gestionar suscripciones a la newsletter y el envío de comunicaciones relacionadas.</td>
+					<td>Consentimiento (revocable en cualquier momento).</td>
+				</tr>
+				<tr>
+					<td>Mostrar publicidad contextual y, en su caso, personalizada.</td>
+					<td
+						>Consentimiento para cookies y publicidad no esencial donde proceda; interés legítimo o obligación
+						para cookies estrictamente necesarias según corresponda.</td
+					>
+				</tr>
+				<tr>
+					<td>Mantener la seguridad del Sitio y prevenir abusos.</td>
+					<td>Interés legítimo o consentimiento según la tecnología.</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+
+	<section aria-labelledby="sec-google">
+		<h2 id="sec-google">4. Google AdSense, DoubleClick y cookies publicitarias</h2>
+		<p>
+			El Sitio puede utilizar <strong>Google AdSense</strong> y tecnologías asociadas para mostrar anuncios.
+			Pueden emplearse cookies u otros almacenamientos locales, incluidas cookies publicitarias atribuibles a
+			dominios operados por Google (familia de productos históricamente conocida como
+			<strong>DoubleClick</strong>), para servir y medir anuncios, limitar frecuencia y, cuando proceda,
+			personalizar la publicidad según actividad previa en este u otros sitios.
+		</p>
+		<p>
+			Puede consultar la política de privacidad de Google y la configuración de anuncios para gestionar la
+			personalización cuando la normativa así lo permita.
+		</p>
+		<aside class="policy-aside">
+			<p>
+				Parte del proyecto editorial (documentación técnica y manuales sobre mecánica, incluido el sedán clásico
+				de referencia del Sitio) se financia mediante publicidad. Las cookies publicitarias se informan mediante
+				el banner de cookies y esta política.
+			</p>
+		</aside>
+	</section>
+
+	<section aria-labelledby="sec-destinatarios">
+		<h2 id="sec-destinatarios">5. Destinatarios y encargados del tratamiento</h2>
+		<p>
+			Los datos pueden comunicarse a terceros que presten servicios necesarios, como encargados del tratamiento.
+			A título enunciativo:
+		</p>
+		<ul>
+			<li>Proveedores de alojamiento y infraestructura.</li>
+			<li>Google (publicidad, medición o analítica, según configuración y consentimiento).</li>
+			<li>Plataforma de envío de newsletters (MailerLite u homóloga), si aplica.</li>
+			<li>Proveedor del formulario de contacto, en la medida en que traslade el mensaje.</li>
+		</ul>
+		<p>
+			Si algún proveedor está fuera del EEE, aplicaremos las garantías del RGPD (p. ej. cláusulas tipo u otras
+			medidas reconocidas).
+		</p>
+	</section>
+
+	<section aria-labelledby="sec-plazos">
+		<h2 id="sec-plazos">6. Plazos de conservación</h2>
+		<ul>
+			<li
+				><strong>Consultas:</strong> tiempo necesario para resolver la petición y plazos legales aplicables, salvo
+				supresión antes solicitada.</li
+			>
+			<li
+				><strong>Newsletter:</strong> hasta revocación o baja; cada envío incluirá mecanismo de desuscripción.</li
+			>
+			<li
+				><strong>Cookies:</strong> según la <a href="/cookies">política de cookies</a> y la configuración vigente.</li
+			>
+		</ul>
+	</section>
+
+	<section aria-labelledby="sec-derechos">
+		<h2 id="sec-derechos">7. Derechos (RGPD)</h2>
+		<ul>
+			<li>Acceso, rectificación, supresión y limitación.</li>
+			<li>Oposición e, informados los requisitos legales, portabilidad.</li>
+			<li>Retirada del consentimiento cuando el tratamiento se base en el mismo.</li>
+		</ul>
+		<p>
+			Para ejercerlos, escriba a <a href="mailto:hola@trucos125.com">hola@trucos125.com</a> indicando la petición.
+		</p>
+	</section>
+
+	<section aria-labelledby="sec-menores">
+		<h2 id="sec-menores">8. Menores de edad</h2>
+		<p>
+			No solicitamos de forma deliberada datos de menores de 16 años. Si cree que un menor nos ha facilitado datos,
+			contacte con nosotros para proceder a su supresión cuando corresponda.
+		</p>
+	</section>
+
+	<section aria-labelledby="sec-disclaimer">
+		<h2 id="sec-disclaimer">9. Exención de responsabilidad sobre manuales y contenido técnico</h2>
+		<p>
+			La información publicada (manuales, reglajes, pares de apriete, diagnósticos y procedimientos de taller)
+			tiene carácter <strong>informativo</strong>. No sustituye el criterio de un profesional cualificado ni la
+			documentación oficial del fabricante cuando exista.
+		</p>
+		<p>
+			<strong
+				>La aplicación de cualquier procedimiento mecánico o eléctrico es bajo su exclusiva responsabilidad.</strong
+			>
+			No nos responsabilizamos de daños o perjuicios derivados del uso de la información del Sitio, salvo
+			disposición legal imperativa en contrario.
+		</p>
+	</section>
+
+	<section aria-labelledby="sec-actualizaciones">
+		<h2 id="sec-actualizaciones">10. Actualizaciones</h2>
+		<p>
+			Podremos modificar esta política. La versión vigente permanecerá en esta URL. <strong
+				>Última actualización:</strong
+			> mayo de 2026.
+		</p>
+	</section>
 </LegalLayout>
+
+<style>
+	.policy-table {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 1.25rem 0;
+		font-size: 0.95rem;
+	}
+	.policy-table th,
+	.policy-table td {
+		border: 1px solid #ddd;
+		padding: 0.75rem;
+		text-align: left;
+		vertical-align: top;
+	}
+	.policy-table thead th {
+		background: #f4f5f6;
+		font-family: var(--font-title, 'Barlow Condensed', sans-serif);
+	}
+	.policy-aside {
+		margin: 1.5rem 0;
+		padding: 1rem 1.25rem;
+		background: #f9fafb;
+		border-left: 4px solid #e30613;
+		border-radius: 0 6px 6px 0;
+	}
+	.policy-aside p {
+		margin: 0;
+	}
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+	@media (max-width: 600px) {
+		.policy-table {
+			display: block;
+			overflow-x: auto;
+		}
+	}
+</style>

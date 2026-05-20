@@ -1,44 +1,73 @@
 ---
-// src/components/Adsense.astro
-
-// Le decimos exactamente a Astro qué textos son válidos
+/**
+ * Unidades AdSense: defina los slots reales en `.env` (ver `.env.example`).
+ * Si falta el slot para un bloque, no se renderiza nada (evita IDs falsos en producción).
+ */
 interface Props {
-  bloque?: 'in-article' | 'display' | 'multiplex';
+	bloque?: 'in-article' | 'display' | 'multiplex';
 }
 
 const { bloque = 'in-article' } = Astro.props;
 
-const CLIENT_ID = "ca-pub-9668406719063150"; 
+const CLIENT_ID = 'ca-pub-9668406719063150';
 
-// Le indicamos que esto es un objeto de texto a texto
-const adSlots: Record<string, string> = {
-  'in-article': "1111111111", 
-  'display': "2222222222",    
-  'multiplex': "3333333333"   
+const SLOTS: Record<string, string | undefined> = {
+	'in-article': import.meta.env.PUBLIC_ADSENSE_SLOT_IN_ARTICLE,
+	display: import.meta.env.PUBLIC_ADSENSE_SLOT_DISPLAY,
+	multiplex: import.meta.env.PUBLIC_ADSENSE_SLOT_MULTIPLEX,
 };
 
-const slotId = adSlots[bloque] || adSlots['display'];
+const slotId = SLOTS[bloque]?.trim();
 ---
 
-<div class="adsense-container" aria-hidden="true">
-  <ins class="adsbygoogle"
-       style="display:block; text-align:center;"
-       data-ad-layout="in-article"
-       data-ad-format="fluid"
-       data-ad-client={CLIENT_ID}
-       data-ad-slot={slotId}></ins>
-  <script is:inline>
-       (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-</div>
+{
+	slotId && (
+		<>
+			<div class="adsense-container" aria-hidden="true">
+				{bloque === 'in-article' && (
+					<ins
+						class="adsbygoogle"
+						style="display:block; text-align:center;"
+						data-ad-layout="in-article"
+						data-ad-format="fluid"
+						data-ad-client={CLIENT_ID}
+						data-ad-slot={slotId}
+					/>
+				)}
+				{bloque === 'display' && (
+					<ins
+						class="adsbygoogle"
+						style="display:block;"
+						data-ad-client={CLIENT_ID}
+						data-ad-slot={slotId}
+						data-ad-format="auto"
+						data-full-width-responsive="true"
+					/>
+				)}
+				{bloque === 'multiplex' && (
+					<ins
+						class="adsbygoogle"
+						style="display:block;"
+						data-ad-format="autorelaxed"
+						data-ad-client={CLIENT_ID}
+						data-ad-slot={slotId}
+					/>
+				)}
+			</div>
+			<script is:inline>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+		</>
+	)
+}
 
 <style>
-  .adsense-container {
-    min-height: 100px; /* Reducido para no dejar un hueco gigante si no hay anuncio */
-    margin: 2rem 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* Eliminado el background-color gris para que no parezca un error de diseño cuando está vacío */
-  }
+	.adsense-container {
+		min-height: 250px;
+		margin: 2rem 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #f9fafb;
+	}
 </style>

@@ -11,13 +11,24 @@ const posts = (await getCollection('blog')).sort(
 
 // 2. Filtramos SOLO los de Mecánica
 const filteredPosts = posts.filter((post) => post.data.categoria === 'Mecánica');
+
+const FIAT_PILLAR_IDS = [
+    'motor-clasico-fiat-125-diagnostico-culata-cilindros-guia-taller',
+    'weber-doble-cuerpo-fiat-125-puesta-punto-carburador',
+    'restauracion-frenos-clasicos-fiat-125-bomba-pinzas-zapatas',
+    'encendido-platinos-fiat-125-esquema-electrico-fallos',
+];
+
+const fiatPillarPosts = FIAT_PILLAR_IDS.map((id) => posts.find((p) => p.id === id)).filter(
+    (p): p is (typeof posts)[number] => Boolean(p),
+);
 ---
 
-<BaseLayout title={`Mecánica - ${SITE_TITLE}`} description="Trucos de mecánica y mantenimiento para tu moto 125cc.">
+<BaseLayout title={`Mecánica - ${SITE_TITLE}`} description="Guías de mecánica clásica y restauración del FIAT 125: motor, carburación, frenos y encendido.">
     <section class="page-header">
         <h1>MECÁNICA Y MANTENIMIENTO</h1>
         <div class="title-line"></div>
-        <p>Ahorra dinero en el taller y mantén tu moto siempre a punto.</p>
+        <p>Restauración y diagnóstico del FIAT 125 en taller: motor, Weber, frenos y encendido por platinos.</p>
         
         <div class="search-wrapper">
             <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -32,6 +43,26 @@ const filteredPosts = posts.filter((post) => post.data.categoria === 'Mecánica'
             <a href="/normativa" class="category-pill">🏙️ Normativa</a>
         </nav>
     </section>
+
+    {fiatPillarPosts.length > 0 && (
+        <section class="fiat-pillar-section" aria-labelledby="fiat-pillar-heading">
+            <h2 id="fiat-pillar-heading">Guías pilares — FIAT 125</h2>
+            <p class="fiat-pillar-intro">
+                Cuatro artículos de referencia para restauradores: diagnóstico de culata y cilindros, puesta a punto del
+                Weber, frenos clásicos y encendido por platinos.
+            </p>
+            <ul class="fiat-pillar-list">
+                {fiatPillarPosts.map((post) => (
+                    <li>
+                        <a href={`/blog/${post.id}/`} class="fiat-pillar-link">
+                            <strong>{post.data.title}</strong>
+                            <span>{post.data.description}</span>
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </section>
+    )}
 
     <section>
         <ul class="blog-grid" id="lista-articulos">
@@ -108,6 +139,61 @@ const filteredPosts = posts.filter((post) => post.data.categoria === 'Mecánica'
     .page-header h1 { font-family: 'Barlow Condensed', sans-serif; font-size: 3.5rem; font-weight: 900; color: #111; margin: 0; letter-spacing: -1px; text-transform: uppercase; }
     .title-line { width: 80px; height: 5px; background-color: #e30613; margin: 15px auto; }
     .page-header p { color: #555; font-size: 1.2rem; font-weight: 500; margin-bottom: 30px; }
+
+    .fiat-pillar-section {
+        max-width: 900px;
+        margin: 0 auto 50px;
+        padding: 28px 32px;
+        background: #f9fafb;
+        border: 1px solid #eee;
+        border-left: 4px solid #e30613;
+        border-radius: 8px;
+    }
+    .fiat-pillar-section h2 {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 1.75rem;
+        margin: 0 0 10px 0;
+        text-transform: uppercase;
+    }
+    .fiat-pillar-intro {
+        margin: 0 0 20px 0;
+        color: #555;
+        line-height: 1.6;
+    }
+    .fiat-pillar-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+    .fiat-pillar-link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        padding: 12px 14px;
+        background: #fff;
+        border-radius: 6px;
+        border: 1px solid #eaeaea;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .fiat-pillar-link:hover {
+        border-color: #e30613;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+    .fiat-pillar-link strong {
+        display: block;
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 1.15rem;
+        color: #111;
+        margin-bottom: 4px;
+    }
+    .fiat-pillar-link span {
+        font-size: 0.9rem;
+        color: #666;
+        line-height: 1.4;
+    }
 
     /* --- ESTILOS DEL BUSCADOR --- */
     .search-wrapper { position: relative; max-width: 600px; margin: 0 auto; }
